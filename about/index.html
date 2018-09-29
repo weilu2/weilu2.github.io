@@ -111,7 +111,24 @@
   
 </article>
 
-</section>
+
+
+{% elseif theme.gitalk.enable %}
+true<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'a6fc55abc6c612112f53',
+        clientSecret: 'a3e719a8607724e588e68d5c31b599a236503c94',
+        id: window.location.pathname,
+        repo: 'myblogcomment',
+        owner: 'weilu2',
+        admin: 'weilu2'
+    })
+    gitalk.render('gitalk-container')
+</script>
+{% endif %}</section>
         
           <aside id="sidebar">
   
