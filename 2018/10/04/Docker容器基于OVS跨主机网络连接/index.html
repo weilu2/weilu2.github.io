@@ -8,18 +8,19 @@
   <title>Docker容器基于OVS跨主机网络连接 | 全宇宙尖端技术研究基地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="摘要利用OVS技术将位于不同物理主机中的docker容器的网络连通，使之能够相互访问。">
+<meta name="keywords" content="docker,容器,网络连接,跨主机,open-vswitch,桥接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker容器基于OVS跨主机网络连接">
 <meta property="og:url" content="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/index.html">
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
 <meta property="og:description" content="摘要利用OVS技术将位于不同物理主机中的docker容器的网络连通，使之能够相互访问。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/2018-10-04-Docker容器基于OVS跨主机网络连接/network.png">
-<meta property="og:updated_time" content="2018-10-04T02:24:59.554Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/network.png">
+<meta property="og:updated_time" content="2018-10-04T02:29:47.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker容器基于OVS跨主机网络连接">
 <meta name="twitter:description" content="摘要利用OVS技术将位于不同物理主机中的docker容器的网络连通，使之能够相互访问。">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/2018-10-04-Docker容器基于OVS跨主机网络连接/network.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/network.png">
   
     <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
   
@@ -82,6 +83,10 @@
   <time datetime="2018-10-04T02:21:36.000Z" itemprop="datePublished">2018-10-04</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -124,7 +129,7 @@
 <h1 id="添加路由"><a href="#添加路由" class="headerlink" title="添加路由"></a>添加路由</h1><p>查看当前路由规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip route list</span><br><span class="line">default via 192.168.0.1 dev eno1 proto static metric 100 </span><br><span class="line">172.17.1.0/24 dev docker0 proto kernel scope link src 172.17.1.2 </span><br><span class="line">192.168.0.0/24 dev eno1 proto kernel scope link src 192.168.0.125 metric 100 </span><br><span class="line">192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1</span><br></pre></td></tr></table></figure></p>
 <p>添加路由：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route add 172.17.0.0/16 dev docker0</span><br><span class="line">route add -net 172.17.0.0/16 gw 192.168.0.125</span><br></pre></td></tr></table></figure></p>
 <p>检查确认：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip route list</span><br><span class="line">default via 192.168.0.1 dev enp0s31f6 </span><br><span class="line">169.254.0.0/16 dev enp0s31f6 scope link metric 1002 </span><br><span class="line">172.17.0.0/16 via 192.168.0.125 dev enp0s31f6 </span><br><span class="line">172.17.0.0/16 dev docker0 scope link </span><br><span class="line">172.17.1.0/24 dev docker0 proto kernel scope link src 172.17.1.1 </span><br><span class="line">192.168.0.0/24 dev enp0s31f6 proto kernel scope link src 192.168.0.123 </span><br><span class="line">192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1</span><br></pre></td></tr></table></figure></p>
-<h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><p><img src="/2018/10/04/Docker容器基于OVS跨主机网络连接/2018-10-04-Docker容器基于OVS跨主机网络连接/network.png" alt="enter image description here"></p>
+<h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><p><img src="/2018/10/04/Docker容器基于OVS跨主机网络连接/network.png" alt="enter image description here"></p>
 
         
           <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
@@ -149,6 +154,8 @@
       <a data-url="http://yoursite.com/2018/10/04/Docker容器基于OVS跨主机网络连接/" data-id="cjmtykft80000s0ludb6m8zvn" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器/">容器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/桥接/">桥接</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/跨主机/">跨主机</a></li></ul>
+
     </footer>
   </div>
   
@@ -174,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li></ul>
     </div>
   </div>
 
@@ -184,7 +191,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li></ul>
     </div>
   </div>
 
@@ -194,7 +201,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a>
+      <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a>
     </div>
   </div>
 
