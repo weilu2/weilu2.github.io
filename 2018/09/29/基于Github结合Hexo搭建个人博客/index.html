@@ -132,24 +132,7 @@
 <p>在主题的配置文件中，增加标签的链接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  Home: /</span><br><span class="line">  categories: /categories</span><br><span class="line">  tags: /tags</span><br><span class="line">  Archives: /archives</span><br><span class="line">rss: /atom.xml</span><br></pre></td></tr></table></figure></p>
 <h2 id="创建内容页面"><a href="#创建内容页面" class="headerlink" title="创建内容页面"></a>创建内容页面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\Blog&gt;hexo new post &quot;基于Github结合Hexo搭建个人博客&quot;</span><br><span class="line">INFO  Created: D:\Blog\source\_posts\2018-09-29-基于Github结合Hexo搭建个人博客.md</span><br></pre></td></tr></table></figure>
 
-        
-          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<div id="gitalk-container"></div>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: 'a6fc55abc6c612112f53',
-        clientSecret: 'a3e719a8607724e588e68d5c31b599a236503c94',
-        id: window.location.pathname,
-        repo: 'myblogcomment',
-        owner: 'weilu2',
-        admin: 'weilu0324@163.com'
-    })
-    gitalk.render('gitalk-container')
-</script>
-        
       
-
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/2018/09/29/基于Github结合Hexo搭建个人博客/" data-id="cjmx4s72r000y2slugs0qheb6" class="article-share-link">Share</a>
@@ -178,6 +161,20 @@
   
 </article>
 
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    var valine = new Valine();
+    valine.init({
+        el:'#vcomment',
+        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+    })
+</script>
+</section>
 </section>
         
           <aside id="sidebar">

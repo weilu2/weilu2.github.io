@@ -118,24 +118,7 @@
 <p>将这个变量之间设置为7即可，然后继续执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make CONFIG_BLK_DEV_NBD=m M=drivers/block</span><br><span class="line">cp drivers/block/nbd.ko /lib/modules/$(uname -r)/kernel/drivers/block/</span><br><span class="line">depmod -a</span><br></pre></td></tr></table></figure></p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_125 block]# modinfo nbd</span><br><span class="line">filename:       /lib/modules/3.10.0-862.el7.x86_64/kernel/drivers/block/nbd.ko</span><br><span class="line">license:        GPL</span><br><span class="line">description:    Network Block Device</span><br><span class="line">retpoline:      Y</span><br><span class="line">rhelversion:    7.5</span><br><span class="line">srcversion:     EDE909A294AC5FE08E81957</span><br><span class="line">depends:        </span><br><span class="line">vermagic:       3.10.0 SMP mod_unload modversions </span><br><span class="line">parm:           nbds_max:number of network block devices to initialize (default: 16) (int)</span><br><span class="line">parm:           max_part:number of partitions per device (default: 0) (int)</span><br><span class="line">parm:           debugflags:flags for controlling debug output (int)</span><br><span class="line">[root@weilu_125 block]#</span><br></pre></td></tr></table></figure>
 
-        
-          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<div id="gitalk-container"></div>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: 'a6fc55abc6c612112f53',
-        clientSecret: 'a3e719a8607724e588e68d5c31b599a236503c94',
-        id: window.location.pathname,
-        repo: 'myblogcomment',
-        owner: 'weilu2',
-        admin: 'weilu0324@163.com'
-    })
-    gitalk.render('gitalk-container')
-</script>
-        
       
-
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/2018/09/30/加载nbd模块失败-modprobe-nbd-Module-nbd-not-found/" data-id="cjmx4s72c00062slujbdfsxiz" class="article-share-link">Share</a>
@@ -169,6 +152,20 @@
   
 </article>
 
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    var valine = new Valine();
+    valine.init({
+        el:'#vcomment',
+        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+    })
+</script>
+</section>
 </section>
         
           <aside id="sidebar">

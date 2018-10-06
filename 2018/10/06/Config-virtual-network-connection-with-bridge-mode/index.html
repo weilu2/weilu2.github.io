@@ -122,24 +122,7 @@
 <h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><p><strong>From Host</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_125 network-scripts]# ping 192.168.0.161 -c 3</span><br><span class="line">PING 192.168.0.161 (192.168.0.161) 56(84) bytes of data.</span><br><span class="line">64 bytes from 192.168.0.161: icmp_seq=1 ttl=64 time=0.386 ms</span><br><span class="line">64 bytes from 192.168.0.161: icmp_seq=2 ttl=64 time=0.327 ms</span><br><span class="line">64 bytes from 192.168.0.161: icmp_seq=3 ttl=64 time=0.320 ms</span><br><span class="line"></span><br><span class="line">--- 192.168.0.161 ping statistics ---</span><br><span class="line">3 packets transmitted, 3 received, 0% packet loss, time 2000ms</span><br><span class="line">rtt min/avg/max/mdev = 0.320/0.344/0.386/0.033 ms</span><br></pre></td></tr></table></figure></p>
 <p><strong>From Guest</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ping 192.168.0.125 -c 3</span><br><span class="line">PING 192.168.0.125 (192.168.0.125) 56(84) bytes of data.</span><br><span class="line">64 bytes from 192.168.0.125: icmp_seq=1 ttl=64 time=0.101 ms</span><br><span class="line">64 bytes from 192.168.0.125: icmp_seq=2 ttl=64 time=0.260 ms</span><br><span class="line">64 bytes from 192.168.0.125: icmp_seq=3 ttl=64 time=0.252 ms</span><br><span class="line"></span><br><span class="line">--- 192.168.0.125 ping statistics ---</span><br><span class="line">3 packets transmitted, 3 received, 0% packet loss, time 1999ms</span><br><span class="line">rtt min/avg/max/mdev = 0.101/0.204/0.260/0.074 ms</span><br></pre></td></tr></table></figure></p>
 
-        
-          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<div id="gitalk-container"></div>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: 'a6fc55abc6c612112f53',
-        clientSecret: 'a3e719a8607724e588e68d5c31b599a236503c94',
-        id: window.location.pathname,
-        repo: 'myblogcomment',
-        owner: 'weilu2',
-        admin: 'weilu0324@163.com'
-    })
-    gitalk.render('gitalk-container')
-</script>
-        
       
-
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/2018/10/06/Config-virtual-network-connection-with-bridge-mode/" data-id="cjmx4s72800022slukyjynzh0" class="article-share-link">Share</a>
@@ -164,6 +147,20 @@
   
 </article>
 
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    var valine = new Valine();
+    valine.init({
+        el:'#vcomment',
+        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+    })
+</script>
+</section>
 </section>
         
           <aside id="sidebar">

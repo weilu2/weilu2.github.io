@@ -97,24 +97,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         
-        
-          <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<div id="gitalk-container"></div>
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-    var gitalk = new Gitalk({
-        clientID: 'a6fc55abc6c612112f53',
-        clientSecret: 'a3e719a8607724e588e68d5c31b599a236503c94',
-        id: window.location.pathname,
-        repo: 'myblogcomment',
-        owner: 'weilu2',
-        admin: 'weilu0324@163.com'
-    })
-    gitalk.render('gitalk-container')
-</script>
-        
       
-
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/tags/index.html" data-id="cjmx4s72900032slue2pbn0wl" class="article-share-link">Share</a>
@@ -127,6 +110,20 @@
   
 </article>
 
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    var valine = new Valine();
+    valine.init({
+        el:'#vcomment',
+        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+    })
+</script>
+</section>
 </section>
         
           <aside id="sidebar">
