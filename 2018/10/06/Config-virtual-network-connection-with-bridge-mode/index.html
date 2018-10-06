@@ -153,12 +153,14 @@
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <div id="vcomments"></div>
 <script>
-    var valine = new Valine();
-    valine.init({
-        el:'#vcomment',
-        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
-        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
-    })
+	$(function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	});
 </script>
 </section>
 </section>
