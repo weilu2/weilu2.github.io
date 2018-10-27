@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/HTTPSERVER.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-01.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-02.png">
-<meta property="og:updated_time" content="2018-10-14T05:41:46.350Z">
+<meta property="og:updated_time" content="2018-10-27T16:00:56.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程">
 <meta name="twitter:description" content="摘要考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。">
@@ -107,6 +107,13 @@
       
         <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。</p>
 <a id="more"></a>
+<h1 id="配置主机环境"><a href="#配置主机环境" class="headerlink" title="配置主机环境"></a>配置主机环境</h1><p><strong>libvirt-client.x86_64 0:3.9.0-14.el7_5.8 </strong><br>Libvirt 的客户端，主要功能是在宿主机关机时通知虚拟机正常关机，防止强制关机导致数据丢失。</p>
+<p><strong>qemu-kvm.x86_64 10:1.5.3-156.el7_5.5</strong><br>KVM在用户控件运行的程序</p>
+<p><strong>virt-manager.noarch 0:1.4.3-3.el7</strong><br>基于 libvirt 的可视化虚拟机管理工具</p>
+<p><strong>libvirt.x86_64 0:3.9.0-14.el7_5.8</strong><br>用于管理虚拟机的APi</p>
+<p><strong>virt-viewer.x86_64 0:5.0-10.el7</strong><br>显示虚拟机控制台的console</p>
+<p><strong>virt-top.x86_64 0:1.0.8-24.el7 </strong><br>查看虚拟机的资源使用情况，类似于top命令</p>
+<p><strong>qemu-img-1.5.3-156.el7_5.5.x86_64</strong></p>
 <h1 id="使用-HTTP-服务提供安装镜像"><a href="#使用-HTTP-服务提供安装镜像" class="headerlink" title="使用 HTTP 服务提供安装镜像"></a>使用 HTTP 服务提供安装镜像</h1><p><strong>1、安装 HTTP 服务</strong><br>通过运行下面命令安装 HTTP 服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd</span><br></pre></td></tr></table></figure></p>
 <p><strong>2、拷贝 ISO 镜像</strong><br>从网络下载或是从其他服务器将 CentOS 7 的二进制 DVD ISO 镜像拷贝到 HTTP 服务所在的主机上。这里拷贝到如下位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/packages/CentOS-7-x86_64-DVD-1804.iso</span><br></pre></td></tr></table></figure></p>
 <p><strong>3、挂载镜像</strong><br>首先在 <code>/mnt</code> 目录下创建一个目录 <code>/mnt/ctos7-install</code>，这个目录名字随意。然后使用以下命令挂载镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -o loop,ro -t iso9660 /home/packages/CentOS-7-x86_64-DVD-1804.iso /mnt/ctos7-install</span><br></pre></td></tr></table></figure></p>
