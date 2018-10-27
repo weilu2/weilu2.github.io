@@ -5,22 +5,20 @@
   
 
   
-  <title>无法启动此程序，因为计算机中丢失 api-ms-win-crt-runtime-l1-1-0.dll | 全宇宙尖端技术研究基地</title>
+  <title>CentOS 7 网络配置之初始配置、静态IP以及网桥 | 全宇宙尖端技术研究基地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要我这边碰到的错误是在安装 MySQL Workbench 时出现的，这个文件是 Visual C++ Redistributable 下的一个文件。我按照其官网上标注的安装前提，安装了 Visual C++ 2015 Redistributable for Visual Studio 2015，重新安装 Workbench 仍然报该错误。">
-<meta name="keywords" content="Visual C++">
+  <meta name="description" content="摘要记录一下 CentOS 7 的网络配置，一开始是安装完的初始化配置，动态分配IP；然后改成了静态IP；之后又修改为配置网桥。">
+<meta name="keywords" content="Bridge,Network,Static IP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无法启动此程序，因为计算机中丢失 api-ms-win-crt-runtime-l1-1-0.dll">
-<meta property="og:url" content="http://yoursite.com/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/index.html">
+<meta property="og:title" content="CentOS 7 网络配置之初始配置、静态IP以及网桥">
+<meta property="og:url" content="http://yoursite.com/2018/10/27/CentOS-7-网络配置之初始配置、静态IP以及网桥/index.html">
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
-<meta property="og:description" content="摘要我这边碰到的错误是在安装 MySQL Workbench 时出现的，这个文件是 Visual C++ Redistributable 下的一个文件。我按照其官网上标注的安装前提，安装了 Visual C++ 2015 Redistributable for Visual Studio 2015，重新安装 Workbench 仍然报该错误。">
+<meta property="og:description" content="摘要记录一下 CentOS 7 的网络配置，一开始是安装完的初始化配置，动态分配IP；然后改成了静态IP；之后又修改为配置网桥。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/01.png">
-<meta property="og:updated_time" content="2018-10-26T10:41:46.027Z">
+<meta property="og:updated_time" content="2018-10-27T15:26:51.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无法启动此程序，因为计算机中丢失 api-ms-win-crt-runtime-l1-1-0.dll">
-<meta name="twitter:description" content="摘要我这边碰到的错误是在安装 MySQL Workbench 时出现的，这个文件是 Visual C++ Redistributable 下的一个文件。我按照其官网上标注的安装前提，安装了 Visual C++ 2015 Redistributable for Visual Studio 2015，重新安装 Workbench 仍然报该错误。">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/01.png">
+<meta name="twitter:title" content="CentOS 7 网络配置之初始配置、静态IP以及网桥">
+<meta name="twitter:description" content="摘要记录一下 CentOS 7 的网络配置，一开始是安装完的初始化配置，动态分配IP；然后改成了静态IP；之后又修改为配置网桥。">
   
     <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
   
@@ -77,14 +75,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-CentOS-7-网络配置之初始配置、静态IP以及网桥" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/" class="article-date">
-  <time datetime="2018-10-26T03:54:11.000Z" itemprop="datePublished">2018-10-26</time>
+    <a href="/2018/10/27/CentOS-7-网络配置之初始配置、静态IP以及网桥/" class="article-date">
+  <time datetime="2018-10-27T15:21:08.000Z" itemprop="datePublished">2018-10-27</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Windows/">Windows</a>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
   </div>
@@ -95,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      无法启动此程序，因为计算机中丢失 api-ms-win-crt-runtime-l1-1-0.dll
+      CentOS 7 网络配置之初始配置、静态IP以及网桥
     </h1>
   
 
@@ -103,22 +101,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>我这边碰到的错误是在安装 MySQL Workbench 时出现的，这个文件是 Visual C++ Redistributable 下的一个文件。我按照其官网上标注的安装前提，安装了 Visual C++ 2015 Redistributable for Visual Studio 2015，重新安装 Workbench 仍然报该错误。</p>
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>记录一下 CentOS 7 的网络配置，一开始是安装完的初始化配置，动态分配IP；然后改成了静态IP；之后又修改为配置网桥。</p>
 <a id="more"></a>
-<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p><img src="/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/01.png" alt="enter image description here"></p>
-<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>其主要原因是在安装 Visual C++ 2015 Redistributable for Visual Studio 2015 时，系统中已经存在了某个版本了，并且文件 api-ms-win-crt-runtime-l1-1-0.dll 可能正在被某个程序所引用，在重新安装时，并没有将之前的 api-ms-win-crt-runtime-l1-1-0.dll 文件更新覆盖，从而导致没有真正解决该问题。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>解决方法就是先找到该文件，将其删除，删除的过程中涉及到某个程序引用这个文件的，先将那个程序退出再删除。</p>
-<p>在目录 C:\Windows\System32和C:\Windows\SysWOW64 下查找 api-ms-win-crt-runtime-l1-1-0.dll 文件，如果有，就将其删除。</p>
-<p>然后重新安装 Visual C++ 2015 Redistributable for Visual Studio 2015，安装之后可能要重启，之后再安装 Workbench 即可正常运行。</p>
-<p>对应到在安装其他程序过程中碰到该问题的情况，只需要按照相同的方法，安装对应版本的 Visual C++ 即可。</p>
-
+<h1 id="初始配置"><a href="#初始配置" class="headerlink" title="初始配置"></a>初始配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s31f6</span><br><span class="line">UUID=98eb9b94-878c-4430-8ce5-13471bb46997</span><br><span class="line">DEVICE=enp0s31f6</span><br><span class="line">ONBOOT=no</span><br></pre></td></tr></table></figure>
+<h1 id="静态IP"><a href="#静态IP" class="headerlink" title="静态IP"></a>静态IP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s31f6</span><br><span class="line">UUID=98eb9b94-878c-4430-8ce5-13471bb46997</span><br><span class="line">DEVICE=enp0s31f6</span><br><span class="line">ONBOOT=yes</span><br><span class="line"></span><br><span class="line">IPADDR=192.168.0.123</span><br><span class="line">GATEWAY=192.168.0.1</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">NM_CONTROLLED=no</span><br><span class="line">DNS1=8.8.8.8</span><br><span class="line">DNS2=8.8.4.4</span><br></pre></td></tr></table></figure>
+<h1 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h1><p>ifcfg-br0文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Bridge</span><br><span class="line">NAME=br0</span><br><span class="line">DEVICE=br0</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">IPADDR=192.168.0.123</span><br><span class="line">GATEWAY=192.168.0.1</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">DNS1=192.168.0.1</span><br></pre></td></tr></table></figure>
+<p>ifcfg-enp0s31f6文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">BRIDGE=br0</span><br><span class="line">NAME=enp0s31f6</span><br><span class="line">UUID=99244a4d-8cac-4023-9a09-8e50c547cd3a</span><br><span class="line">DEVICE=enp0s31f6</span><br><span class="line">ONBOOT=yes</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/26/无法启动此程序，因为计算机中丢失-api-ms-win-crt-runtime-l1-1-0-dll/" data-id="cjnrlmjiq001segluk6dn72oq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/27/CentOS-7-网络配置之初始配置、静态IP以及网桥/" data-id="cjnrlmjiv001wegluy43e0qtq" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Visual-C/">Visual C++</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Static-IP/">Static IP</a></li></ul>
 
     </footer>
   </div>
@@ -126,19 +123,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/10/26/使用MAT对Java程序进行内存分析之小试牛刀/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用MAT对Java程序进行内存分析之小试牛刀
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/10/26/MySQL启动错误：在本地计算机上的MySQL57服务启动后停止。某些服务在未由其他服务或程序使用时将自动停止/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/10/26/使用MAT对Java程序进行内存分析之小试牛刀/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">MySQL启动错误：在本地计算机上的MySQL57服务启动后停止。某些服务在未由其他服务或程序使用时将自动停止</div>
+      <div class="article-nav-title">使用MAT对Java程序进行内存分析之小试牛刀</div>
     </a>
   
 </nav>
