@@ -18,7 +18,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/HTTPSERVER.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-01.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-02.png">
-<meta property="og:updated_time" content="2018-10-27T16:00:56.546Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/A01.jpg">
+<meta property="og:updated_time" content="2018-10-28T14:06:21.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程">
 <meta name="twitter:description" content="摘要考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。">
@@ -141,12 +142,18 @@
 <p>如果期间出现以下错误：<strong>Active console session exists for this domain</strong><br>完整信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_125 Pictures]# virsh start centos7-3 --console</span><br><span class="line">Domain centos7-3 started</span><br><span class="line">Connected to domain centos7-3</span><br><span class="line">Escape character is ^]</span><br><span class="line">error: operation failed: Active console session exists for this domain</span><br></pre></td></tr></table></figure></p>
 <p>只需要重启虚拟机守护进程即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart libvirtd.service</span><br></pre></td></tr></table></figure></p>
 <h2 id="连接虚拟机"><a href="#连接虚拟机" class="headerlink" title="连接虚拟机"></a>连接虚拟机</h2><p>对于已经启动的虚拟机，可以使用以下命令以命令行的方式连接虚拟机：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh console centos7-3</span><br></pre></td></tr></table></figure></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>下面罗列一些在这个过程中可能碰到的问题。</p>
+<h2 id="WARNING-KVM-acceleration-not-available-using-‘qemu’"><a href="#WARNING-KVM-acceleration-not-available-using-‘qemu’" class="headerlink" title="WARNING KVM acceleration not available, using ‘qemu’"></a>WARNING KVM acceleration not available, using ‘qemu’</h2><p>这个问题的直观表现就是执行 <code>virt-install</code> 命令之后就卡住了，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_123 centos7-1]# virt-install \</span><br><span class="line">&gt;   --name centos7-1 \</span><br><span class="line">&gt;   --memory 2048 \</span><br><span class="line">&gt;   --vcpus 2 \</span><br><span class="line">&gt;   --disk path=/home/kvms/centos7-1/centos7.0.qcow2,size=200 \</span><br><span class="line">&gt;   --location http://192.168.0.123/ctos7-install/ \</span><br><span class="line">&gt;   --os-variant centos7.0 \</span><br><span class="line">&gt;   --network bridge:br0 \</span><br><span class="line">&gt;   --graphics=none \</span><br><span class="line">&gt;   --console pty,target_type=serial \</span><br><span class="line">&gt;   -x &apos;console=ttyS0,115200n8 serial&apos; \</span><br><span class="line">&gt;   -x &quot;ks=http://192.168.0.123/kickstart/ks.cfg&quot;</span><br><span class="line"></span><br><span class="line">开始安装......</span><br><span class="line">搜索文件 vmlinuz......                                  | 5.9 MB  00:00     </span><br><span class="line">搜索文件 initrd.img......                               |  50 MB  00:00     </span><br><span class="line">正在分配 &apos;centos7.0.qcow2&apos;                              | 200 GB  00:00     </span><br><span class="line">连接到域 centos7-1</span><br><span class="line">换码符为 ^]</span><br></pre></td></tr></table></figure>
+<p>这个问题是BIOS的CPU虚拟化功能没有开启导致的。</p>
+<p>只要进入 BIOS，将<code>Intel Virtualization Technology</code>开启即可，下面例子是华硕主板：</p>
+<p><img src="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/A01.jpg" alt="enter image description here"></p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://computingforgeeks.com/rhel-centos-kickstart-automated-installation-kvm-virt-install/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">RHEL and CentOS Kickstart on KVM Automated Installation With virt-install</a><br>[2] <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-installation-text-mode-x86?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">CentOS 7 INSTALLING IN TEXT MODE</a><br>[3] <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-vnc-installations?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">Use VNC mode to install CentOS 7</a><br>[4] <a href="RHEL%20and%20CentOS%20Kickstart%20on%20KVM%20Automated%20Installation%20With%20virt-install">Kickstart Installation</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/" data-id="cjnrlmjgy0009egludqab8vl6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/" data-id="cjnsy6wmg001oz4lurvpozi4x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVM/">KVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无人值守/">无人值守</a></li></ul>
@@ -244,6 +251,10 @@
       <ul>
         
           <li>
+            <a href="/2018/10/28/CentOS-7-网络配置之初始配置、静态IP以及网桥014444444444444444444444444444444/">CentOS 7 网络配置之初始配置、静态IP以及网桥014444444444444444444444444444444</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/27/CentOS-7-网络配置之初始配置、静态IP以及网桥/">CentOS 7 网络配置之初始配置、静态IP以及网桥</a>
           </li>
         
@@ -257,10 +268,6 @@
         
           <li>
             <a href="/2018/10/26/MySQL启动错误：在本地计算机上的MySQL57服务启动后停止。某些服务在未由其他服务或程序使用时将自动停止/">MySQL启动错误：在本地计算机上的MySQL57服务启动后停止。某些服务在未由其他服务或程序使用时将自动停止</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/20/Configure-Maven-Java-Project-in-Idea-on-CentOS-7/">Configure Maven Java Project in Idea on CentOS 7</a>
           </li>
         
       </ul>
