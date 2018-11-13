@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
 <meta property="og:description" content="摘要目前局域网中参与配置的有三台机器，要配置这三台机器免密登录。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-09T00:36:33.536Z">
+<meta property="og:updated_time" content="2018-11-13T03:23:26.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7.4 配置SSH免密登录">
 <meta name="twitter:description" content="摘要目前局域网中参与配置的有三台机器，要配置这三台机器免密登录。">
@@ -118,7 +118,17 @@
 <p>依次的拷贝到其他机器上，同样的将其他机器上的秘钥要拷贝到176 上</p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@oolong116 .ssh]# ssh oolong115</span><br><span class="line">Last login: Thu Sep 13 05:32:43 2018 from 177.11.12.115</span><br><span class="line">[root@oolong115 ~]#</span><br></pre></td></tr></table></figure>
 <p>此时，就登录上了 115 了。</p>
-
+<h1 id="批量拷贝秘钥到远程主机"><a href="#批量拷贝秘钥到远程主机" class="headerlink" title="批量拷贝秘钥到远程主机"></a>批量拷贝秘钥到远程主机</h1><h2 id="安装-sshpass"><a href="#安装-sshpass" class="headerlink" title="安装 sshpass"></a>安装 sshpass</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install sshpass</span><br></pre></td></tr></table></figure>
+<h2 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h2><p>进入秘钥所在目录 <code>/root/.ssh</code>，创建以下两个文件：</p>
+<p><strong>remote-hosts</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">weilu131</span><br><span class="line">weilu132</span><br><span class="line">weilu135</span><br><span class="line">weilu151</span><br></pre></td></tr></table></figure>
+<p><strong>copyscript.sh</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for host in $(cat remote-hosts)</span><br><span class="line">do</span><br><span class="line">    sshpass -p &apos;1234&apos; ssh-copy-id -o StrictHostKeyChecking=no root@$&#123;host&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>其中参数 <code>-p &#39;1234&#39;</code> 表示密码，这里几台机器使用的相同密码，根据情况修改。</p>
+<p>保存后需要修改拷贝脚本的权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 copyscript.sh</span><br></pre></td></tr></table></figure>
+<p>然后执行拷贝：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./copyscript.sh</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
