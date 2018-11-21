@@ -5,18 +5,20 @@
   
 
   
-  <title>Tag: Stage | 全宇宙尖端技术研究基地</title>
+  <title>npm install Error EACCES permission denied | 全宇宙尖端技术研究基地</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="大数据 Hadoop KVM Docker MachineLearning">
-<meta property="og:type" content="website">
-<meta property="og:title" content="全宇宙尖端技术研究基地">
-<meta property="og:url" content="http://yoursite.com/tags/Stage/index.html">
+  <meta name="description" content="摘要使用 npm install 安装项目时，遇到的一个错误 Error: EACCES: permission denied。记录一下解决方法。">
+<meta name="keywords" content="npm,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm install Error EACCES permission denied">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/npm-install-Error-EACCES-permission-denied/index.html">
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
-<meta property="og:description" content="大数据 Hadoop KVM Docker MachineLearning">
+<meta property="og:description" content="摘要使用 npm install 安装项目时，遇到的一个错误 Error: EACCES: permission denied。记录一下解决方法。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-21T02:14:34.033Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="全宇宙尖端技术研究基地">
-<meta name="twitter:description" content="大数据 Hadoop KVM Docker MachineLearning">
+<meta name="twitter:title" content="npm install Error EACCES permission denied">
+<meta name="twitter:description" content="摘要使用 npm install 安装项目时，遇到的一个错误 Error: EACCES: permission denied。记录一下解决方法。">
   
     <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
   
@@ -73,41 +75,79 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/20/Spark-关键概念备忘/" class="archive-article-date">
-  <time datetime="2018-11-20T02:04:18.000Z" itemprop="datePublished">Nov 20</time>
+        <section id="main"><article id="post-npm-install-Error-EACCES-permission-denied" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/21/npm-install-Error-EACCES-permission-denied/" class="article-date">
+  <time datetime="2018-11-21T01:46:58.000Z" itemprop="datePublished">2018-11-21</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nodejs/">Nodejs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/20/Spark-关键概念备忘/">Spark 关键概念备忘</a>
+    <h1 class="article-title" itemprop="name">
+      npm install Error EACCES permission denied
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>使用 npm install 安装项目时，遇到的一个错误 Error: EACCES: permission denied。记录一下解决方法。<br><a id="more"></a></p>
+<h1 id="npm-install-Error-EACCES-permission-denied"><a href="#npm-install-Error-EACCES-permission-denied" class="headerlink" title="npm install Error: EACCES: permission denied"></a>npm install Error: EACCES: permission denied</h1><p>在使用 npm 安装模块时碰到的问题，异常信息如下。</p>
+<p>这里简单记录一下解决方法，给命令增加如下的一些参数，大概就是一些允许权限之类的，没有具体研究：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --unsafe-perm=true --allow-root</span><br></pre></td></tr></table></figure></p>
+<p><strong>错误信息</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu125 adminMongo-master]# npm install</span><br><span class="line">npm WARN deprecated to-iso-string@0.0.2: to-iso-string has been deprecated, use @segment/to-iso-string instead.</span><br><span class="line">npm WARN deprecated jade@0.26.3: Jade has been renamed to pug, please install the latest version of pug instead of jade</span><br><span class="line">npm WARN deprecated electron-prebuilt@1.4.13: electron-prebuilt has been renamed to electron. For more details, see http://electron.atom.io/blog/2016/08/16/npm-install-electron</span><br><span class="line">npm WARN deprecated sprintf@0.1.5: The sprintf package is deprecated in favor of sprintf-js.</span><br><span class="line">npm WARN deprecated mongodb@2.2.16: Please upgrade to 2.2.19 or higher</span><br><span class="line">npm WARN deprecated minimatch@0.3.0: Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS issue</span><br><span class="line">npm WARN deprecated circular-json@0.3.3: CircularJSON is in maintenance only, flatted is its successor.</span><br><span class="line"></span><br><span class="line">&gt; electron-prebuilt@1.4.13 postinstall /usr/local/adminMongo-master/node_modules/electron-prebuilt</span><br><span class="line">&gt; node install.js</span><br><span class="line"></span><br><span class="line">/usr/local/adminMongo-master/node_modules/electron-prebuilt/install.js:22</span><br><span class="line">  throw err</span><br><span class="line">  ^</span><br><span class="line"></span><br><span class="line">Error: EACCES: permission denied, mkdir &apos;/usr/local/adminMongo-master/node_modules/electron-prebuilt/.electron&apos;</span><br><span class="line">npm WARN mocha-jsdom@1.2.0 requires a peer of jsdom@&gt;10.0.0 but none is installed. You must install peer dependencies yourself.</span><br><span class="line"></span><br><span class="line">npm ERR! code ELIFECYCLE</span><br><span class="line">npm ERR! errno 1</span><br><span class="line">npm ERR! electron-prebuilt@1.4.13 postinstall: `node install.js`</span><br><span class="line">npm ERR! Exit status 1</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Failed at the electron-prebuilt@1.4.13 postinstall script.</span><br><span class="line">npm ERR! This is probably not a problem with npm. There is likely additional logging output above.</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     /root/.npm/_logs/2018-11-21T01_22_13_662Z-debug.log</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/21/npm-install-Error-EACCES-permission-denied/" data-id="cjoqjc8j2001b9kluqzmvk35y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/20/基于-Scala-编写的-Spark-程序操作-HBase/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于 Scala 编写的 Spark 程序操作 HBase</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
 </section>
         
           <aside id="sidebar">
