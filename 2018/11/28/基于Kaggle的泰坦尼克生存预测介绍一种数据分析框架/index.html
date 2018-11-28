@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A07-Age.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A08-Pearson-Correlation.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/B-Score.png">
-<meta property="og:updated_time" content="2018-11-28T12:47:20.137Z">
+<meta property="og:updated_time" content="2018-11-28T12:57:34.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架">
 <meta name="twitter:description" content="摘要本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。">
@@ -225,7 +225,178 @@
 </ul>
 <p>我们导入数据，然后使用 <code>sample()</code> 方法来快速的观察一下数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data_raw = pd.read_csv(<span class="string">'./input/train.csv'</span>) <span class="comment"># 读取训练集</span></span><br><span class="line">data_val  = pd.read_csv(<span class="string">'./input/test.csv'</span>) <span class="comment"># 读取测试集</span></span><br><span class="line"></span><br><span class="line">print(data_raw.head()) <span class="comment"># 获取数据前五条</span></span><br><span class="line">print(data_raw.tail()) <span class="comment"># 获取数据后五条</span></span><br><span class="line">print(data_raw.sample(<span class="number">10</span>)) <span class="comment"># 随机获取十条</span></span><br></pre></td></tr></table></figure>
-<p>打印结果：<br>|df_index|PassengerId|Survived|Pclass|Name|Sex|Age|SibSp|Parch|Ticket|Fare|Cabin|Embarked|<br>|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|<br>|660|661|1|1|Frauenthal, Dr. Henry William|male|50.0|2|0|PC 17611|133.6500|NaN|S|<br>|382|383|0|3|Tikkanen, Mr. Juho|male|32|0|0|STON/O 2. 3101293|7.925||S|<br>|64|65|0|1|Stewart, Mr. Albert A|male||0|0|PC 17605|27.7208||C|<br>|697|698|1|3|Mullens, Miss. Katherine “Katie”|female||0|0|35852|7.7333||Q|<br>|345|346|1|2|Brown, Miss. Amelia “Mildred”|female|24|0|0|248733|13|F33|S|<br>|525|526|0|3|Farrell, Mr. James|male|40.5|0|0|367232|7.75||Q|<br>|883|884|0|2|Banfield, Mr. Frederick James|male|28|0|0|C.A./SOTON 34068|10.5||S|<br>|487|488|0|1|Kent, Mr. Edward Austin|male|58|0|0|11771|29.7|B37|C|<br>|553|554|1|3|Leeni, Mr. Fahim (Philip Zenni)|male|22|0|0|2620|7.225||C|<br>|241|242|1|3|Murphy, Miss. Katherine “Kate”|female||1|0|367230|15.5||Q|</p>
+<p>打印结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">PassengerId</th>
+<th style="text-align:center">Survived</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Sex</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Ticket</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">Cabin</th>
+<th style="text-align:center">Embarked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">660</td>
+<td style="text-align:center">661</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Frauenthal, Dr. Henry William</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">50.0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">PC 17611</td>
+<td style="text-align:center">133.6500</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">382</td>
+<td style="text-align:center">383</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Tikkanen, Mr. Juho</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">STON/O 2. 3101293</td>
+<td style="text-align:center">7.925</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">65</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Stewart, Mr. Albert A</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">PC 17605</td>
+<td style="text-align:center">27.7208</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">697</td>
+<td style="text-align:center">698</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Mullens, Miss. Katherine “Katie”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">35852</td>
+<td style="text-align:center">7.7333</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+<tr>
+<td style="text-align:center">345</td>
+<td style="text-align:center">346</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Brown, Miss. Amelia “Mildred”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">24</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">248733</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">F33</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">525</td>
+<td style="text-align:center">526</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Farrell, Mr. James</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">40.5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">367232</td>
+<td style="text-align:center">7.75</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+<tr>
+<td style="text-align:center">883</td>
+<td style="text-align:center">884</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Banfield, Mr. Frederick James</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">C.A./SOTON 34068</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">487</td>
+<td style="text-align:center">488</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Kent, Mr. Edward Austin</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">58</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">11771</td>
+<td style="text-align:center">29.7</td>
+<td style="text-align:center">B37</td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">553</td>
+<td style="text-align:center">554</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Leeni, Mr. Fahim (Philip Zenni)</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">22</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2620</td>
+<td style="text-align:center">7.225</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">241</td>
+<td style="text-align:center">242</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Murphy, Miss. Katherine “Kate”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">367230</td>
+<td style="text-align:center">15.5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+</tbody>
+</table>
 <h3 id="STEP-3-3-数据清理"><a href="#STEP-3-3-数据清理" class="headerlink" title="STEP 3.3. 数据清理"></a>STEP 3.3. 数据清理</h3><p>在本节中，我们将会对数据进行清理，包括修正异常值；补全缺失值；通过分析创建新的特征；格式转换，将数据转换为便于计算和展示的格式。</p>
 <p><strong>1、修正</strong><br>检查数据，看看是否有任何看起来异常的输入。我们发现在年龄和票价两列，似乎存在异常值。不过客观的来说，这些值也是合理的，因此我们等到进行探索性数据分析时，再决定是否要剔除这两列。不过，如果这些值是一些客观上讲完全不可能的值，比如说年龄=800，那么就可能需要立马处理这个值。不过在处理这些值的时候，需要非常谨慎，因为我们需要获得一个尽可能精确的众数。</p>
 <p><strong>2、补全</strong><br>在年龄、船舱编号、和登船港口等字段都有空值或缺失值。空值对于某些算法来说是不友好的，因为它们无法处理空值。因为需要利用几种不同的算法计算不同的模型，然后进行比较，因此要在真正开始模型训练之前，处理这些空值。有两种方法处理缺失值：1）删除缺失值对应的这条记录；2）利用一些可靠的输入填充缺失值。</p>
@@ -434,7 +605,200 @@
 <p>同样的将处理后的结果打印出来看看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Train columns with null values:</span><br><span class="line">Survived    0</span><br><span class="line">Pclass      0</span><br><span class="line">Name        0</span><br><span class="line">Sex         0</span><br><span class="line">Age         0</span><br><span class="line">SibSp       0</span><br><span class="line">Parch       0</span><br><span class="line">Fare        0</span><br><span class="line">Embarked    0</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br><span class="line">Test/Validation columns with null values:</span><br><span class="line">PassengerId      0</span><br><span class="line">Pclass           0</span><br><span class="line">Name             0</span><br><span class="line">Sex              0</span><br><span class="line">Age              0</span><br><span class="line">SibSp            0</span><br><span class="line">Parch            0</span><br><span class="line">Ticket           0</span><br><span class="line">Fare             0</span><br><span class="line">Cabin          327</span><br><span class="line">Embarked         0</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br></pre></td></tr></table></figure></p>
 <h4 id="STEP-3-3-4-创建"><a href="#STEP-3-3-4-创建" class="headerlink" title="STEP 3.3.4. 创建"></a>STEP 3.3.4. 创建</h4><p>利用特征工程将训练集和测试集中的数据创建新的特征。这里我们根据现有的 特征分别创建几个新的特征。<br>1、根据兄弟姐妹、配偶、父母和子女数量的两个字段来创建一个表示家庭成员数量的字段。利用家庭成员数量可以得到一个新的字段表示是否是孤身一人。<br>2、观察姓名一列，可以看到其中有关于头衔之类的信息，从中可以看到是先生、女士、硕士、博士等等信息。<br>3、将船票费用和年龄划分为几个不同的区间。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> dataset <span class="keyword">in</span> data_cleaner:    </span><br><span class="line">    dataset[<span class="string">'FamilySize'</span>] = dataset [<span class="string">'SibSp'</span>] + dataset[<span class="string">'Parch'</span>] + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'IsAlone'</span>] = <span class="number">1</span></span><br><span class="line">    dataset[<span class="string">'IsAlone'</span>].loc[dataset[<span class="string">'FamilySize'</span>] &gt; <span class="number">1</span>] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'Title'</span>] = dataset[<span class="string">'Name'</span>].str.split(<span class="string">", "</span>, expand=<span class="keyword">True</span>)[<span class="number">1</span>].str.split(<span class="string">"."</span>, expand=<span class="keyword">True</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'FareBin'</span>] = pd.qcut(dataset[<span class="string">'Fare'</span>], <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'AgeBin'</span>] = pd.cut(dataset[<span class="string">'Age'</span>].astype(int), <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<p>查看增加了几个特征之后的数据：<br>|df_index|Survived|Pclass|Name|Sex|Age|SibSp|Parch|Fare|Embarked|FamilySize|IsAlone|Title|FareBin|AgeBin|<br>|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|<br>|205|0|3|Strom, Miss. Telma Matilda|female|2.0|0|1|10.4625|S|2|0|Miss|(7.91, 14.454]|(-0.08, 16.0]|<br>|879|1|1|Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)|female|56.0|0|1|83.1583|C|2|0|Mrs|(31.0, 512.329]|(48.0, 64.0]|<br>|329|1|1|Hippach, Miss. Jean Gertrude|female|16.0|0|1|57.9792|C|2|0|Miss|(31.0, 512.329]|(-0.08, 16.0]|<br>|136|1|1|Newsom, Miss. Helen Monypeny|female|19.0|0|2|26.2833|S|3|0|Miss|(14.454, 31.0]|(16.0, 32.0]|<br>|57|0|3|Novel, Mr. Mansouer|male|28.5|0|0|7.2292|C|1|1|Mr|(-0.001, 7.91]|(16.0, 32.0]|<br>|848|0|2|Harper, Rev. John|male|28.0|0|1|33.0|S|2|0|Rev|(31.0, 512.329]|(16.0, 32.0]|<br>|151|1|1|Pears, Mrs. Thomas (Edith Wearne)|female|22.0|1|0|66.6|S|2|0|Mrs|(31.0, 512.329]|(16.0, 32.0]|<br>|659|0|1|Newell, Mr. Arthur Webster|male|58.0|0|2|113.275|C|3|0|Mr|(31.0, 512.329]|(48.0, 64.0]|<br>|228|0|2|Fahlstrom, Mr. Arne Jonas|male|18.0|0|0|13.0|S|1|1|Mr|(7.91, 14.454]|(16.0, 32.0]|<br>|371|0|3|Wiklund, Mr. Jakob Alfred|male|18.0|1|0|6.4958|S|2|0|Mr|(-0.001, 7.91]|(16.0, 32.0]|</p>
+<p>查看增加了几个特征之后的数据：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Survived</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Sex</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">Embarked</th>
+<th style="text-align:center">FamilySize</th>
+<th style="text-align:center">IsAlone</th>
+<th style="text-align:center">Title</th>
+<th style="text-align:center">FareBin</th>
+<th style="text-align:center">AgeBin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">205</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Strom, Miss. Telma Matilda</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">10.4625</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(7.91, 14.454]</td>
+<td style="text-align:center">(-0.08, 16.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">879</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">56.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">83.1583</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mrs</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(48.0, 64.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">329</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Hippach, Miss. Jean Gertrude</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">16.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">57.9792</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(-0.08, 16.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">136</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Newsom, Miss. Helen Monypeny</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">19.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">26.2833</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(14.454, 31.0]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">57</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Novel, Mr. Mansouer</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28.5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">7.2292</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(-0.001, 7.91]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">848</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Harper, Rev. John</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">33.0</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Rev</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">151</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Pears, Mrs. Thomas (Edith Wearne)</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">22.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">66.6</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mrs</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">659</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Newell, Mr. Arthur Webster</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">58.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">113.275</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(48.0, 64.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">228</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Fahlstrom, Mr. Arne Jonas</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">18.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">13.0</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(7.91, 14.454]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">371</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Wiklund, Mr. Jakob Alfred</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">18.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">6.4958</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(-0.001, 7.91]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+</tbody>
+</table>
 <p>对于头衔这一列，由于是拆分字符串，因此对于结果需要着重检查一下，打印这一列的统计信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(data_raw2[<span class="string">'Title'</span>].value_counts())</span><br></pre></td></tr></table></figure></p>
 <p>观察结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Mr              517</span><br><span class="line">Miss            182</span><br><span class="line">Mrs             125</span><br><span class="line">Master           40</span><br><span class="line">Dr                7</span><br><span class="line">Rev               6</span><br><span class="line">Mlle              2</span><br><span class="line">Col               2</span><br><span class="line">Major             2</span><br><span class="line">the Countess      1</span><br><span class="line">Jonkheer          1</span><br><span class="line">Capt              1</span><br><span class="line">Mme               1</span><br><span class="line">Ms                1</span><br><span class="line">Sir               1</span><br><span class="line">Lady              1</span><br><span class="line">Don               1</span><br></pre></td></tr></table></figure></p>
 <p>我们发现，拆分出来的头衔有很多种，不过其中占比比较高的就是前面四个，后面的一些数量都太少，因此我们打算将后面的一些都合并成一个。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stat_min = <span class="number">10</span></span><br><span class="line">title_names = (data_raw2[<span class="string">'Title'</span>].value_counts() &lt; stat_min)</span><br><span class="line">data_raw2[<span class="string">'Title'</span>] = data_raw2[<span class="string">'Title'</span>].apply(<span class="keyword">lambda</span> x: <span class="string">'Misc'</span> <span class="keyword">if</span> title_names.loc[x] == <span class="keyword">True</span> <span class="keyword">else</span> x)</span><br><span class="line">print(data_raw2[<span class="string">'Title'</span>].value_counts())</span><br></pre></td></tr></table></figure></p>
@@ -548,7 +912,233 @@
 </tbody>
 </table>
 <p>将其中的一些离散型变量转为独热编码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义输出变量 y</span></span><br><span class="line">Target = [<span class="string">'Survived'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入变量 x</span></span><br><span class="line">data_raw2_x = [<span class="string">'Sex'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked'</span>, <span class="string">'Title'</span>,<span class="string">'SibSp'</span>, <span class="string">'Parch'</span>, <span class="string">'Age'</span>, <span class="string">'Fare'</span>, <span class="string">'FamilySize'</span>, <span class="string">'IsAlone'</span>]</span><br><span class="line">data_raw2_x_calc = [<span class="string">'Sex_Code'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked_Code'</span>, <span class="string">'Title_Code'</span>,<span class="string">'SibSp'</span>, <span class="string">'Parch'</span>, <span class="string">'Age'</span>, <span class="string">'Fare'</span>]</span><br><span class="line">data_raw2_xy =  Target + data_raw2_x</span><br><span class="line">print(<span class="string">'Original X Y: '</span>, data_raw2_xy, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义离散输入变量 x</span></span><br><span class="line">data_raw2_x_bin = [<span class="string">'Sex_Code'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked_Code'</span>, <span class="string">'Title_Code'</span>, <span class="string">'FamilySize'</span>, <span class="string">'AgeBin_Code'</span>, <span class="string">'FareBin_Code'</span>]</span><br><span class="line">data_raw2_xy_bin = Target + data_raw2_x_bin</span><br><span class="line">print(<span class="string">'Bin X Y: '</span>, data_raw2_xy_bin, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将离散型变量转为独热编码</span></span><br><span class="line">data_raw2_dummy = pd.get_dummies(data_raw2[data_raw2_x])</span><br><span class="line">data_raw2_x_dummy = data_raw2_dummy.columns.tolist()</span><br><span class="line">data_raw2_xy_dummy = Target + data_raw2_x_dummy</span><br><span class="line">print(<span class="string">'Dummy X Y: '</span>, data_raw2_xy_dummy, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">print(data_raw2_dummy.sample(<span class="number">10</span>))</span><br></pre></td></tr></table></figure></p>
-<p>输出结果：<br>|df_index|Pclass|SibSp|Parch|Age|Fare|FamilySize|IsAlone|Sex_female|Sex_male|Embarked_C|Embarked_Q|Embarked_S|Title_Master|Title_Misc|Title_Miss|Title_Mr|Title_Mrs|<br>|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|<br>|154|3|0|0|28.0|7.3125|1|1|0|1|0|0|1|0|0|0|1|0|<br>|317|2|0|0|54.0|14.0|1|1|0|1|0|0|1|0|1|0|0|0|<br>|216|3|0|0|27.0|7.925|1|1|1|0|0|0|1|0|0|1|0|0|<br>|177|1|0|0|50.0|28.7125|1|1|1|0|1|0|0|0|0|1|0|0|<br>|514|3|0|0|24.0|7.4958|1|1|0|1|0|0|1|0|0|0|1|0|<br>|552|3|0|0|28.0|7.8292|1|1|0|1|0|1|0|0|0|0|1|0|<br>|785|3|0|0|25.0|7.25|1|1|0|1|0|0|1|0|0|0|1|0|<br>|324|3|8|2|28.0|69.55|11|0|0|1|0|0|1|0|0|0|1|0|<br>|135|2|0|0|23.0|15.0458|1|1|0|1|1|0|0|0|0|0|1|0|<br>|79|3|0|0|30.0|12.475|1|1|1|0|0|0|1|0|0|1|0|0|</p>
+<p>输出结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">FamilySize</th>
+<th style="text-align:center">IsAlone</th>
+<th style="text-align:center">Sex_female</th>
+<th style="text-align:center">Sex_male</th>
+<th style="text-align:center">Embarked_C</th>
+<th style="text-align:center">Embarked_Q</th>
+<th style="text-align:center">Embarked_S</th>
+<th style="text-align:center">Title_Master</th>
+<th style="text-align:center">Title_Misc</th>
+<th style="text-align:center">Title_Miss</th>
+<th style="text-align:center">Title_Mr</th>
+<th style="text-align:center">Title_Mrs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">154</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">7.3125</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">317</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">54.0</td>
+<td style="text-align:center">14.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">216</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">27.0</td>
+<td style="text-align:center">7.925</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">177</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">50.0</td>
+<td style="text-align:center">28.7125</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">514</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">24.0</td>
+<td style="text-align:center">7.4958</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">552</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">7.8292</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">785</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">25.0</td>
+<td style="text-align:center">7.25</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">324</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">69.55</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">135</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">23.0</td>
+<td style="text-align:center">15.0458</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">79</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">30.0</td>
+<td style="text-align:center">12.475</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
 <h4 id="STEP-3-3-6-拆分训练集"><a href="#STEP-3-3-6-拆分训练集" class="headerlink" title="STEP 3.3.6. 拆分训练集"></a>STEP 3.3.6. 拆分训练集</h4><p>前面提到项目给定了两个数据集，一个是训练集，一个是测试集。但是在真正开始进行模型训练时，我们需要将这个训练集拆分为两部分，使用其中一部分进行模型训练，另一部分进行验证，以防止过拟合。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">train1_x, test1_x, train1_y, test1_y = model_selection.train_test_split(data_raw2[data_raw2_x_calc], data_raw2[Target], random_state = <span class="number">0</span>)</span><br><span class="line">train1_x_bin, test1_x_bin, train1_y_bin, test1_y_bin = model_selection.train_test_split(data_raw2[data_raw2_x_bin], data_raw2[Target] , random_state = <span class="number">0</span>)</span><br><span class="line">train1_x_dummy, test1_x_dummy, train1_y_dummy, test1_y_dummy = model_selection.train_test_split(data_raw2_dummy[data_raw2_x_dummy], data_raw2[Target], random_state = <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"data_raw2 Shape: &#123;&#125;"</span>.format(data_raw2.shape))</span><br><span class="line">print(<span class="string">"Train1 Shape: &#123;&#125;"</span>.format(train1_x.shape))</span><br><span class="line">print(<span class="string">"Test1 Shape: &#123;&#125;"</span>.format(test1_x.shape))</span><br></pre></td></tr></table></figure>
 <h2 id="STEP-4-探索性数据分析"><a href="#STEP-4-探索性数据分析" class="headerlink" title="STEP 4. 探索性数据分析"></a>STEP 4. 探索性数据分析</h2><p>现在已经完成了数据清理，我们需要利用统计和图示工具来找出分类特征，已经判断其与输出或其他特征之间的相关性。</p>
