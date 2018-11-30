@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据可视化 Matplotlib Tutorial | 全宇宙尖端技术研究基地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Matplotlib 是一个 Python 的可视化类库，用于开发二维和三维图表。最近几年，它被广泛的应用于科学和工程领域。">
+<meta name="keywords" content="Data Visualization,Matplotlib,Numpy,3D,Line Charts,折线图,Historgrams,直方图,Bar Charts,柱状图,Pie Charts,饼状图,3D Surfaces,3D 曲面图,3D Scatter Plots,3D 散点图,3D Bar Charts,3D 柱状图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据可视化 Matplotlib Tutorial">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/index.html">
+<meta property="og:site_name" content="全宇宙尖端技术研究基地">
+<meta property="og:description" content="摘要Matplotlib 是一个 Python 的可视化类库，用于开发二维和三维图表。最近几年，它被广泛的应用于科学和工程领域。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-03.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-04.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-05.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-06.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-07.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-08.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-09.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-10.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-11.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-12.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-13.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-14.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-03.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-04.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-05.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-06.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-07.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-08.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/B-09.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/C-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/C-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/C-03.png">
+<meta property="og:updated_time" content="2018-11-30T07:05:49.508Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据可视化 Matplotlib Tutorial">
+<meta name="twitter:description" content="摘要Matplotlib 是一个 Python 的可视化类库，用于开发二维和三维图表。最近几年，它被广泛的应用于科学和工程领域。">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/A-01.png">
+  
+    <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">全宇宙尖端技术研究基地</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">专门研究各种全宇宙高精尖技术，比如“各种版本的Hello World怎么写”、“各种版本操作系统如何开机关机”、“如何喂养一只卖不出去的布偶猫”等...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据可视化-Matplotlib-Tutorial" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/" class="article-date">
+  <time datetime="2018-11-30T06:58:13.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据可视化 Matplotlib Tutorial
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>Matplotlib 是一个 Python 的可视化类库，用于开发二维和三维图表。最近几年，它被广泛的应用于科学和工程领域。</p>
+<a id="more"></a>
+<h1 id="1-Matplotlib-架构"><a href="#1-Matplotlib-架构" class="headerlink" title="1. Matplotlib 架构"></a>1. Matplotlib 架构</h1><p>Matplotlib 架构从逻辑上分为三层，位于三个不同的层级上。上层内容可以与下层内容进行通讯，但下层内容不可以与上层内容通讯。</p>
+<p>三层从上至下依次是：</p>
+<ul>
+<li>Scripting</li>
+<li>Artist</li>
+<li>Backend</li>
+</ul>
+<h2 id="1-1-Backend-层"><a href="#1-1-Backend-层" class="headerlink" title="1.1. Backend 层"></a>1.1. Backend 层</h2><p>位于架构的最底层。这一层包含了 matplotlib 的 API，也就是若干类的集合，这些类用来在底层实现各种图形元素。主要包括：</p>
+<ul>
+<li>FigureCanves —— 用来表示图形的绘制区域</li>
+<li>Renderer —— 用来在 FigureCanves 上绘制内容的对象</li>
+<li>Event —— 用来处理用户输入（键盘、鼠标输入）的对象</li>
+</ul>
+<h2 id="1-2-Artist-层"><a href="#1-2-Artist-层" class="headerlink" title="1.2. Artist 层"></a>1.2. Artist 层</h2><p>整个架构的中间层，所有用来构成一个图像的各种元素都在这里，比如标题、坐标轴、坐标轴标签、标记等内容都是 Artist 的实例。并且这些元素构成了一个层级结构。</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-01.png" alt="ARTIST HIERARCHICAL STRUCTURE"></p>
+<p>Artist 分为两类，一类是 primitive artist，一类是 composite artist：</p>
+<ul>
+<li>Primitive artist 是包含基本图形的独立元素，例如一个矩形、一个圆或者是一个文本标签</li>
+<li>Composite artist 是这些简单元素的组合，比如横坐标、纵坐标、图形等</li>
+</ul>
+<p>在处理这一层内容的时候，主要打交道的都是上层的图形结构，需要理解其中每个对象在图形中所代表的含义。下图表示了一个 Artist 对象的结构。</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-02.png" alt="ARTIST HIERARCHICAL STRUCTURE"></p>
+<h2 id="1-3-Scripting-层"><a href="#1-3-Scripting-层" class="headerlink" title="1.3. Scripting 层"></a>1.3. Scripting 层</h2><p>该层包含了一个 <code>pyplot</code> 接口。这个包提供了经典的 Python 接口，基于编程的方式操作 matplotlib，它有自己的命名空间，需要导入 NumPy包。</p>
+<h1 id="2-绘制图形"><a href="#2-绘制图形" class="headerlink" title="2. 绘制图形"></a>2. 绘制图形</h1><h2 id="2-1-简单示例"><a href="#2-1-简单示例" class="headerlink" title="2.1. 简单示例"></a>2.1. 简单示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">print(plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]))</span><br></pre></td></tr></table></figure>
+<p>打印输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;matplotlib.lines.Line2D object at <span class="number">0x000000000D55EB70</span>&gt;]</span><br></pre></td></tr></table></figure>
+<p>这里创建了一个 <code>Line2D</code> 对象。这个对象是一条符合给定点趋势的直线。接下来我们可以使用一个命令来将这个图片显示出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-03.png" alt="ARTIST HIERARCHICAL STRUCTURE"></p>
+<p>这个显示出来的窗口被称为 <code>plotting window</code>，这个窗口上有一些工具栏可以用来修改图形。</p>
+<p>这里我们只给 <code>plot()</code> 方法传入了一个数字列表或数字数组，那么这个数组表示的是 y 坐标的点，对应每个点默认的 x 坐标的值是 <code>0, 1, 2, 3, ...</code> 。</p>
+<p>如果要正确的绘制图形，那么应该给定明确的横坐标和纵坐标，也就是需要给定两个数组，第一个表示 x 轴，第二个表示 y 轴。此外，<code>plot()</code> 方法还可以接受第三个参数，用于表示绘制图形的属性。</p>
+<h2 id="2-2-设置样式"><a href="#2-2-设置样式" class="headerlink" title="2.2. 设置样式"></a>2.2. 设置样式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>], <span class="string">'ro'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-04.png" alt="SAMPLE"></p>
+<p><strong>设置坐标样式</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">20</span>])	<span class="comment"># [xmin, xmax, ymin, ymax]</span></span><br><span class="line">plt.title(<span class="string">"My first plot"</span>)</span><br><span class="line">plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>], <span class="string">'ro'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-05.png" alt="SAMPLE"></p>
+<h2 id="2-3-在一个图上绘制多条线"><a href="#2-3-在一个图上绘制多条线" class="headerlink" title="2.3. 在一个图上绘制多条线"></a>2.3. 在一个图上绘制多条线</h2><p>这里使用 <code>sin()</code> 函数来绘制三角函数的图形。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">t = np.arange(<span class="number">0</span>, <span class="number">2.5</span>, <span class="number">0.1</span>)</span><br><span class="line">y1 = np.sin(math.pi * t)</span><br><span class="line">y2 = np.sin(math.pi * t + math.pi / <span class="number">2</span>)</span><br><span class="line">y3 = np.sin(math.pi * t - math.pi / <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">plt.axis([<span class="number">-0.5</span>, <span class="number">3</span>, <span class="number">-1.5</span>, <span class="number">1.5</span>])</span><br><span class="line">plt.plot(t, y1, <span class="string">'b*'</span>, t, y2, <span class="string">'g^'</span>, t, y3, <span class="string">'ys'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-06.png" alt="SAMPLE"></p>
+<p>还可以修改线条的样式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(t, y1, <span class="string">'b--'</span>, t, y2, <span class="string">'g'</span>, t, y3, <span class="string">'r-.'</span>)</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-07.png" alt="SAMPLE"></p>
+<h2 id="2-4-使用关键字参数"><a href="#2-4-使用关键字参数" class="headerlink" title="2.4. 使用关键字参数"></a>2.4. 使用关键字参数</h2><p>之前在使用 <code>plot()</code> 方法绘制线条时，传入了一些参数，该方法还提供了很多参数以供使用，具体可以参考：</p>
+<p><a href="https://matplotlib.org/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D" target="_blank" rel="noopener">matplotlib.lines.Line2D</a></p>
+<h2 id="2-5-在一个窗口绘制多个图形"><a href="#2-5-在一个窗口绘制多个图形" class="headerlink" title="2.5. 在一个窗口绘制多个图形"></a>2.5. 在一个窗口绘制多个图形</h2><p>如果需要在一个窗口绘制多个图形，那么可以使用 <code>subplot()</code> 方法设置当前图形所位于整个窗口的位置。然后使用 <code>plot()</code> 方法绘制当前区域的图形即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">t = np.arange(<span class="number">0</span>,<span class="number">5</span>, <span class="number">0.1</span>)</span><br><span class="line">y1 = np.sin(<span class="number">2</span> * np.pi * t)</span><br><span class="line">y2 = np.sin(<span class="number">2</span> * np.pi * t)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">211</span>)</span><br><span class="line">plt.plot(t, y1, <span class="string">'b-.'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">212</span>)</span><br><span class="line">plt.plot(t, y2, <span class="string">'r--'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-08.png" alt="SAMPLE"></p>
+<h2 id="2-6-设置标签"><a href="#2-6-设置标签" class="headerlink" title="2.6. 设置标签"></a>2.6. 设置标签</h2><h3 id="2-6-1-设置坐标轴标签"><a href="#2-6-1-设置坐标轴标签" class="headerlink" title="2.6.1. 设置坐标轴标签"></a>2.6.1. 设置坐标轴标签</h3><p>前面已经用过使用 <code>title()</code> 方法设置图形的标题，另外还有方法可以设置坐标的标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">20</span>])	<span class="comment"># [xmin, xmax, ymin, ymax]</span></span><br><span class="line">plt.title(<span class="string">"My first plot"</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Counting"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Square values"</span>)</span><br><span class="line">plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>], <span class="string">'ro'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-09.png" alt="SAMPLE"></p>
+<p><strong>设置字体</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.title(<span class="string">"My first plot"</span>, fontsize = <span class="number">20</span>, fontname = <span class="string">'Times New Roman'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Counting"</span>, color = <span class="string">'gray'</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Square values"</span>, color = <span class="string">'gray'</span>)</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-10.png" alt="SAMPLE"></p>
+<h3 id="2-6-2-设置数据点标签"><a href="#2-6-2-设置数据点标签" class="headerlink" title="2.6.2. 设置数据点标签"></a>2.6.2. 设置数据点标签</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">20</span>])	<span class="comment"># [xmin, xmax, ymin, ymax]</span></span><br><span class="line">plt.title(<span class="string">"My first plot"</span>, fontsize = <span class="number">20</span>, fontname = <span class="string">'Times New Roman'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Counting"</span>, color = <span class="string">'gray'</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Square values"</span>, color = <span class="string">'gray'</span>)</span><br><span class="line"></span><br><span class="line">plt.text(<span class="number">1</span>, <span class="number">1.5</span>, <span class="string">'First'</span>)</span><br><span class="line">plt.text(<span class="number">2</span>, <span class="number">4.5</span>, <span class="string">'Second'</span>)</span><br><span class="line">plt.text(<span class="number">3</span>, <span class="number">9.5</span>, <span class="string">'Third'</span>)</span><br><span class="line">plt.text(<span class="number">4</span>, <span class="number">16.5</span>, <span class="string">'Fourth'</span>)</span><br><span class="line"></span><br><span class="line">plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>], <span class="string">'ro'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-11.png" alt="SAMPLE"></p>
+<h3 id="2-6-3-添加-LaTex-表达式"><a href="#2-6-3-添加-LaTex-表达式" class="headerlink" title="2.6.3. 添加 LaTex 表达式"></a>2.6.3. 添加 LaTex 表达式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.text(<span class="number">1.1</span>, <span class="number">12</span>, <span class="string">r'$y=x^2$'</span>, fontsize=<span class="number">20</span>,bbox=&#123;<span class="string">'facecolor'</span>:<span class="string">'yellow'</span>, <span class="string">'alpha'</span>: <span class="number">0.2</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-12.png" alt="SAMPLE"></p>
+<h3 id="2-6-4-添加网格"><a href="#2-6-4-添加网格" class="headerlink" title="2.6.4. 添加网格"></a>2.6.4. 添加网格</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.grid(linestyle=<span class="string">'--'</span>)</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-13.png" alt="SAMPLE"></p>
+<h3 id="2-6-5-添加图例"><a href="#2-6-5-添加图例" class="headerlink" title="2.6.5. 添加图例"></a>2.6.5. 添加图例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">20</span>])	<span class="comment"># [xmin, xmax, ymin, ymax]</span></span><br><span class="line">plt.title(<span class="string">"My first plot"</span>, fontsize = <span class="number">20</span>, fontname = <span class="string">'Times New Roman'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Counting"</span>, color = <span class="string">'gray'</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Square values"</span>, color = <span class="string">'gray'</span>)</span><br><span class="line"></span><br><span class="line">plt.text(<span class="number">1</span>, <span class="number">1.5</span>, <span class="string">'First'</span>)</span><br><span class="line">plt.text(<span class="number">2</span>, <span class="number">4.5</span>, <span class="string">'Second'</span>)</span><br><span class="line">plt.text(<span class="number">3</span>, <span class="number">9.5</span>, <span class="string">'Third'</span>)</span><br><span class="line">plt.text(<span class="number">4</span>, <span class="number">16.5</span>, <span class="string">'Fourth'</span>)</span><br><span class="line"></span><br><span class="line">plt.text(<span class="number">1.1</span>, <span class="number">12</span>, <span class="string">r'$y=x^2$'</span>, fontsize=<span class="number">20</span>,bbox=&#123;<span class="string">'facecolor'</span>:<span class="string">'yellow'</span>, <span class="string">'alpha'</span>: <span class="number">0.2</span>&#125;)</span><br><span class="line"></span><br><span class="line">plt.grid(linestyle=<span class="string">'--'</span>)</span><br><span class="line"></span><br><span class="line">plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>], <span class="string">'ro'</span>)</span><br><span class="line">plt.legend([<span class="string">'First series'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/A-14.png" alt="SAMPLE"></p>
+<p>注意，添加的图例中接受的是一个数组，数组中元素的顺序与 <code>plot()</code> 方法绘制的元素顺序对应。</p>
+<h1 id="3-常用图表"><a href="#3-常用图表" class="headerlink" title="3. 常用图表"></a>3. 常用图表</h1><h2 id="3-1-折线图（Line-Charts）"><a href="#3-1-折线图（Line-Charts）" class="headerlink" title="3.1. 折线图（Line Charts）"></a>3.1. 折线图（Line Charts）</h2><p>折线图的思路是给定 x 一个细密度的坐标数组，给定 y 一个以 x 作为变量的表达式进行绘制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">-2</span> * np.pi, <span class="number">2</span> * np.pi, <span class="number">0.01</span>)</span><br><span class="line">y = np.sin(<span class="number">3</span> * x) / x</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-01.png" alt="SAMPLE"></p>
+<h3 id="3-1-1-用-Pandas-绘制"><a href="#3-1-1-用-Pandas-绘制" class="headerlink" title="3.1.1. 用 Pandas 绘制"></a>3.1.1. 用 Pandas 绘制</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">	<span class="string">'series1'</span>:[<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">5</span>],</span><br><span class="line">	<span class="string">'series2'</span>:[<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>],</span><br><span class="line">	<span class="string">'series3'</span>:[<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">df = pd.DataFrame(data)</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">5</span>)</span><br><span class="line">plt.axis([<span class="number">0</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">7</span>])</span><br><span class="line">plt.plot(x, df)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-02.png" alt="SAMPLE"></p>
+<h2 id="3-2-直方图（Histograms）"><a href="#3-2-直方图（Histograms）" class="headerlink" title="3.2. 直方图（Histograms）"></a>3.2. 直方图（Histograms）</h2><p>使用 <code>hist()</code> 方法绘制直方图。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pop = np.random.randint(<span class="number">0</span>,<span class="number">100</span>,<span class="number">100</span>)</span><br><span class="line">n, bins, patches = plt.hist(pop, bins=<span class="number">20</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-03.png" alt="SAMPLE"></p>
+<h2 id="3-3-柱状图（Bar-Charts）"><a href="#3-3-柱状图（Bar-Charts）" class="headerlink" title="3.3. 柱状图（Bar Charts）"></a>3.3. 柱状图（Bar Charts）</h2><p>柱状图与直方图非常相似，但是注意，柱状图的横坐标是分类，而不是连续型的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">values = [<span class="number">5</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">plt.bar(index,values)</span><br><span class="line">plt.xticks(index,[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-04.png" alt="SAMPLE"></p>
+<h3 id="3-3-1-标准差"><a href="#3-3-1-标准差" class="headerlink" title="3.3.1. 标准差"></a>3.3.1. 标准差</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">values = [<span class="number">5</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">std = [<span class="number">0.8</span>,<span class="number">1</span>,<span class="number">0.4</span>,<span class="number">0.9</span>,<span class="number">1.3</span>]</span><br><span class="line">plt.bar(index, values, yerr=std, error_kw=&#123;<span class="string">'ecolor'</span>:<span class="string">'0.1'</span>, <span class="string">'capsize'</span>:<span class="number">6</span>&#125;)</span><br><span class="line">plt.xticks(index, [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-05.png" alt="SAMPLE"></p>
+<h3 id="3-3-2-水平柱状图"><a href="#3-3-2-水平柱状图" class="headerlink" title="3.3.2. 水平柱状图"></a>3.3.2. 水平柱状图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">values = [<span class="number">5</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">std = [<span class="number">0.8</span>,<span class="number">1</span>,<span class="number">0.4</span>,<span class="number">0.9</span>,<span class="number">1.3</span>]</span><br><span class="line">plt.barh(index, values, xerr=std, error_kw=&#123;<span class="string">'ecolor'</span>:<span class="string">'0.1'</span>, <span class="string">'capsize'</span>:<span class="number">6</span>&#125;)</span><br><span class="line">plt.xticks(index, [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-06.png" alt="SAMPLE"></p>
+<h3 id="3-3-3-多列柱状图"><a href="#3-3-3-多列柱状图" class="headerlink" title="3.3.3. 多列柱状图"></a>3.3.3. 多列柱状图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">index = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">values1 = [<span class="number">5</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">values2 = [<span class="number">6</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>]</span><br><span class="line">values3 = [<span class="number">5</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line">bw=<span class="number">0.3</span></span><br><span class="line">plt.axis([<span class="number">0</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">8</span>])</span><br><span class="line">plt.bar(index-bw, values1, bw, color=<span class="string">'b'</span>)</span><br><span class="line">plt.bar(index, values2, bw, color=<span class="string">'g'</span>)</span><br><span class="line">plt.bar(index+bw, values3, bw, color=<span class="string">'r'</span>)</span><br><span class="line">plt.xticks(index, [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-07.png" alt="SAMPLE"></p>
+<h3 id="3-3-4-堆叠柱状图"><a href="#3-3-4-堆叠柱状图" class="headerlink" title="3.3.4. 堆叠柱状图"></a>3.3.4. 堆叠柱状图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">series1 = np.array([<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">3</span>])</span><br><span class="line">series2 = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">5</span>])</span><br><span class="line">series3 = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">index = np.arange(<span class="number">4</span>)</span><br><span class="line">plt.axis([<span class="number">-0.5</span>,<span class="number">3.5</span>,<span class="number">0</span>,<span class="number">15</span>])</span><br><span class="line">plt.title(<span class="string">'A Multiseries Stacked Bar Chart'</span>)</span><br><span class="line">plt.bar(index,series1,color=<span class="string">'r'</span>)</span><br><span class="line">plt.bar(index,series2,color=<span class="string">'b'</span>,bottom=series1)</span><br><span class="line">plt.bar(index,series3,color=<span class="string">'g'</span>,bottom=(series2+series1))</span><br><span class="line">plt.xticks(index+<span class="number">0.4</span>,[<span class="string">'Jan18'</span>,<span class="string">'Feb18'</span>,<span class="string">'Mar18'</span>,<span class="string">'Apr18'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-08.png" alt="SAMPLE"></p>
+<h2 id="3-4-饼状图（Pie-Charts）"><a href="#3-4-饼状图（Pie-Charts）" class="headerlink" title="3.4. 饼状图（Pie Charts）"></a>3.4. 饼状图（Pie Charts）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">labels = [<span class="string">'Nokia'</span>,<span class="string">'Samsung'</span>,<span class="string">'Apple'</span>,<span class="string">'Lumia'</span>]</span><br><span class="line">values = [<span class="number">10</span>,<span class="number">30</span>,<span class="number">45</span>,<span class="number">15</span>]</span><br><span class="line">colors = [<span class="string">'yellow'</span>,<span class="string">'green'</span>,<span class="string">'red'</span>,<span class="string">'blue'</span>]</span><br><span class="line">plt.pie(values,labels=labels,colors=colors)</span><br><span class="line">plt.axis(<span class="string">'equal'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/B-09.png" alt="SAMPLE"></p>
+<h1 id="4-3D-图形"><a href="#4-3D-图形" class="headerlink" title="4. 3D 图形"></a>4. 3D 图形</h1><h2 id="4-1-3D-曲面"><a href="#4-1-3D-曲面" class="headerlink" title="4.1. 3D 曲面"></a>4.1. 3D 曲面</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">X = np.arange(<span class="number">-2</span>,<span class="number">2</span>,<span class="number">0.1</span>)</span><br><span class="line">Y = np.arange(<span class="number">-2</span>,<span class="number">2</span>,<span class="number">0.1</span>)</span><br><span class="line">X,Y = np.meshgrid(X,Y)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x,y)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> (<span class="number">1</span> - y**<span class="number">5</span> + x**<span class="number">5</span>)*np.exp(-x**<span class="number">2</span>-y**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">ax.plot_surface(X,Y,f(X,Y), rstride=<span class="number">1</span>, cstride=<span class="number">1</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/C-01.png" alt="SAMPLE"></p>
+<h2 id="4-2-3D-散点图"><a href="#4-2-3D-散点图" class="headerlink" title="4.2. 3D 散点图"></a>4.2. 3D 散点图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">xs = np.random.randint(<span class="number">30</span>,<span class="number">40</span>,<span class="number">100</span>)</span><br><span class="line">ys = np.random.randint(<span class="number">20</span>,<span class="number">30</span>,<span class="number">100</span>)</span><br><span class="line">zs = np.random.randint(<span class="number">10</span>,<span class="number">20</span>,<span class="number">100</span>)</span><br><span class="line">xs2 = np.random.randint(<span class="number">50</span>,<span class="number">60</span>,<span class="number">100</span>)</span><br><span class="line">ys2 = np.random.randint(<span class="number">30</span>,<span class="number">40</span>,<span class="number">100</span>)</span><br><span class="line">zs2 = np.random.randint(<span class="number">50</span>,<span class="number">70</span>,<span class="number">100</span>)</span><br><span class="line">xs3 = np.random.randint(<span class="number">10</span>,<span class="number">30</span>,<span class="number">100</span>)</span><br><span class="line">ys3 = np.random.randint(<span class="number">40</span>,<span class="number">50</span>,<span class="number">100</span>)</span><br><span class="line">zs3 = np.random.randint(<span class="number">40</span>,<span class="number">50</span>,<span class="number">100</span>)</span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.scatter(xs,ys,zs)</span><br><span class="line">ax.scatter(xs2,ys2,zs2,c=<span class="string">'r'</span>,marker=<span class="string">'^'</span>)</span><br><span class="line">ax.scatter(xs3,ys3,zs3,c=<span class="string">'g'</span>,marker=<span class="string">'*'</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">'X Label'</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">'Y Label'</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">'Z Label'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/C-02.png" alt="SAMPLE"></p>
+<h2 id="4-3-3D-柱状图"><a href="#4-3-3D-柱状图" class="headerlink" title="4.3. 3D 柱状图"></a>4.3. 3D 柱状图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">8</span>)</span><br><span class="line">y = np.random.randint(<span class="number">0</span>,<span class="number">10</span>,<span class="number">8</span>)</span><br><span class="line">y2 = y + np.random.randint(<span class="number">0</span>,<span class="number">3</span>,<span class="number">8</span>)</span><br><span class="line">y3 = y2 + np.random.randint(<span class="number">0</span>,<span class="number">3</span>,<span class="number">8</span>)</span><br><span class="line">y4 = y3 + np.random.randint(<span class="number">0</span>,<span class="number">3</span>,<span class="number">8</span>)</span><br><span class="line">y5 = y4 + np.random.randint(<span class="number">0</span>,<span class="number">3</span>,<span class="number">8</span>)</span><br><span class="line">clr = [<span class="string">'#4bb2c5'</span>, <span class="string">'#c5b47f'</span>, <span class="string">'#EAA228'</span>, <span class="string">'#579575'</span>, <span class="string">'#839557'</span>, <span class="string">'#958c12'</span>, <span class="string">'#953579'</span>, <span class="string">'#4b5de4'</span>]</span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.bar(x,y,<span class="number">0</span>,zdir=<span class="string">'y'</span>,color=clr)</span><br><span class="line">ax.bar(x,y2,<span class="number">10</span>,zdir=<span class="string">'y'</span>,color=clr)</span><br><span class="line">ax.bar(x,y3,<span class="number">20</span>,zdir=<span class="string">'y'</span>,color=clr)</span><br><span class="line">ax.bar(x,y4,<span class="number">30</span>,zdir=<span class="string">'y'</span>,color=clr)</span><br><span class="line">ax.bar(x,y5,<span class="number">40</span>,zdir=<span class="string">'y'</span>,color=clr)</span><br><span class="line">ax.set_xlabel(<span class="string">'X Axis'</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">'Y Axis'</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">'Z Axis'</span>)</span><br><span class="line">ax.view_init(elev=<span class="number">40</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<p><img src="/2018/11/30/数据可视化-Matplotlib-Tutorial/C-03.png" alt="SAMPLE"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/30/数据可视化-Matplotlib-Tutorial/" data-id="cjp3os3h5004mcoluxfip8j40" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D/">3D</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/折线图/">折线图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/直方图/">直方图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/29/Pandas-Tutorial/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Pandas Tutorial</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/KVM/">KVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nodejs/">Nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scrapy/">Scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/饭团的小日子/">饭团的小日子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2080ti/">2080ti</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIY/">DIY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Analysis/">Data Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exector/">Exector</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/History-Server/">History-Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KVM/">KVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4J/">Log4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogBack/">LogBack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAT/">MAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math-Function/">Math Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Connection/">Network Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDD/">RDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Run-Main/">Run Main</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SLF4J/">SLF4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbt/">Sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala操作HBase/">Scala操作HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-client/">Scrapyd-client</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-deploy/">Scrapyd-deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series/">Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slicing/">Slicing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-on-Yarn/">Spark on Yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark-shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stage/">Stage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-IP/">Static IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Syntax/">Syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Titanic/">Titanic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-C/">Visual C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZooKeeper/">ZooKeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my-ini/">my.ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/port/">port</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt-package/">sbt package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/休眠/">休眠</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/免密登录/">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分析/">内存分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折线图/">折线图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无人值守/">无人值守</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘干机/">烘干机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生产者消费者模式/">生产者消费者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直方图/">直方图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/端口/">端口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙/">防火墙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2080ti/" style="font-size: 10px;">2080ti</a> <a href="/tags/3D/" style="font-size: 10px;">3D</a> <a href="/tags/3D-Bar-Charts/" style="font-size: 10px;">3D Bar Charts</a> <a href="/tags/3D-Scatter-Plots/" style="font-size: 10px;">3D Scatter Plots</a> <a href="/tags/3D-Surfaces/" style="font-size: 10px;">3D Surfaces</a> <a href="/tags/3D-散点图/" style="font-size: 10px;">3D 散点图</a> <a href="/tags/3D-曲面图/" style="font-size: 10px;">3D 曲面图</a> <a href="/tags/3D-柱状图/" style="font-size: 10px;">3D 柱状图</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Bar-Charts/" style="font-size: 10px;">Bar Charts</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Bridge/" style="font-size: 13.33px;">Bridge</a> <a href="/tags/Cross-Validation/" style="font-size: 10px;">Cross Validation</a> <a href="/tags/DAG/" style="font-size: 10px;">DAG</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/Data-Analysis/" style="font-size: 10px;">Data Analysis</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/Data-Visualization/" style="font-size: 10px;">Data Visualization</a> <a href="/tags/Data-wrangling/" style="font-size: 10px;">Data wrangling</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/Exector/" style="font-size: 10px;">Exector</a> <a href="/tags/Explorator-Analysis/" style="font-size: 10px;">Explorator Analysis</a> <a href="/tags/Feature-Selection/" style="font-size: 10px;">Feature Selection</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/HBase/" style="font-size: 16.67px;">HBase</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Historgrams/" style="font-size: 10px;">Historgrams</a> <a href="/tags/History-Server/" style="font-size: 10px;">History-Server</a> <a href="/tags/Idea/" style="font-size: 13.33px;">Idea</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KVM/" style="font-size: 13.33px;">KVM</a> <a href="/tags/Kaggle/" style="font-size: 10px;">Kaggle</a> <a href="/tags/KickStart/" style="font-size: 10px;">KickStart</a> <a href="/tags/Line-Charts/" style="font-size: 10px;">Line Charts</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Log4J/" style="font-size: 10px;">Log4J</a> <a href="/tags/LogBack/" style="font-size: 10px;">LogBack</a> <a href="/tags/MAT/" style="font-size: 10px;">MAT</a> <a href="/tags/Math-Function/" style="font-size: 10px;">Math Function</a> <a href="/tags/Matplotlib/" style="font-size: 13.33px;">Matplotlib</a> <a href="/tags/Maven/" style="font-size: 13.33px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Network-Connection/" style="font-size: 10px;">Network Connection</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Numpy/" style="font-size: 13.33px;">Numpy</a> <a href="/tags/PairRDD/" style="font-size: 10px;">PairRDD</a> <a href="/tags/Pandas/" style="font-size: 13.33px;">Pandas</a> <a href="/tags/Pie-Charts/" style="font-size: 10px;">Pie Charts</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/RDD/" style="font-size: 10px;">RDD</a> <a href="/tags/Run-Main/" style="font-size: 10px;">Run Main</a> <a href="/tags/SKLearn/" style="font-size: 10px;">SKLearn</a> <a href="/tags/SLF4J/" style="font-size: 10px;">SLF4J</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Sbt/" style="font-size: 10px;">Sbt</a> <a href="/tags/Scala/" style="font-size: 20px;">Scala</a> <a href="/tags/Scala操作HBase/" style="font-size: 10px;">Scala操作HBase</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Scrapyd-client/" style="font-size: 10px;">Scrapyd-client</a> <a href="/tags/Scrapyd-deploy/" style="font-size: 10px;">Scrapyd-deploy</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Series/" style="font-size: 10px;">Series</a> <a href="/tags/Slicing/" style="font-size: 10px;">Slicing</a> <a href="/tags/Spark/" style="font-size: 16.67px;">Spark</a> <a href="/tags/Spark-on-Yarn/" style="font-size: 10px;">Spark on Yarn</a> <a href="/tags/Spark-shell/" style="font-size: 10px;">Spark-shell</a> <a href="/tags/Stage/" style="font-size: 10px;">Stage</a> <a href="/tags/Static-IP/" style="font-size: 10px;">Static IP</a> <a href="/tags/Syntax/" style="font-size: 10px;">Syntax</a> <a href="/tags/Titanic/" style="font-size: 10px;">Titanic</a> <a href="/tags/Visual-C/" style="font-size: 10px;">Visual C++</a> <a href="/tags/ZooKeeper/" style="font-size: 10px;">ZooKeeper</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10px;">hdfs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/my-ini/" style="font-size: 10px;">my.ini</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/sbt-package/" style="font-size: 10px;">sbt package</a> <a href="/tags/yarn/" style="font-size: 10px;">yarn</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/免密登录/" style="font-size: 10px;">免密登录</a> <a href="/tags/内存分析/" style="font-size: 10px;">内存分析</a> <a href="/tags/命令行安装虚拟机/" style="font-size: 10px;">命令行安装虚拟机</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/折线图/" style="font-size: 10px;">折线图</a> <a href="/tags/无人值守/" style="font-size: 10px;">无人值守</a> <a href="/tags/柱状图/" style="font-size: 10px;">柱状图</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/烘干机/" style="font-size: 10px;">烘干机</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/生产者消费者模式/" style="font-size: 10px;">生产者消费者模式</a> <a href="/tags/直方图/" style="font-size: 10px;">直方图</a> <a href="/tags/端口/" style="font-size: 10px;">端口</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a> <a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a> <a href="/tags/集群/" style="font-size: 13.33px;">集群</a> <a href="/tags/饼状图/" style="font-size: 10px;">饼状图</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/">数据可视化 Matplotlib Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Pandas-Tutorial/">Pandas Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Numpy-Tutorial/">Numpy Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/">基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/基于生产者消费者模式实现数据从-MongoDB-导入-HBase/">基于生产者消费者模式实现数据从 MongoDB 导入 HBase</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 weilu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
