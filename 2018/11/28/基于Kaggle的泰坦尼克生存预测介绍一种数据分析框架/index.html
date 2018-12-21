@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架 | 全宇宙尖端技术研究基地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。">
+<meta name="keywords" content="Python,Matplotlib,Pandas,Kaggle,Data Science,SKLearn,Feature Selection,Cross Validation,Seaborn,Titanic,Data wrangling,Explorator Analysis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/index.html">
+<meta property="og:site_name" content="全宇宙尖端技术研究基地">
+<meta property="og:description" content="摘要本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-01-Fare.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-02-Age.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-03-FamilySize.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A02-01-Embarked-Pclass-IsAlone.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A03-01-FareBin-AgeBin-FamilySize.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A04-Pclass-OtherVar.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A05-Sex-Embarked-Pclass-IsAlone.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A06-Pclass-Sex.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A07-Age.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A08-Pearson-Correlation.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/B-Score.png">
+<meta property="og:updated_time" content="2018-11-28T13:00:00.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架">
+<meta name="twitter:description" content="摘要本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-01-Fare.png">
+  
+    <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">全宇宙尖端技术研究基地</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">专门研究各种全宇宙高精尖技术，比如“各种版本的Hello World怎么写”、“各种版本操作系统如何开机关机”、“如何喂养一只卖不出去的布偶猫”等...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/" class="article-date">
+  <time datetime="2018-11-28T12:21:23.000Z" itemprop="datePublished">2018-11-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MachineLearning/">MachineLearning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。</p>
+<a id="more"></a>
+<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h2 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h2><p>在1912年4月15日发生的泰坦沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。</p>
+<p>在这个挑战中，我们期望你分析一下什么样的座次有利于提高存活率。并且，我们要求你应用机器学习工具来预测哪些用户在此次海难中存活下来。</p>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>预测在海难中存活的乘客。对给定测试集中的乘客ID，预测一个 0 或 1 的值表示其存活情况。</p>
+<h3 id="度量标准"><a href="#度量标准" class="headerlink" title="度量标准"></a>度量标准</h3><p>准确预测乘客存活情况的百分比。我们使用“准确率”来表示。</p>
+<h3 id="提交文件格式"><a href="#提交文件格式" class="headerlink" title="提交文件格式"></a>提交文件格式</h3><p>提交一份包含 418 条数据和一个标题行的 CSV 文件。如果提交的文件中有多于的行或列，回报错。</p>
+<p>文件应该正好只有两行：<br>1、PassengerId：乘客ID，任意顺序<br>2、Survived：存活情况，1表示存活，0表示丧生</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PassengerId,Survived</span><br><span class="line">892,0</span><br><span class="line">893,1</span><br><span class="line">894,0</span><br><span class="line">Etc.</span><br></pre></td></tr></table></figure>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>数据被分为两组：<br>1、训练集（train.csv）<br>2、测试集（test.csv）</p>
+<p><strong>训练集</strong><br>用来构建你的机器学习模型。在这个训练集中，我们为每个乘客ID提供了一个对应的结果，用于表示这位乘客是否生还。你的模型需要基于乘客的特征，如乘客的性别、分类等。你也可以利用特征工程来创建新的特征。</p>
+<p><strong>测试集</strong><br>测试集用来检查你的模型对于未知的数据能够有多好的效果。在测试集中，我们并没有提供乘客对应的生还情况。而是由你来预测乘客是否生还。利用你通过训练集训练出来的模型，对测试集中每位乘客的生还情况进行预测。</p>
+<p><strong>数据字典</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量</th>
+<th style="text-align:center">定义</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">survival</td>
+<td style="text-align:center">是否生还</td>
+<td style="text-align:center">0=No,1=Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">pclass</td>
+<td style="text-align:center">坐席类型</td>
+<td style="text-align:center">1=一等座, 2=二等座, 3=三等座</td>
+</tr>
+<tr>
+<td style="text-align:center">sex</td>
+<td style="text-align:center">性别</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Age</td>
+<td style="text-align:center">年龄</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">sibsp</td>
+<td style="text-align:center">在船上的兄弟姐妹/配偶数量</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">parch</td>
+<td style="text-align:center">在船上的父母/子女数量</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ticket</td>
+<td style="text-align:center">船票编号</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">fare</td>
+<td style="text-align:center">票价</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cabin</td>
+<td style="text-align:center">船舱编号</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">embarked</td>
+<td style="text-align:center">登船港口</td>
+<td style="text-align:center">C=Cherbourg, Q=Queenstown, S=Southampton</td>
+</tr>
+</tbody>
+</table>
+<p><strong>变量备注</strong><br>pclass：表示社会经济地位</p>
+<ul>
+<li>1：一等座上层</li>
+<li>2：二等座中层</li>
+<li>3：三层座底层</li>
+</ul>
+<p>age：如果小于一岁，年龄是分数。如果年龄是估计的，其形式为 XX.5</p>
+<p>sibsp/parch：数据集中家庭关系的定义</p>
+<p>一些儿童仅仅由保姆陪同出行，因此他们的 parch = 0。</p>
+<h1 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h1><h2 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h2><p><strong>1、定义问题</strong><br>在真正决定使用什么样的技术、算法之前，要明确我们要解决的问题是什么。而不是一股脑的就套用最新的技术、工具或算法。</p>
+<p><strong>2、收集数据</strong><br>John Naisbitt 在他 1984 的书中写到“我们淹没在数据中，却在寻找知识”。所以，现在我们面临的是数据集已经以某种形式存在于某处。可能是开放的或者需要挖掘的，结构化或非结构化的、静态的或流式数据等等。你只需要知道如何去找到它们，然后将这些“脏数据”转化为“干净数据”。</p>
+<p><strong>3、准备数据</strong><br>这一阶段经常被称为数据整理（data wrangling），其中一个必须的流程就是将“杂乱的”数据转换为“易于管理的”数据。数据整理包括以下几部分内容：</p>
+<ul>
+<li>实现易于存储和处理的数据架构（data architecture）</li>
+<li>开发质量与控制的数据治理（data governance）标准</li>
+<li>数据抽取（data extraction）</li>
+<li>以识别异常数据、缺失值以及离群值为目标的数据清理（data cleaning）</li>
+</ul>
+<p><strong>4、探索性分析</strong><br>如果有过数据工作经验的人可能会知道垃圾输入（garbage-in）和垃圾输出（garbage-out）。因此应该使用描述性统计分析和图示统计分析在数据集中寻找潜在的问题、模式、分类、相关系数和对照等内容。另外，数据分类对于理解和选择合适的假设检验或数据模型是非常重要的。</p>
+<p><strong>5、模型数据</strong><br>类似于描述性和推理性统计，数据模型可以总结并预测特征结果。通过数据集特征值以及预期结果分析，可以决定你的算法是否能够使用。需要注意的是算法并不是魔法棒或者银弹，你必须真正懂得如何去选择合适的工具解决对应的问题。</p>
+<p><strong>6、验证和实现模型</strong><br>在基于一部分数据训练完成模型之后，需要检验模型。以确保没有对该部分子集数据过拟合。在这个阶段，我们确定模型是过拟合、泛化还是欠拟合。</p>
+<p><strong>7、优化</strong><br>接下来就是不断的优化，让你的模型变得更好、更快、更强。</p>
+<h2 id="STEP-1-定义问题"><a href="#STEP-1-定义问题" class="headerlink" title="STEP 1. 定义问题"></a>STEP 1. 定义问题</h2><p>在这个项目中，问题的定义非常明确，并且已经在项目介绍中明确的给出了，开发一个算法用于预测泰坦尼克事故中乘客的生还情况。</p>
+<blockquote>
+<p>在1912年4月15日发生的泰坦尼克沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。</p>
+<p>在这个挑战中，我们期望你分析一下什么样的座次有利于提高存活率。并且，我们要求你应用机器学习工具来预测哪些用户在此次海难中存活下来。</p>
+</blockquote>
+<h2 id="STEP-2-收集数据"><a href="#STEP-2-收集数据" class="headerlink" title="STEP 2. 收集数据"></a>STEP 2. 收集数据</h2><p>在这个项目中，数据已经给定，直接下载即可。</p>
+<h2 id="STEP-3-准备数据"><a href="#STEP-3-准备数据" class="headerlink" title="STEP 3. 准备数据"></a>STEP 3. 准备数据</h2><p>TODO 一些描述</p>
+<h3 id="STEP-3-1-准备环境（需要调整，不要一下子导入全部类库）"><a href="#STEP-3-1-准备环境（需要调整，不要一下子导入全部类库）" class="headerlink" title="STEP 3.1. 准备环境（需要调整，不要一下子导入全部类库）"></a>STEP 3.1. 准备环境（需要调整，不要一下子导入全部类库）</h3><p>本项目代码基于 Python 3.x 编写。在正式编写代码之前，首先需要导入一些必要的依赖类库。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#load packages</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="comment">#access to system parameters https://docs.python.org/3/library/sys.html</span></span><br><span class="line">print(<span class="string">"Python version: &#123;&#125;"</span>. format(sys.version))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd <span class="comment">#collection of functions for data processing and analysis modeled after R dataframes with SQL like features</span></span><br><span class="line">print(<span class="string">"pandas version: &#123;&#125;"</span>. format(pd.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="comment">#collection of functions for scientific and publication-ready visualization</span></span><br><span class="line">print(<span class="string">"matplotlib version: &#123;&#125;"</span>. format(matplotlib.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np <span class="comment">#foundational package for scientific computing</span></span><br><span class="line">print(<span class="string">"NumPy version: &#123;&#125;"</span>. format(np.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scipy <span class="keyword">as</span> sp <span class="comment">#collection of functions for scientific computing and advance mathematics</span></span><br><span class="line">print(<span class="string">"SciPy version: &#123;&#125;"</span>. format(sp.__version__)) </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sklearn <span class="comment">#collection of machine learning algorithms</span></span><br><span class="line">print(<span class="string">"scikit-learn version: &#123;&#125;"</span>. format(sklearn.__version__))</span><br><span class="line"></span><br><span class="line"><span class="comment">#misc libraries</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br></pre></td></tr></table></figure></p>
+<p>如果这些类库没有安装的话，需要先安装，除了 Numpy 其他都可以参照以下命令安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install scikit-learn</span><br></pre></td></tr></table></figure></p>
+<p>Numpy安装最好到网站 <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">Python Extension Packages</a> 上下载安装。要先安装 Numpy 再安装其他类库。pip install scikit-learn</p>
+<h3 id="STEP-3-2-基本分析"><a href="#STEP-3-2-基本分析" class="headerlink" title="STEP 3.2. 基本分析"></a>STEP 3.2. 基本分析</h3><p>接下来要正式开始接触数据了。首先我们需要对数据集有一些基本的了解。比如说数据集看起来是什么样子的，稍微描述一下。其中有哪些特征？ 每个特征大概起到什么样的作用？特征之间的依赖关系？</p>
+<ul>
+<li>Survived，是输出变量。1表示生还，0表示丧生。这个变量的所有值都需要我们进行预测。而除了这个变量以外的所有变量都可能是潜在的能够影响预测值的变量。<strong>需要注意的是，并不是说用于预测的变量越多，训练的模型就越好，而是正确的变量才对模型有益。</strong></li>
+<li>PassengerId 和 Ticket，这两个变量是随机生成的唯一值，因此这两个值对结果变量不会有影响，因此在后续分析时，可以排除这两个变量。</li>
+<li>Pclass，是一个有序序列，用于表示社会经济地位，1表示上层人士；2表示中层；3表示底层。</li>
+<li>Name，是一个名词类型。可以利用特征工程从中获取性别，利用姓氏可以获得家庭成员数量，以及从称呼中可以分析出经济地位，比如XXX医生。不过这些变量目前已经明确的知道了，因此只需要通过称呼了解这个乘客是不是医生等内容。</li>
+<li>Sex 和 Embarked，也是名词变量。在后续的计算中会被转换成数值参与计算。</li>
+<li>Age 和 Fare，是连续型数值。</li>
+<li>Sibsp 和 Parch，分别表示在船上的兄弟姐妹、配偶以及父母、子女的数量。这两个都是离散型的整数值。这两个值可以用于特征工程，来创建一个家庭成员数量的变量。</li>
+<li>Cabin，是一个名词变量，可以用于特征工程中发现当事故发生时，其位于船上的位置，以及距离甲板的距离。然而，这一列很多都是空值，因此也不能用于分析。</li>
+</ul>
+<p>我们导入数据，然后使用 <code>sample()</code> 方法来快速的观察一下数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data_raw = pd.read_csv(<span class="string">'./input/train.csv'</span>) <span class="comment"># 读取训练集</span></span><br><span class="line">data_val  = pd.read_csv(<span class="string">'./input/test.csv'</span>) <span class="comment"># 读取测试集</span></span><br><span class="line"></span><br><span class="line">print(data_raw.head()) <span class="comment"># 获取数据前五条</span></span><br><span class="line">print(data_raw.tail()) <span class="comment"># 获取数据后五条</span></span><br><span class="line">print(data_raw.sample(<span class="number">10</span>)) <span class="comment"># 随机获取十条</span></span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">PassengerId</th>
+<th style="text-align:center">Survived</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Sex</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Ticket</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">Cabin</th>
+<th style="text-align:center">Embarked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">660</td>
+<td style="text-align:center">661</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Frauenthal, Dr. Henry William</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">50.0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">PC 17611</td>
+<td style="text-align:center">133.6500</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">382</td>
+<td style="text-align:center">383</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Tikkanen, Mr. Juho</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">STON/O 2. 3101293</td>
+<td style="text-align:center">7.925</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">65</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Stewart, Mr. Albert A</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">PC 17605</td>
+<td style="text-align:center">27.7208</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">697</td>
+<td style="text-align:center">698</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Mullens, Miss. Katherine “Katie”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">35852</td>
+<td style="text-align:center">7.7333</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+<tr>
+<td style="text-align:center">345</td>
+<td style="text-align:center">346</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Brown, Miss. Amelia “Mildred”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">24</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">248733</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">F33</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">525</td>
+<td style="text-align:center">526</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Farrell, Mr. James</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">40.5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">367232</td>
+<td style="text-align:center">7.75</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+<tr>
+<td style="text-align:center">883</td>
+<td style="text-align:center">884</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Banfield, Mr. Frederick James</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">C.A./SOTON 34068</td>
+<td style="text-align:center">10.5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">487</td>
+<td style="text-align:center">488</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Kent, Mr. Edward Austin</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">58</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">11771</td>
+<td style="text-align:center">29.7</td>
+<td style="text-align:center">B37</td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">553</td>
+<td style="text-align:center">554</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Leeni, Mr. Fahim (Philip Zenni)</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">22</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2620</td>
+<td style="text-align:center">7.225</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">C</td>
+</tr>
+<tr>
+<td style="text-align:center">241</td>
+<td style="text-align:center">242</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Murphy, Miss. Katherine “Kate”</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">367230</td>
+<td style="text-align:center">15.5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Q</td>
+</tr>
+</tbody>
+</table>
+<h3 id="STEP-3-3-数据清理"><a href="#STEP-3-3-数据清理" class="headerlink" title="STEP 3.3. 数据清理"></a>STEP 3.3. 数据清理</h3><p>在本节中，我们将会对数据进行清理，包括修正异常值；补全缺失值；通过分析创建新的特征；格式转换，将数据转换为便于计算和展示的格式。</p>
+<p><strong>1、修正</strong><br>检查数据，看看是否有任何看起来异常的输入。我们发现在年龄和票价两列，似乎存在异常值。不过客观的来说，这些值也是合理的，因此我们等到进行探索性数据分析时，再决定是否要剔除这两列。不过，如果这些值是一些客观上讲完全不可能的值，比如说年龄=800，那么就可能需要立马处理这个值。不过在处理这些值的时候，需要非常谨慎，因为我们需要获得一个尽可能精确的众数。</p>
+<p><strong>2、补全</strong><br>在年龄、船舱编号、和登船港口等字段都有空值或缺失值。空值对于某些算法来说是不友好的，因为它们无法处理空值。因为需要利用几种不同的算法计算不同的模型，然后进行比较，因此要在真正开始模型训练之前，处理这些空值。有两种方法处理缺失值：1）删除缺失值对应的这条记录；2）利用一些可靠的输入填充缺失值。</p>
+<p>一般而言，不建议删除缺失值记录，特别是当缺失值占比重很大时。一种比较基础的方法是利用平均数、中位数或者平均数加上一个随机标准偏差来填充缺失值。</p>
+<p>稍微高级一些的方法是基于特定条件的缺失值填充。比如基于座位的等次划分不同的年龄平均数进行年龄缺失值的填充。基于票价和社会经济地位来进行登船港口的填充。当然还有一些更复杂的方法，不过在此之前，应该首先建立基线模型，然后将复杂方法填充的数据训练的模型与其进行比较，以决定是否使用复杂的填充方法。</p>
+<p>在这个数据集中，我们使用中位数来填充年龄的缺失值，而船舱这个特征会被丢弃。我们会使用一个模型来填充登船港口的缺失值，通过迭代来决定填充的值是否对模型的精度有所改善。</p>
+<p><strong>3、创建</strong><br>所谓特征工程，就是利用已有的特征来创建新的特征，并且判断这个新的特征对于模型的构建是否有促进作用。在这个数据集中，我们利用特征工程来创建一个“头衔”特征，判断角色对于生还情况是否有影响。</p>
+<p><strong>4、转换</strong><br>最后，我们要处理格式化的问题。虽然没有诸如日期、货币等字段需要格式化，但是我们有一些数据类型需要转换。比如我们的分类数据是以分类的名称表示的，无法进行数学运算。我们需要将这个数据集中的一些数据转换为可以用于数据运算的变量类型。</p>
+<h4 id="STEP-3-3-1-观察数据"><a href="#STEP-3-3-1-观察数据" class="headerlink" title="STEP 3.3.1. 观察数据"></a>STEP 3.3.1. 观察数据</h4><p>查看训练集中数据的空值情况：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Train columns with null values:\n'</span>, data_raw.isnull().sum())</span><br></pre></td></tr></table></figure></p>
+<p>结果如下。可以看到其中的年龄和船舱分别都有较多空值，登船港口存在两个空值，其余字段基本没有空值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Train columns with null values:</span><br><span class="line">PassengerId      0</span><br><span class="line">Survived         0</span><br><span class="line">Pclass           0</span><br><span class="line">Name             0</span><br><span class="line">Sex              0</span><br><span class="line">Age            177</span><br><span class="line">SibSp            0</span><br><span class="line">Parch            0</span><br><span class="line">Ticket           0</span><br><span class="line">Fare             0</span><br><span class="line">Cabin          687</span><br><span class="line">Embarked         2</span><br></pre></td></tr></table></figure></p>
+<p>以同样的方法查看测试集中的数据：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Train columns with null values:\n'</span>, data_val.isnull().sum())</span><br></pre></td></tr></table></figure></p>
+<p>结果如下。同样是年龄和船舱两个字段存在较多空值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Test/Validation columns with null values:</span><br><span class="line">PassengerId      0</span><br><span class="line">Pclass           0</span><br><span class="line">Name             0</span><br><span class="line">Sex              0</span><br><span class="line">Age             86</span><br><span class="line">SibSp            0</span><br><span class="line">Parch            0</span><br><span class="line">Ticket           0</span><br><span class="line">Fare             1</span><br><span class="line">Cabin          327</span><br><span class="line">Embarked         0</span><br></pre></td></tr></table></figure></p>
+<p>查看训练集整体数据情况。从这个统计数据中我们可以看到一些数据的分布情况，比如最大值、最小值、中位数、数据出现的频度等数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(data_raw.describe(include = <span class="string">'all'</span>))</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">PassengerId</th>
+<th style="text-align:center">Survived</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Sex</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Ticket</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">Cabin</th>
+<th style="text-align:center">Embarked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">891</td>
+<td style="text-align:center">891</td>
+<td style="text-align:center">714.000000</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">891</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">204</td>
+<td style="text-align:center">889</td>
+</tr>
+<tr>
+<td style="text-align:center">unique</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">891</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">681</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">147</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">top</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">Hirvonen, Miss. Hildur E</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">CA. 2343</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">G6</td>
+<td style="text-align:center">S</td>
+</tr>
+<tr>
+<td style="text-align:center">freq</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">577</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">644</td>
+</tr>
+<tr>
+<td style="text-align:center">mean</td>
+<td style="text-align:center">446.000000</td>
+<td style="text-align:center">0.383838</td>
+<td style="text-align:center">2.308642</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">29.699118</td>
+<td style="text-align:center">0.523008</td>
+<td style="text-align:center">0.381594</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">32.204208</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">std</td>
+<td style="text-align:center">257.353842</td>
+<td style="text-align:center">0.486592</td>
+<td style="text-align:center">0.836071</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">14.526497</td>
+<td style="text-align:center">1.102743</td>
+<td style="text-align:center">0.806057</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">49.693429</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">min</td>
+<td style="text-align:center">1.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">1.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">0.420000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">25%</td>
+<td style="text-align:center">223.500000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">2.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">20.125000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">7.910400</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">50%</td>
+<td style="text-align:center">446.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">3.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">28.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">14.454200</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">75%</td>
+<td style="text-align:center">668.500000</td>
+<td style="text-align:center">1.000000</td>
+<td style="text-align:center">3.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">38.000000</td>
+<td style="text-align:center">1.000000</td>
+<td style="text-align:center">0.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">31.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">max</td>
+<td style="text-align:center">891.000000</td>
+<td style="text-align:center">1.000000</td>
+<td style="text-align:center">3.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">80.000000</td>
+<td style="text-align:center">8.000000</td>
+<td style="text-align:center">6.000000</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">512.329200</td>
+<td style="text-align:center">NaN</td>
+<td style="text-align:center">NaN</td>
+</tr>
+</tbody>
+</table>
+<h4 id="STEP-3-3-2-修正"><a href="#STEP-3-3-2-修正" class="headerlink" title="STEP 3.3.2. 修正"></a>STEP 3.3.2. 修正</h4><p>将训练集拷贝一个副本，然将副本与测试集合并形成一个新的集合。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data_raw2 = data_raw.copy(deep = <span class="keyword">True</span>)</span><br><span class="line">data_cleaner = [data_raw2, data_val]</span><br></pre></td></tr></table></figure></p>
+<p>后续的操作基于这个拷贝的副本进行。</p>
+<p>在这个数据集中，通过上面的观察，并没有发现明显不符合客观事实的值，因此不需要进行处理。不过其中存在一个无用的列，包括乘客ID，船舱、船票编号，需要将这几个列删除。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop_column = [<span class="string">'PassengerId'</span>,<span class="string">'Cabin'</span>, <span class="string">'Ticket'</span>]</span><br><span class="line">data_raw2.drop(drop_column, axis=<span class="number">1</span>, inplace = <span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>观察一下删除后的空值情况：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Train columns with null values:\n'</span>, data_raw2.isnull().sum())</span><br><span class="line">print(<span class="string">"-"</span> * <span class="number">25</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Test/Validation columns with null values:\n'</span>, data_val.isnull().sum())</span><br><span class="line">print(<span class="string">"-"</span> * <span class="number">25</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">-------------------------</span><br><span class="line">Train columns with null values:</span><br><span class="line">Survived      0</span><br><span class="line">Pclass        0</span><br><span class="line">Name          0</span><br><span class="line">Sex           0</span><br><span class="line">Age         177</span><br><span class="line">SibSp         0</span><br><span class="line">Parch         0</span><br><span class="line">Fare          0</span><br><span class="line">Embarked      2</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br><span class="line">Test/Validation columns with null values:</span><br><span class="line">PassengerId      0</span><br><span class="line">Pclass           0</span><br><span class="line">Name             0</span><br><span class="line">Sex              0</span><br><span class="line">Age             86</span><br><span class="line">SibSp            0</span><br><span class="line">Parch            0</span><br><span class="line">Ticket           0</span><br><span class="line">Fare             1</span><br><span class="line">Cabin          327</span><br><span class="line">Embarked         0</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br></pre></td></tr></table></figure></p>
+<h4 id="STEP-3-3-3-补全"><a href="#STEP-3-3-3-补全" class="headerlink" title="STEP 3.3.3. 补全"></a>STEP 3.3.3. 补全</h4><p>这里的 <code>data_cleaner</code>  只是一个引用，对其修改，会直接反映到 <code>data_raw2</code> 和 <code>data_val</code> 上。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> dataset <span class="keyword">in</span> data_cleaner:    </span><br><span class="line">    <span class="comment"># 使用中位数填充所有空值</span></span><br><span class="line">    dataset[<span class="string">'Age'</span>].fillna(dataset[<span class="string">'Age'</span>].median(), inplace = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用众数填充登船港口</span></span><br><span class="line">    dataset[<span class="string">'Embarked'</span>].fillna(dataset[<span class="string">'Embarked'</span>].mode()[<span class="number">0</span>], inplace = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用中位数填充票价</span></span><br><span class="line">    dataset[<span class="string">'Fare'</span>].fillna(dataset[<span class="string">'Fare'</span>].median(), inplace = <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Train columns with null values:\n'</span>, data_raw2.isnull().sum())</span><br><span class="line">print(<span class="string">"-"</span> * <span class="number">25</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Test/Validation columns with null values:\n'</span>, data_val.isnull().sum())</span><br><span class="line">print(<span class="string">"-"</span> * <span class="number">25</span>)</span><br></pre></td></tr></table></figure></p>
+<p>同样的将处理后的结果打印出来看看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Train columns with null values:</span><br><span class="line">Survived    0</span><br><span class="line">Pclass      0</span><br><span class="line">Name        0</span><br><span class="line">Sex         0</span><br><span class="line">Age         0</span><br><span class="line">SibSp       0</span><br><span class="line">Parch       0</span><br><span class="line">Fare        0</span><br><span class="line">Embarked    0</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br><span class="line">Test/Validation columns with null values:</span><br><span class="line">PassengerId      0</span><br><span class="line">Pclass           0</span><br><span class="line">Name             0</span><br><span class="line">Sex              0</span><br><span class="line">Age              0</span><br><span class="line">SibSp            0</span><br><span class="line">Parch            0</span><br><span class="line">Ticket           0</span><br><span class="line">Fare             0</span><br><span class="line">Cabin          327</span><br><span class="line">Embarked         0</span><br><span class="line">dtype: int64</span><br><span class="line">-------------------------</span><br></pre></td></tr></table></figure></p>
+<h4 id="STEP-3-3-4-创建"><a href="#STEP-3-3-4-创建" class="headerlink" title="STEP 3.3.4. 创建"></a>STEP 3.3.4. 创建</h4><p>利用特征工程将训练集和测试集中的数据创建新的特征。这里我们根据现有的 特征分别创建几个新的特征。<br>1、根据兄弟姐妹、配偶、父母和子女数量的两个字段来创建一个表示家庭成员数量的字段。利用家庭成员数量可以得到一个新的字段表示是否是孤身一人。<br>2、观察姓名一列，可以看到其中有关于头衔之类的信息，从中可以看到是先生、女士、硕士、博士等等信息。<br>3、将船票费用和年龄划分为几个不同的区间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> dataset <span class="keyword">in</span> data_cleaner:    </span><br><span class="line">    dataset[<span class="string">'FamilySize'</span>] = dataset [<span class="string">'SibSp'</span>] + dataset[<span class="string">'Parch'</span>] + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'IsAlone'</span>] = <span class="number">1</span></span><br><span class="line">    dataset[<span class="string">'IsAlone'</span>].loc[dataset[<span class="string">'FamilySize'</span>] &gt; <span class="number">1</span>] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'Title'</span>] = dataset[<span class="string">'Name'</span>].str.split(<span class="string">", "</span>, expand=<span class="keyword">True</span>)[<span class="number">1</span>].str.split(<span class="string">"."</span>, expand=<span class="keyword">True</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'FareBin'</span>] = pd.qcut(dataset[<span class="string">'Fare'</span>], <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">    dataset[<span class="string">'AgeBin'</span>] = pd.cut(dataset[<span class="string">'Age'</span>].astype(int), <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>查看增加了几个特征之后的数据：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Survived</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Sex</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">Embarked</th>
+<th style="text-align:center">FamilySize</th>
+<th style="text-align:center">IsAlone</th>
+<th style="text-align:center">Title</th>
+<th style="text-align:center">FareBin</th>
+<th style="text-align:center">AgeBin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">205</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Strom, Miss. Telma Matilda</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">2.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">10.4625</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(7.91, 14.454]</td>
+<td style="text-align:center">(-0.08, 16.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">879</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">56.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">83.1583</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mrs</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(48.0, 64.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">329</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Hippach, Miss. Jean Gertrude</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">16.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">57.9792</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(-0.08, 16.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">136</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Newsom, Miss. Helen Monypeny</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">19.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">26.2833</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Miss</td>
+<td style="text-align:center">(14.454, 31.0]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">57</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Novel, Mr. Mansouer</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28.5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">7.2292</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(-0.001, 7.91]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">848</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Harper, Rev. John</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">33.0</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Rev</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">151</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Pears, Mrs. Thomas (Edith Wearne)</td>
+<td style="text-align:center">female</td>
+<td style="text-align:center">22.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">66.6</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mrs</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">659</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Newell, Mr. Arthur Webster</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">58.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">113.275</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(31.0, 512.329]</td>
+<td style="text-align:center">(48.0, 64.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">228</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Fahlstrom, Mr. Arne Jonas</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">18.0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">13.0</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(7.91, 14.454]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+<tr>
+<td style="text-align:center">371</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Wiklund, Mr. Jakob Alfred</td>
+<td style="text-align:center">male</td>
+<td style="text-align:center">18.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">6.4958</td>
+<td style="text-align:center">S</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Mr</td>
+<td style="text-align:center">(-0.001, 7.91]</td>
+<td style="text-align:center">(16.0, 32.0]</td>
+</tr>
+</tbody>
+</table>
+<p>对于头衔这一列，由于是拆分字符串，因此对于结果需要着重检查一下，打印这一列的统计信息：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(data_raw2[<span class="string">'Title'</span>].value_counts())</span><br></pre></td></tr></table></figure></p>
+<p>观察结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Mr              517</span><br><span class="line">Miss            182</span><br><span class="line">Mrs             125</span><br><span class="line">Master           40</span><br><span class="line">Dr                7</span><br><span class="line">Rev               6</span><br><span class="line">Mlle              2</span><br><span class="line">Col               2</span><br><span class="line">Major             2</span><br><span class="line">the Countess      1</span><br><span class="line">Jonkheer          1</span><br><span class="line">Capt              1</span><br><span class="line">Mme               1</span><br><span class="line">Ms                1</span><br><span class="line">Sir               1</span><br><span class="line">Lady              1</span><br><span class="line">Don               1</span><br></pre></td></tr></table></figure></p>
+<p>我们发现，拆分出来的头衔有很多种，不过其中占比比较高的就是前面四个，后面的一些数量都太少，因此我们打算将后面的一些都合并成一个。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stat_min = <span class="number">10</span></span><br><span class="line">title_names = (data_raw2[<span class="string">'Title'</span>].value_counts() &lt; stat_min)</span><br><span class="line">data_raw2[<span class="string">'Title'</span>] = data_raw2[<span class="string">'Title'</span>].apply(<span class="keyword">lambda</span> x: <span class="string">'Misc'</span> <span class="keyword">if</span> title_names.loc[x] == <span class="keyword">True</span> <span class="keyword">else</span> x)</span><br><span class="line">print(data_raw2[<span class="string">'Title'</span>].value_counts())</span><br></pre></td></tr></table></figure></p>
+<p>再次观察处理后的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mr        517</span><br><span class="line">Miss      182</span><br><span class="line">Mrs       125</span><br><span class="line">Master     40</span><br><span class="line">Misc       27</span><br></pre></td></tr></table></figure></p>
+<p>发现头衔这一列已经全部处理为这几类，对于数量比较少的，都归入到 Misc 中。</p>
+<h4 id="STEP-3-3-5-转换"><a href="#STEP-3-3-5-转换" class="headerlink" title="STEP 3.3.5. 转换"></a>STEP 3.3.5. 转换</h4><p>接下来我们需要将分类数据转换为离散特征编码用于数学分析。另外，在本环节中，我们还会定义用于训练模型的 x （输入）和 y （输出）变量。</p>
+<p>首先利用标签编码将几个离散型的列转换为标签。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">label = LabelEncoder()</span><br><span class="line"><span class="keyword">for</span> dataset <span class="keyword">in</span> data_cleaner:    </span><br><span class="line">    dataset[<span class="string">'Sex_Code'</span>] = label.fit_transform(dataset[<span class="string">'Sex'</span>])</span><br><span class="line">    dataset[<span class="string">'Embarked_Code'</span>] = label.fit_transform(dataset[<span class="string">'Embarked'</span>])</span><br><span class="line">    dataset[<span class="string">'Title_Code'</span>] = label.fit_transform(dataset[<span class="string">'Title'</span>])</span><br><span class="line">    dataset[<span class="string">'AgeBin_Code'</span>] = label.fit_transform(dataset[<span class="string">'AgeBin'</span>])</span><br><span class="line">    dataset[<span class="string">'FareBin_Code'</span>] = label.fit_transform(dataset[<span class="string">'FareBin'</span>])</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Other Columns</th>
+<th style="text-align:center">Sex_Code</th>
+<th style="text-align:center">Embarked_Code</th>
+<th style="text-align:center">Title_Code</th>
+<th style="text-align:center">AgeBin_Code</th>
+<th style="text-align:center">FareBin_Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">312</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">394</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">75</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">794</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">348</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">330</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">517</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">203</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">573</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">176</td>
+<td style="text-align:center">…</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p>将其中的一些离散型变量转为独热编码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义输出变量 y</span></span><br><span class="line">Target = [<span class="string">'Survived'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入变量 x</span></span><br><span class="line">data_raw2_x = [<span class="string">'Sex'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked'</span>, <span class="string">'Title'</span>,<span class="string">'SibSp'</span>, <span class="string">'Parch'</span>, <span class="string">'Age'</span>, <span class="string">'Fare'</span>, <span class="string">'FamilySize'</span>, <span class="string">'IsAlone'</span>]</span><br><span class="line">data_raw2_x_calc = [<span class="string">'Sex_Code'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked_Code'</span>, <span class="string">'Title_Code'</span>,<span class="string">'SibSp'</span>, <span class="string">'Parch'</span>, <span class="string">'Age'</span>, <span class="string">'Fare'</span>]</span><br><span class="line">data_raw2_xy =  Target + data_raw2_x</span><br><span class="line">print(<span class="string">'Original X Y: '</span>, data_raw2_xy, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义离散输入变量 x</span></span><br><span class="line">data_raw2_x_bin = [<span class="string">'Sex_Code'</span>,<span class="string">'Pclass'</span>, <span class="string">'Embarked_Code'</span>, <span class="string">'Title_Code'</span>, <span class="string">'FamilySize'</span>, <span class="string">'AgeBin_Code'</span>, <span class="string">'FareBin_Code'</span>]</span><br><span class="line">data_raw2_xy_bin = Target + data_raw2_x_bin</span><br><span class="line">print(<span class="string">'Bin X Y: '</span>, data_raw2_xy_bin, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将离散型变量转为独热编码</span></span><br><span class="line">data_raw2_dummy = pd.get_dummies(data_raw2[data_raw2_x])</span><br><span class="line">data_raw2_x_dummy = data_raw2_dummy.columns.tolist()</span><br><span class="line">data_raw2_xy_dummy = Target + data_raw2_x_dummy</span><br><span class="line">print(<span class="string">'Dummy X Y: '</span>, data_raw2_xy_dummy, <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">print(data_raw2_dummy.sample(<span class="number">10</span>))</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Pclass</th>
+<th style="text-align:center">SibSp</th>
+<th style="text-align:center">Parch</th>
+<th style="text-align:center">Age</th>
+<th style="text-align:center">Fare</th>
+<th style="text-align:center">FamilySize</th>
+<th style="text-align:center">IsAlone</th>
+<th style="text-align:center">Sex_female</th>
+<th style="text-align:center">Sex_male</th>
+<th style="text-align:center">Embarked_C</th>
+<th style="text-align:center">Embarked_Q</th>
+<th style="text-align:center">Embarked_S</th>
+<th style="text-align:center">Title_Master</th>
+<th style="text-align:center">Title_Misc</th>
+<th style="text-align:center">Title_Miss</th>
+<th style="text-align:center">Title_Mr</th>
+<th style="text-align:center">Title_Mrs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">154</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">7.3125</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">317</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">54.0</td>
+<td style="text-align:center">14.0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">216</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">27.0</td>
+<td style="text-align:center">7.925</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">177</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">50.0</td>
+<td style="text-align:center">28.7125</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">514</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">24.0</td>
+<td style="text-align:center">7.4958</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">552</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">7.8292</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">785</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">25.0</td>
+<td style="text-align:center">7.25</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">324</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">28.0</td>
+<td style="text-align:center">69.55</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">135</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">23.0</td>
+<td style="text-align:center">15.0458</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">79</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">30.0</td>
+<td style="text-align:center">12.475</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="STEP-3-3-6-拆分训练集"><a href="#STEP-3-3-6-拆分训练集" class="headerlink" title="STEP 3.3.6. 拆分训练集"></a>STEP 3.3.6. 拆分训练集</h4><p>前面提到项目给定了两个数据集，一个是训练集，一个是测试集。但是在真正开始进行模型训练时，我们需要将这个训练集拆分为两部分，使用其中一部分进行模型训练，另一部分进行验证，以防止过拟合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">train1_x, test1_x, train1_y, test1_y = model_selection.train_test_split(data_raw2[data_raw2_x_calc], data_raw2[Target], random_state = <span class="number">0</span>)</span><br><span class="line">train1_x_bin, test1_x_bin, train1_y_bin, test1_y_bin = model_selection.train_test_split(data_raw2[data_raw2_x_bin], data_raw2[Target] , random_state = <span class="number">0</span>)</span><br><span class="line">train1_x_dummy, test1_x_dummy, train1_y_dummy, test1_y_dummy = model_selection.train_test_split(data_raw2_dummy[data_raw2_x_dummy], data_raw2[Target], random_state = <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"data_raw2 Shape: &#123;&#125;"</span>.format(data_raw2.shape))</span><br><span class="line">print(<span class="string">"Train1 Shape: &#123;&#125;"</span>.format(train1_x.shape))</span><br><span class="line">print(<span class="string">"Test1 Shape: &#123;&#125;"</span>.format(test1_x.shape))</span><br></pre></td></tr></table></figure>
+<h2 id="STEP-4-探索性数据分析"><a href="#STEP-4-探索性数据分析" class="headerlink" title="STEP 4. 探索性数据分析"></a>STEP 4. 探索性数据分析</h2><p>现在已经完成了数据清理，我们需要利用统计和图示工具来找出分类特征，已经判断其与输出或其他特征之间的相关性。</p>
+<h3 id="STEP-4-1-单变量相关性分析"><a href="#STEP-4-1-单变量相关性分析" class="headerlink" title="STEP 4.1. 单变量相关性分析"></a>STEP 4.1. 单变量相关性分析</h3><h4 id="STEP-4-1-1-基于数值统计的分析"><a href="#STEP-4-1-1-基于数值统计的分析" class="headerlink" title="STEP 4.1.1. 基于数值统计的分析"></a>STEP 4.1.1. 基于数值统计的分析</h4><p>对离散型特征分别进行分组统计，分析不同类型的值与生还情况之间的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> data_raw2_x:</span><br><span class="line">    <span class="keyword">if</span> data_raw2[x].dtype != <span class="string">'float64'</span> :</span><br><span class="line">        print(<span class="string">'Survival Correlation by:'</span>, x)</span><br><span class="line">        print(data_raw2[[x, Target[<span class="number">0</span>]]].groupby(x, as_index=<span class="keyword">False</span>).mean())</span><br><span class="line">        print(<span class="string">'-'</span>*<span class="number">10</span>, <span class="string">'\n'</span>)</span><br></pre></td></tr></table></figure>
+<p>生还情况的关系*<br>生还者程：将数据按照性别分为两组，分别求每组 <code>Survived</code> 的平均值，由于生还者标志为 1，丧生为 0，则该平均数正好可以表示每个分组中生还者占的百分比。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: Sex</span><br><span class="line">      Sex  Survived</span><br><span class="line">0  female  0.742038</span><br><span class="line">1    male  0.188908</span><br></pre></td></tr></table></figure></p>
+<p>**根据该统计结果，发现女性中，生还者占 74% 左右，而男性中的生还者占比只有 19% 左右。</p>
+<p><strong>座位等级与生还情况与座次关系：</strong><br>一等座中有 62% 的生还者；二等座则有 47% 的生还者；三等座只有 24% 的生还者。因此坐席等级越高，其存活可能性就相对越高。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: Pclass</span><br><span class="line">   Pclass  Survived</span><br><span class="line">0       1  0.629630</span><br><span class="line">1       2  0.472826</span><br><span class="line">2       3  0.242363</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与登船港口关系：</strong><br>从 Cherbourg 登船的乘客生还率要显著高于其他两个港口登船的乘客。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: Embarked</span><br><span class="line">  Embarked  Survived</span><br><span class="line">0        C  0.553571</span><br><span class="line">1        Q  0.389610</span><br><span class="line">2        S  0.339009</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与头衔之间的关系：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: Title</span><br><span class="line">    Title  Survived</span><br><span class="line">0  Master  0.575000</span><br><span class="line">1    Misc  0.444444</span><br><span class="line">2    Miss  0.697802</span><br><span class="line">3      Mr  0.156673</span><br><span class="line">4     Mrs  0.792000</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与兄弟姐妹和配偶数量关系：</strong><br>我们发现在船上拥有 1 到 2 名兄弟姐妹或配偶的人员生存率比较高，达到 53% 和 46%，其余都很低。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: SibSp</span><br><span class="line">   SibSp  Survived</span><br><span class="line">0      0  0.345395</span><br><span class="line">1      1  0.535885</span><br><span class="line">2      2  0.464286</span><br><span class="line">3      3  0.250000</span><br><span class="line">4      4  0.166667</span><br><span class="line">5      5  0.000000</span><br><span class="line">6      8  0.000000</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与父母子女数量关系：</strong><br>通船上父母与子女的数量与生存情况关系，有1-3人的生存率最高，在 50~60%之间。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: Parch</span><br><span class="line">   Parch  Survived</span><br><span class="line">0      0  0.343658</span><br><span class="line">1      1  0.550847</span><br><span class="line">2      2  0.500000</span><br><span class="line">3      3  0.600000</span><br><span class="line">4      4  0.000000</span><br><span class="line">5      5  0.200000</span><br><span class="line">6      6  0.000000</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与家庭成员数量关系：</strong><br>总的家庭成员在  4 人左右的存活率较高，可能是什么原因？<strong>或许可以分析一下这些存货下来的人员对应的家庭成员，特别是男性家庭成员的存货情况。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: FamilySize</span><br><span class="line">   FamilySize  Survived</span><br><span class="line">0           1  0.303538</span><br><span class="line">1           2  0.552795</span><br><span class="line">2           3  0.578431</span><br><span class="line">3           4  0.724138</span><br><span class="line">4           5  0.200000</span><br><span class="line">5           6  0.136364</span><br><span class="line">6           7  0.333333</span><br><span class="line">7           8  0.000000</span><br><span class="line">8          11  0.000000</span><br></pre></td></tr></table></figure></p>
+<p><strong>生还率与是否独身一人的关系：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Survival Correlation by: IsAlone</span><br><span class="line">   IsAlone  Survived</span><br><span class="line">0        0  0.505650</span><br><span class="line">1        1  0.303538</span><br></pre></td></tr></table></figure></p>
+<h4 id="STEP-4-1-2-基于箱线图和直方图的分析"><a href="#STEP-4-1-2-基于箱线图和直方图的分析" class="headerlink" title="STEP 4.1.2. 基于箱线图和直方图的分析"></a>STEP 4.1.2. 基于箱线图和直方图的分析</h4><p><strong>票价分布情况与生还情况关系</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=[<span class="number">16</span>,<span class="number">12</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">121</span>)</span><br><span class="line">plt.boxplot(x=data_raw2[<span class="string">'Fare'</span>], showmeans = <span class="keyword">True</span>, meanline = <span class="keyword">True</span>)</span><br><span class="line">plt.title(<span class="string">'Fare Boxplot'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Fare ($)'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot()</span><br><span class="line">pla_e<span class="string">'], '</span>)</span><br><span class="line">plt.label(<span class="string">')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">plt.show()</span></span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-01-Fare.png" alt="票价分布情况与生还情况关系"></p>
+<p>观察票价分布的箱线图，可以看出来票价的主要分布区间大概在 5 ~ 40 之间，上限在 80 左右，票价中存在部分离群点，应该不是异常值，是属于比较高档的票价。</p>
+<p>观察票价与生还情况直方图，可以看出来在 0 ~ 50 票价的乘客存活率相对较低，大概只有 30% 左右，而票价越高，其存活率基本上是不断上升的。</p>
+<p><strong>年龄分布情况与生还情况关系</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=[<span class="number">16</span>,<span class="number">12</span>])</span><br><span class="line">plt.subplot(<span class="number">233121</span>)</span><br><span class="line">plt.boxplot(data_raw2[<span class="string">'e'</span>], showmeans = <span class="keyword">True</span>, meanline = <span class="keyword">True</span>)</span><br><span class="line">plt.title(<span class="string">'e Boxplot'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Age (Years)'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot()</span><br><span class="line">plt.hist(x = [data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">1</span>][<span class="string">'FarAge'</span>], data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">0</span>][<span class="string">'FarAge'</span>]], </span><br><span class="line">         stacked=<span class="keyword">True</span>, color = [<span class="string">'g'</span>,<span class="string">'r'</span>],label = [<span class="string">'Survived'</span>,<span class="string">'Dead'</span>])</span><br><span class="line">plt.title(<span class="string">'FarAge Histogram by Survival'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Fare ($Age (Years)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'# of Passengers'</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-02-Age.png" alt="年龄分布情况与生还情况关系"></p>
+<p>观察年龄分布的箱线图，可以看出来年龄的主要分布区间大概在 20 ~ 35 之间，大部分应该属于青壮年。存在部分离群点，可能是年龄较大的老年人和幼儿。</p>
+<p>观察年龄与生还情况直方图，可以看出来在 30 岁区间的乘客存活率相对较低，低于30% ，其中很多人可能是牺牲了自己把求生的机会让给别人了。其余年龄分布的存活率也都相对不高，只有幼儿，青少年和50岁以上的老人存活率较高。</p>
+<p><strong>家庭成员数量分布情况与生还情况关系</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=[<span class="number">16</span>,<span class="number">12</span>])</span><br><span class="line">plt.subplot(<span class="number">235121</span>)</span><br><span class="line">plt.hist(x = [data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">1</span>][<span class="string">'Age'</span>], data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">0</span>][<span class="string">'Agboxplot(data_raw2['</span>FamilySize<span class="string">']], </span></span><br><span class="line"><span class="string">         stacked=True, color = ['</span>g<span class="string">','</span><span class="string">r'],label = ['</span>Survived<span class="string">','</span>Dead<span class="string">'])</span></span><br><span class="line"><span class="string">plt.title('</span>Age Histogram by Survivalshowmeans = <span class="keyword">True</span>, meanline = <span class="keyword">True</span>)</span><br><span class="line">plt.title(<span class="string">'Family Size Boxplot'</span>)</span><br><span class="line">plt.xylabel(<span class="string">'Age (Years)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'# of Passengers'</span>)</span><br><span class="line">plt.legend(Family Size (<span class="comment">#)')</span></span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">236122</span>)</span><br><span class="line">plt.hist(x = [data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">1</span>][<span class="string">'FamilySize'</span>], data_raw2[data_raw2[<span class="string">'Survived'</span>]==<span class="number">0</span>][<span class="string">'FamilySize'</span>]], </span><br><span class="line">         stacked=<span class="keyword">True</span>, color = [<span class="string">'g'</span>,<span class="string">'r'</span>],label = [<span class="string">'Survived'</span>,<span class="string">'Dead'</span>])</span><br><span class="line">plt.title(<span class="string">'Family Size Histogram by Survival'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Family Size (#)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'# of Passengers'</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A01-03-FamilySize.png" alt="家庭成员数量分布情况与生还情况关系"></p>
+<p>观察家庭成员数量分布的箱线图，可以看出来家庭成员数量的主要分布区间大概在 1 ~ 2 之间。</p>
+<p>观察家庭成员数量与生还情况直方图，可以看出来在 2 ~ 5 区间的乘客存活率相对较高，高于50% ，可能这个数量的家庭成员相对比较集中，并且能够相互帮助求生。</p>
+<h4 id="STEP-4-1-3-基于直方图的分析"><a href="#STEP-4-1-3-基于直方图的分析" class="headerlink" title="STEP 4.1.3. 基于直方图的分析"></a>STEP 4.1.3. 基于直方图的分析</h4><p>以图形化的方式展示一开始采用的数学统计的分析结果，按照分组展示每个特征不同值对应的生还率。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fig, saxis = plt.subplots(, <span class="number">3</span>,figsize=(<span class="number">16</span>,<span class="number">12</span>))</span><br><span class="line"></span><br><span class="line">sns.barplot(x = <span class="string">'Embarked'</span>, y = <span class="string">'Survived'</span>, data=data_raw2, ax = saxis[])</span><br><span class="line">sns.barplot(x = <span class="string">'Pclass'</span>, y = <span class="string">'Survived'</span>, order=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], data=data_raw2, ax = saxis[<span class="number">1</span>])</span><br><span class="line">sns.barplot(x = <span class="string">'IsAlone'</span>, y = <span class="string">'Survived'</span>, order=[<span class="number">1</span>,<span class="number">0</span>], data=data_raw2, ax = saxis[<span class="number">0</span>,<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A02-01-Embarked-Pclass-IsAlone.png" alt="登船港口、座次、是否独自一人与生还率的关系"></p>
+<h4 id="STEP-4-1-4-基于折线图的分析"><a href="#STEP-4-1-4-基于折线图的分析" class="headerlink" title="STEP 4.1.4. 基于折线图的分析"></a>STEP 4.1.4. 基于折线图的分析</h4><p>分析票价区间、年龄区间与家庭成员数量与生还率之间的关系，通过折线图比较直观的看出彼此之间的区别。<br>基本上票价越高的，存活率越高；而年龄主要是16所以下的青少年和 48 ~ 64 岁之间的老年存活率较高。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fig, saxis = plt.subplots(<span class="number">1</span>, <span class="number">3</span>,figsize=(<span class="number">16</span>,<span class="number">12</span>))</span><br><span class="line">sns.pointplot(x = <span class="string">'FareBin'</span>, y = <span class="string">'Survived'</span>,  data=data_raw2, ax = saxis[<span class="number">0</span>])</span><br><span class="line">sns.pointplot(x = <span class="string">'AgeBin'</span>, y = <span class="string">'Survived'</span>,  data=data_raw2, ax = saxis[<span class="number">1</span>])</span><br><span class="line">sns.pointplot(x = <span class="string">'FamilySize'</span>, y = <span class="string">'Survived'</span>, data=data_raw2, ax = saxis[<span class="number">2</span>])</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A03-01-FareBin-AgeBin-FamilySize.png" alt="区间与生还率的关系"></p>
+<h3 id="STEP-4-2-双变量相关性分析"><a href="#STEP-4-2-双变量相关性分析" class="headerlink" title="STEP 4.2. 双变量相关性分析"></a>STEP 4.2. 双变量相关性分析</h3><h4 id="STEP-4-2-1-座位等次与票价、年龄家庭规员数量与生还情况的关系"><a href="#STEP-4-2-1-座位等次与票价、年龄家庭规员数量与生还情况的关系" class="headerlink" title="STEP 4.2.1. 座位等次与票价、年龄家庭规员数量与生还情况的关系"></a>STEP 4.2.1. 座位等次与票价、年龄家庭规员数量与生还情况的关系</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig, (axis1,axis2,axis3) = plt.subplots(<span class="number">1</span>,<span class="number">3</span>,figsize=(<span class="number">14</span>,<span class="number">12</span>))</span><br><span class="line"></span><br><span class="line">sns.boxplot(x = <span class="string">'Pclass'</span>, y = <span class="string">'Fare'</span>, hue = <span class="string">'Survived'</span>, data = data_raw2, ax = axis1)</span><br><span class="line">axis1.set_title(<span class="string">'Pclass vs Fare Survival Comparison'</span>)</span><br><span class="line"></span><br><span class="line">sns.violinplot(x = <span class="string">'Pclass'</span>, y = <span class="string">'Age'</span>, hue = <span class="string">'Survived'</span>, data = data_raw2, split = <span class="keyword">True</span>, ax = axis2)</span><br><span class="line">axis2.set_title(<span class="string">'Pclass vs Age Survival Comparison'</span>)</span><br><span class="line"></span><br><span class="line">sns.boxplot(x = <span class="string">'Pclass'</span>, y =<span class="string">'FamilySize'</span>, hue = <span class="string">'Survived'</span>, data = data_raw2, ax = axis3)</span><br><span class="line">axis3.set_title(<span class="string">'Pclass vs Family Size Survival Comparison'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A04-Pclass-OtherVar.png" alt="分析"></p>
+<p>从图中我们可以发下以下一些内容：</p>
+<ul>
+<li>一等座中票价较高的乘客存活率较高，而二等座和三等座中票价对存活率没有太大影响；</li>
+<li>一等座中存活下来的基本上是年龄较大的，而二等座青少年存活率较高，三等座也是类似；</li>
+<li>一等座中家庭成员数量基本在 2 人左右，存活率相仿，二等座和三等座家庭成员较多，存活率较高的基本都分布在 2 ~ 3 人左右；</li>
+</ul>
+<h4 id="STEP-4-2-2-性别和登船港口、座位等次、是否独自一人与生还情况的关系"><a href="#STEP-4-2-2-性别和登船港口、座位等次、是否独自一人与生还情况的关系" class="headerlink" title="STEP 4.2.2. 性别和登船港口、座位等次、是否独自一人与生还情况的关系"></a>STEP 4.2.2. 性别和登船港口、座位等次、是否独自一人与生还情况的关系</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fig, qaxis = plt.subplots(<span class="number">1</span>,<span class="number">3</span>,figsize=(<span class="number">14</span>,<span class="number">12</span>))</span><br><span class="line"></span><br><span class="line">sns.barplot(x = <span class="string">'Sex'</span>, y = <span class="string">'Survived'</span>, hue = <span class="string">'Embarked'</span>, data=data_raw2, ax = qaxis[<span class="number">0</span>])</span><br><span class="line">axis1.set_title(<span class="string">'Sex vs Embarked Survival Comparison'</span>)</span><br><span class="line"></span><br><span class="line">sns.barplot(x = <span class="string">'Sex'</span>, y = <span class="string">'Survived'</span>, hue = <span class="string">'Pclass'</span>, data=data_raw2, ax  = qaxis[<span class="number">1</span>])</span><br><span class="line">axis1.set_title(<span class="string">'Sex vs Pclass Survival Comparison'</span>)</span><br><span class="line"></span><br><span class="line">sns.barplot(x = <span class="string">'Sex'</span>, y = <span class="string">'Survived'</span>, hue = <span class="string">'IsAlone'</span>, data=data_raw2, ax  = qaxis[<span class="number">2</span>])</span><br><span class="line">axis1.set_title(<span class="string">'Sex vs IsAlone Survival Comparison'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A05-Sex-Embarked-Pclass-IsAlone.png" alt="分析"></p>
+<p>利用折线图：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig, (maxis1, maxis2) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>,figsize=(<span class="number">14</span>,<span class="number">12</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#how does family size factor with sex &amp; survival compare</span></span><br><span class="line">sns.pointplot(x=<span class="string">"FamilySize"</span>, y=<span class="string">"Survived"</span>, hue=<span class="string">"Sex"</span>, data=data_raw2,</span><br><span class="line">              palette=&#123;<span class="string">"male"</span>: <span class="string">"blue"</span>, <span class="string">"female"</span>: <span class="string">"pink"</span>&#125;,</span><br><span class="line">              markers=[<span class="string">"*"</span>, <span class="string">"o"</span>], linestyles=[<span class="string">"-"</span>, <span class="string">"--"</span>], ax = maxis1)</span><br><span class="line"></span><br><span class="line"><span class="comment">#how does class factor with sex &amp; survival compare</span></span><br><span class="line">sns.pointplot(x=<span class="string">"Pclass"</span>, y=<span class="string">"Survived"</span>, hue=<span class="string">"Sex"</span>, data=data_raw2,</span><br><span class="line">              palette=&#123;<span class="string">"male"</span>: <span class="string">"blue"</span>, <span class="string">"female"</span>: <span class="string">"pink"</span>&#125;,</span><br><span class="line">              markers=[<span class="string">"*"</span>, <span class="string">"o"</span>], linestyles=[<span class="string">"-"</span>, <span class="string">"--"</span>], ax = maxis2)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A06-Pclass-Sex.png" alt="分析"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = sns.FacetGrid( data_raw2, hue = <span class="string">'Survived'</span>, aspect=<span class="number">4</span> )</span><br><span class="line">a.map(sns.kdeplot, <span class="string">'Age'</span>, shade= <span class="keyword">True</span> )</span><br><span class="line">a.set(xlim=(<span class="number">0</span> , data_raw2[<span class="string">'Age'</span>].max()))</span><br><span class="line">a.add_legend()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A07-Age.png" alt="分析"></p>
+<h4 id="STEP-4-2-3-相关热力图"><a href="#STEP-4-2-3-相关热力图" class="headerlink" title="STEP 4.2.3. 相关热力图"></a>STEP 4.2.3. 相关热力图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">correlation_heatmap</span><span class="params">(df)</span>:</span></span><br><span class="line">    _ , ax = plt.subplots(figsize =(<span class="number">14</span>, <span class="number">12</span>))</span><br><span class="line">    colormap = sns.diverging_palette(<span class="number">220</span>, <span class="number">10</span>, as_cmap = <span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line">    _ = sns.heatmap(</span><br><span class="line">        df.corr(), </span><br><span class="line">        cmap = colormap,</span><br><span class="line">        square=<span class="keyword">True</span>, </span><br><span class="line">        cbar_kws=&#123;<span class="string">'shrink'</span>:<span class="number">.9</span> &#125;, </span><br><span class="line">        ax=ax,</span><br><span class="line">        annot=<span class="keyword">True</span>, </span><br><span class="line">        linewidths=<span class="number">0.1</span>,vmax=<span class="number">1.0</span>, linecolor=<span class="string">'white'</span>,</span><br><span class="line">        annot_kws=&#123;<span class="string">'fontsize'</span>:<span class="number">12</span> &#125;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    plt.title(<span class="string">'Pearson Correlation of Features'</span>, y=<span class="number">1.05</span>, size=<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">correlation_heatmap(data_raw2)</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/A08-Pearson-Correlation.png" alt="分析"></p>
+<h2 id="STEP-5-模型数据"><a href="#STEP-5-模型数据" class="headerlink" title="STEP 5. 模型数据"></a>STEP 5. 模型数据</h2><p>接下来到了我们使用算法结合数据训练模型的阶段了。首先我们要面临的一个问题就是如何选择合适的算法。</p>
+<h3 id="STEP-5-1-如何选择一个机器学习算法"><a href="#STEP-5-1-如何选择一个机器学习算法" class="headerlink" title="STEP 5.1. 如何选择一个机器学习算法"></a>STEP 5.1. 如何选择一个机器学习算法</h3><p>一般来说在选择机器学习算法中有一个很著名的理论，No Free Lunch Theorem，没有免费的午餐定理。就是说没有一个算法能够适用于所有问题，因此针对不同的问题需要使用不同的算法处理。</p>
+<p>下面使用一些主流算法分别训练模型，然后观察结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">MLA = [</span><br><span class="line">    <span class="comment"># Ensemble Methods</span></span><br><span class="line">    ensemble.AdaBoostClassifier(),</span><br><span class="line">    ensemble.BaggingClassifier(),</span><br><span class="line">    ensemble.ExtraTreesClassifier(),</span><br><span class="line">    ensemble.GradientBoostingClassifier(),</span><br><span class="line">    ensemble.RandomForestClassifier(),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Gaussian Processes</span></span><br><span class="line">    gaussian_process.GaussianProcessClassifier(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># GLM</span></span><br><span class="line">    linear_model.LogisticRegressionCV(),</span><br><span class="line">    linear_model.PassiveAggressiveClassifier(),</span><br><span class="line">    linear_model.RidgeClassifierCV(),</span><br><span class="line">    linear_model.SGDClassifier(),</span><br><span class="line">    linear_model.Perceptron(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Navies Bayes</span></span><br><span class="line">    naive_bayes.BernoulliNB(),</span><br><span class="line">    naive_bayes.GaussianNB(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Nearest Neighbor</span></span><br><span class="line">    neighbors.KNeighborsClassifier(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># SVM</span></span><br><span class="line">    svm.SVC(probability=<span class="keyword">True</span>),</span><br><span class="line">    svm.NuSVC(probability=<span class="keyword">True</span>),</span><br><span class="line">    svm.LinearSVC(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Trees    </span></span><br><span class="line">    tree.DecisionTreeClassifier(),</span><br><span class="line">    tree.ExtraTreeClassifier(),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Discriminant Analysis</span></span><br><span class="line">    discriminant_analysis.LinearDiscriminantAnalysis(),</span><br><span class="line">    discriminant_analysis.QuadraticDiscriminantAnalysis(),</span><br><span class="line"></span><br><span class="line">    XGBClassifier()    </span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#split dataset in cross-validation with this splitter class: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit</span></span><br><span class="line"><span class="comment">#note: this is an alternative to train_test_split</span></span><br><span class="line">cv_split = model_selection.ShuffleSplit(n_splits = <span class="number">10</span>, test_size = <span class="number">.3</span>, train_size = <span class="number">.6</span>, random_state = <span class="number">0</span> ) <span class="comment"># run model 10x with 60/30 split intentionally leaving out 10%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#create table to compare MLA metrics</span></span><br><span class="line">MLA_columns = [<span class="string">'MLA Name'</span>, <span class="string">'MLA Parameters'</span>,<span class="string">'MLA Train Accuracy Mean'</span>, <span class="string">'MLA Test Accuracy Mean'</span>, <span class="string">'MLA Test Accuracy 3*STD'</span> ,<span class="string">'MLA Time'</span>]</span><br><span class="line">MLA_compare = pd.DataFrame(columns = MLA_columns)</span><br><span class="line"></span><br><span class="line"><span class="comment">#create table to compare MLA predictions</span></span><br><span class="line">MLA_predict = data_raw2[Target]</span><br><span class="line"></span><br><span class="line"><span class="comment">#index through MLA and save performance to table</span></span><br><span class="line">row_index = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> alg <span class="keyword">in</span> MLA:</span><br><span class="line"></span><br><span class="line">    <span class="comment">#set name and parameters</span></span><br><span class="line">    MLA_name = alg.__class__.__name__</span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Name'</span>] = MLA_name</span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Parameters'</span>] = str(alg.get_params())</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#score model with cross validation: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate</span></span><br><span class="line">    cv_results = model_selection.cross_validate(alg, data_raw2[data_raw2_x_bin], data_raw2[Target], cv  = cv_split)</span><br><span class="line"></span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Time'</span>] = cv_results[<span class="string">'fit_time'</span>].mean()</span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Train Accuracy Mean'</span>] = cv_results[<span class="string">'train_score'</span>].mean()</span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Test Accuracy Mean'</span>] = cv_results[<span class="string">'test_score'</span>].mean()   </span><br><span class="line">    <span class="comment">#if this is a non-bias random sample, then +/-3 standard deviations (std) from the mean, should statistically capture 99.7% of the subsets</span></span><br><span class="line">    MLA_compare.loc[row_index, <span class="string">'MLA Test Accuracy 3*STD'</span>] = cv_results[<span class="string">'test_score'</span>].std()*<span class="number">3</span>   <span class="comment">#let's know the worst that can happen!</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">#save MLA predictions - see section 6 for usage</span></span><br><span class="line">    alg.fit(data_raw2[data_raw2_x_bin], data_raw2[Target])</span><br><span class="line">    MLA_predict[MLA_name] = alg.predict(data_raw2[data_raw2_x_bin])</span><br><span class="line">    </span><br><span class="line">    row_index+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="comment">#print and sort table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html</span></span><br><span class="line">MLA_compare.sort_values(by = [<span class="string">'MLA Test Accuracy Mean'</span>], ascending = <span class="keyword">False</span>, inplace = <span class="keyword">True</span>)</span><br><span class="line">print(MLA_compare)</span><br></pre></td></tr></table></figure>
+<p>结果按照测试准确率从高到低排序：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">#</th>
+<th style="text-align:center">MLA Name</th>
+<th style="text-align:center">MLA Train Accuracy Mean</th>
+<th style="text-align:center">MLA Test Accuracy Mean</th>
+<th style="text-align:center">MLA Test Accuracy 3*STD</th>
+<th style="text-align:center">MLA Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">XGBClassifier</td>
+<td style="text-align:center">0.856367041</td>
+<td style="text-align:center">0.829477612</td>
+<td style="text-align:center">0.052754649</td>
+<td style="text-align:center">0.039702296</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">SVC</td>
+<td style="text-align:center">0.837265918</td>
+<td style="text-align:center">0.826119403</td>
+<td style="text-align:center">0.045387616</td>
+<td style="text-align:center">0.041802382</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">ExtraTreesClassifier</td>
+<td style="text-align:center">0.895131086</td>
+<td style="text-align:center">0.823134328</td>
+<td style="text-align:center">0.070477953</td>
+<td style="text-align:center">0.019001102</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">GradientBoostingClassifier</td>
+<td style="text-align:center">0.866666667</td>
+<td style="text-align:center">0.822761194</td>
+<td style="text-align:center">0.04987314</td>
+<td style="text-align:center">0.076404333</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">NuSVC</td>
+<td style="text-align:center">0.83576779</td>
+<td style="text-align:center">0.822761194</td>
+<td style="text-align:center">0.049368083</td>
+<td style="text-align:center">0.053803039</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">DecisionTreeClassifier</td>
+<td style="text-align:center">0.895131086</td>
+<td style="text-align:center">0.820895522</td>
+<td style="text-align:center">0.05321581</td>
+<td style="text-align:center">0.003500175</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">RandomForestClassifier</td>
+<td style="text-align:center">0.8917603</td>
+<td style="text-align:center">0.820522388</td>
+<td style="text-align:center">0.077465598</td>
+<td style="text-align:center">0.021201277</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">BaggingClassifier</td>
+<td style="text-align:center">0.89082397</td>
+<td style="text-align:center">0.817910448</td>
+<td style="text-align:center">0.07621811</td>
+<td style="text-align:center">0.016200852</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">KNeighborsClassifier</td>
+<td style="text-align:center">0.850374532</td>
+<td style="text-align:center">0.81380597</td>
+<td style="text-align:center">0.069086302</td>
+<td style="text-align:center">0.005700326</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">ExtraTreeClassifier</td>
+<td style="text-align:center">0.895131086</td>
+<td style="text-align:center">0.813432836</td>
+<td style="text-align:center">0.047227664</td>
+<td style="text-align:center">0.003000212</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">AdaBoostClassifier</td>
+<td style="text-align:center">0.820411985</td>
+<td style="text-align:center">0.811940299</td>
+<td style="text-align:center">0.049860576</td>
+<td style="text-align:center">0.058903384</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">GaussianProcessClassifier</td>
+<td style="text-align:center">0.871722846</td>
+<td style="text-align:center">0.810447761</td>
+<td style="text-align:center">0.049253731</td>
+<td style="text-align:center">0.156008911</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">QuadraticDiscriminantAnalysis</td>
+<td style="text-align:center">0.821535581</td>
+<td style="text-align:center">0.807089552</td>
+<td style="text-align:center">0.081038901</td>
+<td style="text-align:center">0.005000305</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">RidgeClassifierCV</td>
+<td style="text-align:center">0.796629213</td>
+<td style="text-align:center">0.794029851</td>
+<td style="text-align:center">0.036030172</td>
+<td style="text-align:center">0.008900499</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center">LinearDiscriminantAnalysis</td>
+<td style="text-align:center">0.796816479</td>
+<td style="text-align:center">0.794029851</td>
+<td style="text-align:center">0.036030172</td>
+<td style="text-align:center">0.007000422</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">LinearSVC</td>
+<td style="text-align:center">0.797565543</td>
+<td style="text-align:center">0.792910448</td>
+<td style="text-align:center">0.041053256</td>
+<td style="text-align:center">0.036402035</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">LogisticRegressionCV</td>
+<td style="text-align:center">0.797003745</td>
+<td style="text-align:center">0.790671642</td>
+<td style="text-align:center">0.065358182</td>
+<td style="text-align:center">0.127807283</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">GaussianNB</td>
+<td style="text-align:center">0.794756554</td>
+<td style="text-align:center">0.781343284</td>
+<td style="text-align:center">0.087456828</td>
+<td style="text-align:center">0.005600309</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">BernoulliNB</td>
+<td style="text-align:center">0.78576779</td>
+<td style="text-align:center">0.775373134</td>
+<td style="text-align:center">0.057034653</td>
+<td style="text-align:center">0.005900288</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">SGDClassifier</td>
+<td style="text-align:center">0.73670412</td>
+<td style="text-align:center">0.739179104</td>
+<td style="text-align:center">0.123788965</td>
+<td style="text-align:center">0.009600472</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">Perceptron</td>
+<td style="text-align:center">0.740074906</td>
+<td style="text-align:center">0.728731343</td>
+<td style="text-align:center">0.162220766</td>
+<td style="text-align:center">0.009200573</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">PassiveAggressiveClassifier</td>
+<td style="text-align:center">0.699812734</td>
+<td style="text-align:center">0.682462687</td>
+<td style="text-align:center">0.352227936</td>
+<td style="text-align:center">0.010100603</td>
+</tr>
+</tbody>
+</table>
+<p>以图形化的方式将结果展示出来：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=[<span class="number">16</span>,<span class="number">12</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html</span></span><br><span class="line">sns.barplot(x=<span class="string">'MLA Test Accuracy Mean'</span>, y = <span class="string">'MLA Name'</span>, data = MLA_compare, color = <span class="string">'m'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#prettify using pyplot: https://matplotlib.org/api/pyplot_api.html</span></span><br><span class="line">plt.title(<span class="string">'Machine Learning Algorithm Accuracy Score \n'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Accuracy Score (%)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Algorithm'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/B-Score.png" alt="分析"></p>
+<h3 id="STEP-5-2-选择基线"><a href="#STEP-5-2-选择基线" class="headerlink" title="STEP 5.2. 选择基线"></a>STEP 5.2. 选择基线</h3><p>在进行后续的模型优化之前，我们首先需要判断目前所拥有的模型是否值得继续优化，因此我们要确定一个基线。</p>
+<p>我们知道这是一个二分类问题，因此无论如何，就算是猜，最差也应该能够有 50% 的准确率。当然，这个基线是在对于具体的项目和数据信息一无所知的情况下确定的，但事实上我们对这个数据集有一定的了解。</p>
+<p>我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://www.kaggle.com/c/titanic" target="_blank" rel="noopener">https://www.kaggle.com/c/titanic</a><br>[2] <a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook" target="_blank" rel="noopener">https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/28/基于Kaggle的泰坦尼克生存预测介绍一种数据分析框架/" data-id="cjpxmj5f800alp8lu59gt0u7n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Titanic/">Titanic</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/29/Numpy-Tutorial/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Numpy Tutorial
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/基于生产者消费者模式实现数据从-MongoDB-导入-HBase/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于生产者消费者模式实现数据从 MongoDB 导入 HBase</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/KVM/">KVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learning-Theory/">Learning Theory</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nodejs/">Nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scrapy/">Scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/饭团的小日子/">饭团的小日子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2080ti/">2080ti</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AdaBoostClassifier/">AdaBoostClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BaggingClassifier/">BaggingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BernoulliNB/">BernoulliNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIY/">DIY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Analysis/">Data Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DecisionTreeClassifier/">DecisionTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exector/">Exector</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ExtraTreeClassifier/">ExtraTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GaussianNB/">GaussianNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GradientBoostingClassifier/">GradientBoostingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/History-Server/">History-Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMeans/">KMeans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KNeighborsClassifier/">KNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KVM/">KVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learning-Theory/">Learning Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearDiscriminantAnalysis/">LinearDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearSVC/">LinearSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4J/">Log4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogBack/">LogBack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogisticRegression/">LogisticRegression</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAT/">MAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MLPClassifier/">MLPClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math-Function/">Math Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Connection/">Network Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NuSVC/">NuSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PassiveAggressiveClassifier/">PassiveAggressiveClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QuadraticDiscriminantAnalysis/">QuadraticDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDD/">RDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RadiusNeighborsClassifier/">RadiusNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RandomForestClassifier/">RandomForestClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Run-Main/">Run Main</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SLF4J/">SLF4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVC/">SVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbt/">Sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala操作HBase/">Scala操作HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-client/">Scrapyd-client</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-deploy/">Scrapyd-deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series/">Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slicing/">Slicing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-on-Yarn/">Spark on Yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark-shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stage/">Stage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-IP/">Static IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Syntax/">Syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Titanic/">Titanic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-C/">Visual C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZooKeeper/">ZooKeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my-ini/">my.ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/port/">port</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt-package/">sbt package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互式/">交互式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/休眠/">休眠</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/免密登录/">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分析/">内存分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折线图/">折线图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无人值守/">无人值守</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘干机/">烘干机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生产者消费者模式/">生产者消费者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直方图/">直方图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/端口/">端口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙/">防火墙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2080ti/" style="font-size: 10px;">2080ti</a> <a href="/tags/3D/" style="font-size: 12.5px;">3D</a> <a href="/tags/3D-Bar-Charts/" style="font-size: 10px;">3D Bar Charts</a> <a href="/tags/3D-Scatter-Plots/" style="font-size: 12.5px;">3D Scatter Plots</a> <a href="/tags/3D-Surfaces/" style="font-size: 10px;">3D Surfaces</a> <a href="/tags/3D-散点图/" style="font-size: 12.5px;">3D 散点图</a> <a href="/tags/3D-曲面图/" style="font-size: 10px;">3D 曲面图</a> <a href="/tags/3D-柱状图/" style="font-size: 10px;">3D 柱状图</a> <a href="/tags/AdaBoostClassifier/" style="font-size: 10px;">AdaBoostClassifier</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BaggingClassifier/" style="font-size: 10px;">BaggingClassifier</a> <a href="/tags/Bar-Charts/" style="font-size: 12.5px;">Bar Charts</a> <a href="/tags/BernoulliNB/" style="font-size: 10px;">BernoulliNB</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Bridge/" style="font-size: 12.5px;">Bridge</a> <a href="/tags/Cross-Validation/" style="font-size: 10px;">Cross Validation</a> <a href="/tags/DAG/" style="font-size: 10px;">DAG</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/Data-Analysis/" style="font-size: 10px;">Data Analysis</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/Data-Visualization/" style="font-size: 12.5px;">Data Visualization</a> <a href="/tags/Data-wrangling/" style="font-size: 10px;">Data wrangling</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/DecisionTreeClassifier/" style="font-size: 10px;">DecisionTreeClassifier</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/Exector/" style="font-size: 10px;">Exector</a> <a href="/tags/Explorator-Analysis/" style="font-size: 10px;">Explorator Analysis</a> <a href="/tags/ExtraTreeClassifier/" style="font-size: 10px;">ExtraTreeClassifier</a> <a href="/tags/Feature-Selection/" style="font-size: 10px;">Feature Selection</a> <a href="/tags/GaussianNB/" style="font-size: 10px;">GaussianNB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GradientBoostingClassifier/" style="font-size: 10px;">GradientBoostingClassifier</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Historgrams/" style="font-size: 12.5px;">Historgrams</a> <a href="/tags/History-Server/" style="font-size: 10px;">History-Server</a> <a href="/tags/Idea/" style="font-size: 12.5px;">Idea</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KMeans/" style="font-size: 10px;">KMeans</a> <a href="/tags/KNeighborsClassifier/" style="font-size: 10px;">KNeighborsClassifier</a> <a href="/tags/KVM/" style="font-size: 12.5px;">KVM</a> <a href="/tags/Kaggle/" style="font-size: 10px;">Kaggle</a> <a href="/tags/KickStart/" style="font-size: 10px;">KickStart</a> <a href="/tags/Learning-Theory/" style="font-size: 10px;">Learning Theory</a> <a href="/tags/Line-Charts/" style="font-size: 12.5px;">Line Charts</a> <a href="/tags/LinearDiscriminantAnalysis/" style="font-size: 10px;">LinearDiscriminantAnalysis</a> <a href="/tags/LinearSVC/" style="font-size: 10px;">LinearSVC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Log4J/" style="font-size: 10px;">Log4J</a> <a href="/tags/LogBack/" style="font-size: 10px;">LogBack</a> <a href="/tags/LogisticRegression/" style="font-size: 10px;">LogisticRegression</a> <a href="/tags/MAT/" style="font-size: 10px;">MAT</a> <a href="/tags/MLPClassifier/" style="font-size: 10px;">MLPClassifier</a> <a href="/tags/Machine-Learning/" style="font-size: 12.5px;">Machine Learning</a> <a href="/tags/Math-Function/" style="font-size: 10px;">Math Function</a> <a href="/tags/Matplotlib/" style="font-size: 12.5px;">Matplotlib</a> <a href="/tags/Maven/" style="font-size: 12.5px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Network-Connection/" style="font-size: 10px;">Network Connection</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/NuSVC/" style="font-size: 10px;">NuSVC</a> <a href="/tags/Numpy/" style="font-size: 15px;">Numpy</a> <a href="/tags/PairRDD/" style="font-size: 10px;">PairRDD</a> <a href="/tags/Pandas/" style="font-size: 12.5px;">Pandas</a> <a href="/tags/PassiveAggressiveClassifier/" style="font-size: 10px;">PassiveAggressiveClassifier</a> <a href="/tags/Pie-Charts/" style="font-size: 12.5px;">Pie Charts</a> <a href="/tags/Plotly/" style="font-size: 10px;">Plotly</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QuadraticDiscriminantAnalysis/" style="font-size: 10px;">QuadraticDiscriminantAnalysis</a> <a href="/tags/RDD/" style="font-size: 10px;">RDD</a> <a href="/tags/RadiusNeighborsClassifier/" style="font-size: 10px;">RadiusNeighborsClassifier</a> <a href="/tags/RandomForestClassifier/" style="font-size: 10px;">RandomForestClassifier</a> <a href="/tags/Run-Main/" style="font-size: 10px;">Run Main</a> <a href="/tags/SKLearn/" style="font-size: 10px;">SKLearn</a> <a href="/tags/SLF4J/" style="font-size: 10px;">SLF4J</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SVC/" style="font-size: 10px;">SVC</a> <a href="/tags/Sbt/" style="font-size: 10px;">Sbt</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/Scala操作HBase/" style="font-size: 10px;">Scala操作HBase</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Scrapyd-client/" style="font-size: 10px;">Scrapyd-client</a> <a href="/tags/Scrapyd-deploy/" style="font-size: 10px;">Scrapyd-deploy</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Series/" style="font-size: 10px;">Series</a> <a href="/tags/Slicing/" style="font-size: 10px;">Slicing</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Spark-on-Yarn/" style="font-size: 10px;">Spark on Yarn</a> <a href="/tags/Spark-shell/" style="font-size: 10px;">Spark-shell</a> <a href="/tags/Stage/" style="font-size: 10px;">Stage</a> <a href="/tags/Static-IP/" style="font-size: 10px;">Static IP</a> <a href="/tags/Syntax/" style="font-size: 10px;">Syntax</a> <a href="/tags/Titanic/" style="font-size: 10px;">Titanic</a> <a href="/tags/Visual-C/" style="font-size: 10px;">Visual C++</a> <a href="/tags/ZooKeeper/" style="font-size: 10px;">ZooKeeper</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10px;">hdfs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/my-ini/" style="font-size: 10px;">my.ini</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/sbt-package/" style="font-size: 10px;">sbt package</a> <a href="/tags/yarn/" style="font-size: 10px;">yarn</a> <a href="/tags/交互式/" style="font-size: 10px;">交互式</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/免密登录/" style="font-size: 10px;">免密登录</a> <a href="/tags/内存分析/" style="font-size: 10px;">内存分析</a> <a href="/tags/命令行安装虚拟机/" style="font-size: 10px;">命令行安装虚拟机</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/折线图/" style="font-size: 12.5px;">折线图</a> <a href="/tags/无人值守/" style="font-size: 10px;">无人值守</a> <a href="/tags/柱状图/" style="font-size: 12.5px;">柱状图</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/烘干机/" style="font-size: 10px;">烘干机</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/生产者消费者模式/" style="font-size: 10px;">生产者消费者模式</a> <a href="/tags/直方图/" style="font-size: 12.5px;">直方图</a> <a href="/tags/端口/" style="font-size: 10px;">端口</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a> <a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a> <a href="/tags/集群/" style="font-size: 12.5px;">集群</a> <a href="/tags/饼状图/" style="font-size: 12.5px;">饼状图</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/21/学习原理/">学习原理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/">Python 机器学习类库 Scikit-Learn Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/交互式数据可视化-Plotly-Tutorial/">交互式数据可视化 Plotly Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/">数据可视化 Matplotlib Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Pandas-Tutorial/">Pandas Tutorial</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 weilu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python 机器学习类库 Scikit-Learn Tutorial | 全宇宙尖端技术研究基地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要Scikit-Learn 是机器学习领域中非常著名的一个类库，其中封装了很多机器学习中需要使用到的算法工具。Scikit-Learn 构建在 NumPy 和 SciPy 等常见的数据科学类库之上。其核心算法使用更底层的语言实现，通过 Python 进行调用。">
+<meta name="keywords" content="Machine Learning,Python,KNeighborsClassifier,RadiusNeighborsClassifier,LogisticRegression,PassiveAggressiveClassifier,GaussianNB,BernoulliNB,SVC,NuSVC,LinearSVC,DecisionTreeClassifier,ExtraTreeClassifier,MLPClassifier,RandomForestClassifier,BaggingClassifier,AdaBoostClassifier,GradientBoostingClassifier,LinearDiscriminantAnalysis,QuadraticDiscriminantAnalysis,KMeans">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 机器学习类库 Scikit-Learn Tutorial">
+<meta property="og:url" content="http://yoursite.com/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/index.html">
+<meta property="og:site_name" content="全宇宙尖端技术研究基地">
+<meta property="og:description" content="摘要Scikit-Learn 是机器学习领域中非常著名的一个类库，其中封装了很多机器学习中需要使用到的算法工具。Scikit-Learn 构建在 NumPy 和 SciPy 等常见的数据科学类库之上。其核心算法使用更底层的语言实现，通过 Python 进行调用。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/A-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/B-01.png">
+<meta property="og:updated_time" content="2018-12-01T14:14:57.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 机器学习类库 Scikit-Learn Tutorial">
+<meta name="twitter:description" content="摘要Scikit-Learn 是机器学习领域中非常著名的一个类库，其中封装了很多机器学习中需要使用到的算法工具。Scikit-Learn 构建在 NumPy 和 SciPy 等常见的数据科学类库之上。其核心算法使用更底层的语言实现，通过 Python 进行调用。">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/A-01.png">
+  
+    <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">全宇宙尖端技术研究基地</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">专门研究各种全宇宙高精尖技术，比如“各种版本的Hello World怎么写”、“各种版本操作系统如何开机关机”、“如何喂养一只卖不出去的布偶猫”等...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python-机器学习类库-Scikit-Learn-Tutorial" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/" class="article-date">
+  <time datetime="2018-12-01T14:08:18.000Z" itemprop="datePublished">2018-12-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Machine-Learning/">Machine Learning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 机器学习类库 Scikit-Learn Tutorial
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>Scikit-Learn 是机器学习领域中非常著名的一个类库，其中封装了很多机器学习中需要使用到的算法工具。Scikit-Learn 构建在 NumPy 和 SciPy 等常见的数据科学类库之上。其核心算法使用更底层的语言实现，通过 Python 进行调用。</p>
+<a id="more"></a>
+<h1 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1. 基本介绍"></a>1. 基本介绍</h1><h2 id="1-1-环境"><a href="#1-1-环境" class="headerlink" title="1.1. 环境"></a>1.1. 环境</h2><p>导入相关类库：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(<span class="string">"Python version: &#123;&#125;"</span>. format(sys.version))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">print(<span class="string">"pandas version: &#123;&#125;"</span>. format(pd.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">print(<span class="string">"matplotlib version: &#123;&#125;"</span>. format(matplotlib.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(<span class="string">"NumPy version: &#123;&#125;"</span>. format(np.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scipy <span class="keyword">as</span> sp</span><br><span class="line">print(<span class="string">"SciPy version: &#123;&#125;"</span>. format(sp.__version__)) </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line">print(<span class="string">"scikit-learn version: &#123;&#125;"</span>. format(sklearn.__version__))</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示所有列</span></span><br><span class="line">pd.set_option(<span class="string">'display.max_columns'</span>, <span class="keyword">None</span>)</span><br><span class="line"><span class="comment">#显示所有行</span></span><br><span class="line">pd.set_option(<span class="string">'display.max_rows'</span>, <span class="keyword">None</span>)</span><br><span class="line"><span class="comment">#设置value的显示长度为100，默认为50</span></span><br><span class="line">pd.set_option(<span class="string">'max_colwidth'</span>,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-算法"><a href="#1-2-算法" class="headerlink" title="1.2. 算法"></a>1.2. 算法</h2><p>Scikit-Learn 包含机器学习领域中比较主流的算法，包括：</p>
+<p><strong>Supervised learning</strong></p>
+<ol>
+<li>Linear model (Ridge, Lasso, Elastic Net, …)</li>
+<li>Support Vector Machine</li>
+<li>Tree-bassed methods (Random Forests, Bagging, GBRT, …)</li>
+<li>Nearest neighbors</li>
+<li>Neural networks (basics)</li>
+<li>Gaussian Processes</li>
+<li>Feature selection</li>
+</ol>
+<p><strong>Unsupervised learning</strong></p>
+<ol>
+<li>Clustering (KMeans, Ward, …)</li>
+<li>Matrix decomposition (PCA, ICA, …)</li>
+<li>Density estimation</li>
+<li>Outlier detection</li>
+</ol>
+<p><strong>Model selection and evaluation</strong></p>
+<ol>
+<li>Cross-validation</li>
+<li>Grid-search</li>
+<li>Lost of metrics</li>
+</ol>
+<p>等等</p>
+<h2 id="1-3-数据集"><a href="#1-3-数据集" class="headerlink" title="1.3. 数据集"></a>1.3. 数据集</h2><h3 id="1-3-1-鸢尾花数据"><a href="#1-3-1-鸢尾花数据" class="headerlink" title="1.3.1. 鸢尾花数据"></a>1.3.1. 鸢尾花数据</h3><p>右加州大学开放的用于机器学习测试的清洗好的数据集，鸢尾花数据集，包含三种不同类型的鸢尾花，特征包含鸢尾花花瓣和花萼的长度和宽度。</p>
+<p>导入数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataset = pd.read_csv(<span class="string">'./input/Iris.csv'</span>)</span><br><span class="line"></span><br><span class="line">print(type(dataset))</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pandas.core.frame.DataFrame</span><br></pre></td></tr></table></figure>
+<p>数据是 DataFrame 类型，然后查看一下数据内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(dataset.head())</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">SepalLengthCm</th>
+<th style="text-align:center">SepalWidthCm</th>
+<th style="text-align:center">PetalLengthCm</th>
+<th style="text-align:center">PetalWidthCm</th>
+<th style="text-align:center">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">5.1</td>
+<td style="text-align:center">3.5</td>
+<td style="text-align:center">1.4</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">Iris-setosa</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4.9</td>
+<td style="text-align:center">3.0</td>
+<td style="text-align:center">1.4</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">Iris-setosa</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4.7</td>
+<td style="text-align:center">3.2</td>
+<td style="text-align:center">1.3</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">Iris-setosa</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4.6</td>
+<td style="text-align:center">3.1</td>
+<td style="text-align:center">1.5</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">Iris-setosa</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5.0</td>
+<td style="text-align:center">3.6</td>
+<td style="text-align:center">1.4</td>
+<td style="text-align:center">0.2</td>
+<td style="text-align:center">Iris-setosa</td>
+</tr>
+</tbody>
+</table>
+<p>拆分训练集和测试集，加载的数据集的特征和标签是在一起的，但是在使用算法训练模型时，需要将特征和标签拆分开来，同时还需要拆分训练集和测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X = dataset.iloc[:, :<span class="number">-1</span>].values</span><br><span class="line">y = dataset.iloc[:, <span class="number">-1</span>].values</span><br></pre></td></tr></table></figure>
+<p>首先将特征和输入拆分，这里 <code>[:, :-1]</code> 中的第一个冒号表示的是所截取的行，开始到结束都是空的，也就是截取所有，而第 <code>:-1</code> 表示要截取的列，是从开始到最后第二列，也就是特征了。对应的 y 截取的是最后一列，也就是标签了。</p>
+<p>然后使用 sklearn 中的方法来拆分训练集和测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = <span class="number">0.2</span>, random_state = <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>这里 <code>test_size</code> 是 0.2 表示训练集和测试集是 8:2，<code>random_state</code> 表示随机数的种子，每次拆分如果使用相同的种子，那么就会得到两组相同的随机数。种子还可以设置为 <code>None</code>，那么每次得到的随机数种子也是随机的。</p>
+<h3 id="1-3-2-构造数据集"><a href="#1-3-2-构造数据集" class="headerlink" title="1.3.2. 构造数据集"></a>1.3.2. 构造数据集</h3><p>这里使用 <code>make_blobs</code> 来生成测试数据。这是一个聚类数据生成器。这个方法会生成一个包含若干个中心点的分类数据、中心点个数、特征数量、样本条数等都是可以指定的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line">X, y = make_blobs(n_samples=<span class="number">1000</span>, centers=<span class="number">20</span>, random_state=<span class="number">123</span>)</span><br><span class="line">labels = [<span class="string">"b"</span>, <span class="string">"r"</span>]</span><br><span class="line">y = np.take(labels, (y &lt; <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">print(pd.DataFrame(X).head())</span><br><span class="line">print(pd.DataFrame(y).head())</span><br></pre></td></tr></table></figure>
+<p>打印的特征：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">-6.452556</td>
+<td style="text-align:center">-8.763583</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0.289821</td>
+<td style="text-align:center">0.146772</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-5.184123</td>
+<td style="text-align:center">-1.253470</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">-4.713888</td>
+<td style="text-align:center">3.674405</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4.515583</td>
+<td style="text-align:center">-2.881380</td>
+</tr>
+</tbody>
+</table>
+<p>打印的标签：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">df_index</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">r</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">r</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">b</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">r</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">b</td>
+</tr>
+</tbody>
+</table>
+<p>绘制散点图看看：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.rcParams[<span class="string">"figure.figsize"</span>] = (<span class="number">10</span>, <span class="number">8</span>)</span><br><span class="line">plt.rcParams[<span class="string">"figure.max_open_warning"</span>] = <span class="number">-1</span></span><br><span class="line">plt.figure()</span><br><span class="line"><span class="keyword">for</span> label <span class="keyword">in</span> labels:</span><br><span class="line">    mask = (y == label)</span><br><span class="line">    plt.scatter(X[mask, <span class="number">0</span>], X[mask, <span class="number">1</span>], c=label)</span><br><span class="line">plt.xlim(<span class="number">-10</span>, <span class="number">10</span>)</span><br><span class="line">plt.ylim(<span class="number">-10</span>, <span class="number">10</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/A-01.png" alt="GRAPH"></p>
+<h2 id="1-4-接口"><a href="#1-4-接口" class="headerlink" title="1.4. 接口"></a>1.4. 接口</h2><p>Scikit-Learn 中所有的学习算法采用类似的 API 设计，每个学习算法都包含以下一些接口：</p>
+<ol>
+<li>一个用于构建和拟合模型的接口</li>
+<li>一个用于进行预测的接口</li>
+<li>一个用于转换数据的接口</li>
+</ol>
+<h1 id="2-K-Nearest-Neighbours"><a href="#2-K-Nearest-Neighbours" class="headerlink" title="2. K-Nearest Neighbours"></a>2. K-Nearest Neighbours</h1><p>在机器学习中，KNN 算法是一种无参的分类和回归算法。在 KNN 分类中采用多数投票制，邻居进行投票，占多数的那个即为这个对象的分类。如果是回归，那么结果就是其最近的几个邻居的平均值。</p>
+<p>下面使用 KNN 对鸢尾花数据进行模型训练和评估：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line">Model = KNeighborsClassifier(n_neighbors=<span class="number">8</span>)</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>KNeighborsClassifier</code> 进行分类，设置近邻数量为 <code>n_neighbors=8</code>。然后用 <code>fit()</code> 方法训练模型，使用 <code>predict()</code> 方法预测结果。</p>
+<p>然后使用 <code>accuracy_score()</code> 函数计算评分。评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<p>除了准确率，还可以使用混淆矩阵观察预测效果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line">print(confusion_matrix(y_test, y_pred))</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[11  0  0]</span><br><span class="line"> [ 0 13  0]</span><br><span class="line"> [ 0  0  6]]</span><br></pre></td></tr></table></figure>
+<p>此外，还可以查看准确率、召回率等指标：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line">print(classification_report(y_test, y_pred))</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">-</th>
+<th style="text-align:center">precision</th>
+<th style="text-align:center">recall</th>
+<th style="text-align:center">f1-score</th>
+<th style="text-align:center">support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Iris-setosa</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">Iris-versicolor</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:center">Iris-virginica</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">micro avg</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">macro avg</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">weighted avg</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">1.00</td>
+<td style="text-align:center">30</td>
+</tr>
+</tbody>
+</table>
+<h1 id="3-Radius-Neighbors-Classifier"><a href="#3-Radius-Neighbors-Classifier" class="headerlink" title="3. Radius Neighbors Classifier"></a>3. Radius Neighbors Classifier</h1><p>有限半径的近邻分类。在 sklean 中 <code>RadiusNeighborsClassifier</code> 与 <code>KNeighborsClassifier</code> 非常相似，除了两个参数。第一个参数是 <code>RadiusNeighborsClassifier</code> 需要指定固定半径，并使用在这个半径区域内的近邻进行分类。第二个参数用来表明在指定半径区域内，哪一个标签是不应该出现的，如果该区域内出现这个标签对应的输入，那么这个输入就是异常值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span>  RadiusNeighborsClassifier</span><br><span class="line">Model=RadiusNeighborsClassifier(radius=<span class="number">8.0</span>)</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">y_pred=Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is '</span>, accuracy_score(y_test,y_pred))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="4-Logistic-Regression"><a href="#4-Logistic-Regression" class="headerlink" title="4. Logistic Regression"></a>4. Logistic Regression</h1><p>Logistic Regression 也是一种回归分析，并且其因变量是只有两种可能性。Logistic Regression 是一种使用非常广泛的分类算法，很多复杂的方法都基于这个方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">Model = LogisticRegression(solver=<span class="string">'liblinear'</span>, multi_class=<span class="string">'ovr'</span>)</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.933333333333</span><br></pre></td></tr></table></figure>
+<h1 id="5-Passive-Aggressive-Classifier"><a href="#5-Passive-Aggressive-Classifier" class="headerlink" title="5. Passive Aggressive Classifier"></a>5. Passive Aggressive Classifier</h1><p>Passive Aggressive Classifier 是一种增量学习算法，当训练数据比较大时，可以一次只传入部分训练数据进行训练，不同的迭代传入训练数据。使用 <code>partial_fit()</code> 方法进行增量训练，不过这里实例只是简单用法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> PassiveAggressiveClassifier</span><br><span class="line">Model = PassiveAggressiveClassifier()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.7</span><br></pre></td></tr></table></figure>
+<h1 id="6-Naive-Bayes"><a href="#6-Naive-Bayes" class="headerlink" title="6. Naive Bayes"></a>6. Naive Bayes</h1><p>在机器学习中，Naive Bayes 是一种基于贝叶斯定律的分类器，它假设特征之间都是相互独立的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line">Model = GaussianNB()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="7-BernoulliNB"><a href="#7-BernoulliNB" class="headerlink" title="7. BernoulliNB"></a>7. BernoulliNB</h1><p>适合二分类问题的分类器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> BernoulliNB</span><br><span class="line">Model = BernoulliNB()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.2</span><br></pre></td></tr></table></figure>
+<h1 id="8-SVM"><a href="#8-SVM" class="headerlink" title="8. SVM"></a>8. SVM</h1><p>支持向量机，一种适合处理高维度数据的算法。在数据的特征数量比数据的样本数据量还大的时候仍然有效。它可以使用样本集中的一部分进行计算，也就是可以完全在内存中计算。此外，用户还可以自定义核函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">Model = SVC()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="9-Nu-Support-Vector-Classification"><a href="#9-Nu-Support-Vector-Classification" class="headerlink" title="9. Nu-Support Vector Classification"></a>9. Nu-Support Vector Classification</h1><p>类似于 SVM，但是可以使用一个参数指定参与计算的支持向量的数量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> NuSVC</span><br><span class="line"></span><br><span class="line">Model = NuSVC()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="10-Linear-Support-Vector-Classification"><a href="#10-Linear-Support-Vector-Classification" class="headerlink" title="10. Linear Support Vector Classification"></a>10. Linear Support Vector Classification</h1><p>指定线性核的 SVM 分类器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</span><br><span class="line"></span><br><span class="line">Model = LinearSVC()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.8</span><br></pre></td></tr></table></figure>
+<h1 id="11-Decision-Tree"><a href="#11-Decision-Tree" class="headerlink" title="11. Decision Tree"></a>11. Decision Tree</h1><p>决策树是一种无参的监督学习方法，可以用来解决分类或回归问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">Model = DecisionTreeClassifier()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.966666666667</span><br></pre></td></tr></table></figure>
+<h1 id="12-ExtraTreeClassifier"><a href="#12-ExtraTreeClassifier" class="headerlink" title="12. ExtraTreeClassifier"></a>12. ExtraTreeClassifier</h1><p>一种随机树分类器。其与决策树的主要区别在于树的构建过程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> ExtraTreeClassifier</span><br><span class="line"></span><br><span class="line">Model = ExtraTreeClassifier()</span><br><span class="line">Model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="13-Neural-network"><a href="#13-Neural-network" class="headerlink" title="13. Neural network"></a>13. Neural network</h1><p>多层感知机。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPClassifier</span><br><span class="line"></span><br><span class="line">Model=MLPClassifier()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.933333333333</span><br></pre></td></tr></table></figure>
+<h1 id="14-RandomForest"><a href="#14-RandomForest" class="headerlink" title="14. RandomForest"></a>14. RandomForest</h1><p>随机森林通过基于不同的训练样本子集来训练出许多决策树分类器，然后使用这些决策树的平均值来进行预测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">Model=RandomForestClassifier(max_depth=<span class="number">2</span>)</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="15-Bagging-classifier"><a href="#15-Bagging-classifier" class="headerlink" title="15. Bagging classifier"></a>15. Bagging classifier</h1><p>Bagging classifier 通过随机子集训练处众多分类器，然后将所有分类器的结果进行聚合，得到最终的预测结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> BaggingClassifier</span><br><span class="line">Model=BaggingClassifier()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.966666666667</span><br></pre></td></tr></table></figure>
+<h1 id="16-AdaBoost-classifier"><a href="#16-AdaBoost-classifier" class="headerlink" title="16. AdaBoost classifier"></a>16. AdaBoost classifier</h1><p>AdaBoost classifier 首先在原始的数据集上拟合一个分类器，然后利用第一个分类器分类的结果训练第二个分类器，并且调整其中错误分类的权重，这样子分类器就会关注更难以分类的那部分数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> AdaBoostClassifier</span><br><span class="line">Model=AdaBoostClassifier()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line"></span><br><span class="line">y_pred = Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.966666666667</span><br></pre></td></tr></table></figure>
+<h1 id="17-Gradient-Boosting-Classifier"><a href="#17-Gradient-Boosting-Classifier" class="headerlink" title="17. Gradient Boosting Classifier"></a>17. Gradient Boosting Classifier</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line">Model=GradientBoostingClassifier()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line">y_pred=Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 0.966666666667</span><br></pre></td></tr></table></figure>
+<h1 id="18-Linear-Discriminant-Analysis"><a href="#18-Linear-Discriminant-Analysis" class="headerlink" title="18. Linear Discriminant Analysis"></a>18. Linear Discriminant Analysis</h1><p>Linear Discriminant Analysis 和 Quadratic Discriminant Analysis 是两种经典的分类方法，如两个方法的名字所示，一个是使用一条直线进行分类，一个是使用一个二次决策曲面进行分类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.discriminant_analysis <span class="keyword">import</span> LinearDiscriminantAnalysis</span><br><span class="line">Model=LinearDiscriminantAnalysis()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line">y_pred=Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="19-Quadratic-Discriminant-Analysis"><a href="#19-Quadratic-Discriminant-Analysis" class="headerlink" title="19. Quadratic Discriminant Analysis"></a>19. Quadratic Discriminant Analysis</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.discriminant_analysis <span class="keyword">import</span> QuadraticDiscriminantAnalysis</span><br><span class="line">Model=QuadraticDiscriminantAnalysis()</span><br><span class="line">Model.fit(X_train,y_train)</span><br><span class="line">y_pred=Model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score  </span><br><span class="line">print(<span class="string">'accuracy is'</span>,accuracy_score(y_pred,y_test))</span><br></pre></td></tr></table></figure>
+<p>评分结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy is 1.0</span><br></pre></td></tr></table></figure>
+<h1 id="20-Kmeans"><a href="#20-Kmeans" class="headerlink" title="20. Kmeans"></a>20. Kmeans</h1><p>Kmeans 是一种无监督学习，用来处理未分类数据。其目标是利用算法从数据中找出分组，然后将数据划分到各个分组中，分组的数量是不一定的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line">iris_SP = dataset[[<span class="string">'SepalLengthCm'</span>,<span class="string">'SepalWidthCm'</span>,<span class="string">'PetalLengthCm'</span>,<span class="string">'PetalWidthCm'</span>]]</span><br><span class="line">                                           </span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> cdist</span><br><span class="line">clusters=range(<span class="number">1</span>,<span class="number">15</span>)</span><br><span class="line">meandist=[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> clusters:</span><br><span class="line">    model=KMeans(n_clusters=k)</span><br><span class="line">    model.fit(iris_SP)</span><br><span class="line">    clusassign=model.predict(iris_SP)</span><br><span class="line">    meandist.append(sum(np.min(cdist(iris_SP, model.cluster_centers_, <span class="string">'euclidean'</span>), axis=<span class="number">1</span>))</span><br><span class="line">    / iris_SP.shape[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot(clusters, meandist)</span><br><span class="line">plt.xlabel(<span class="string">'Number of clusters'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Average distance'</span>)</span><br><span class="line">plt.title(<span class="string">'Selecting k with the Elbow Method'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>设置分组的数量从 1 - 15，根据分组数量以及分组之间的距离判断应该设置的合适的分组数量。</p>
+<p><img src="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/B-01.png" alt="GRAPH"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/" data-id="cjpxmj58l0050p8lut23hwjqp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AdaBoostClassifier/">AdaBoostClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BaggingClassifier/">BaggingClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BernoulliNB/">BernoulliNB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DecisionTreeClassifier/">DecisionTreeClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ExtraTreeClassifier/">ExtraTreeClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GaussianNB/">GaussianNB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GradientBoostingClassifier/">GradientBoostingClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KMeans/">KMeans</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KNeighborsClassifier/">KNeighborsClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearDiscriminantAnalysis/">LinearDiscriminantAnalysis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearSVC/">LinearSVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LogisticRegression/">LogisticRegression</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MLPClassifier/">MLPClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NuSVC/">NuSVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PassiveAggressiveClassifier/">PassiveAggressiveClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QuadraticDiscriminantAnalysis/">QuadraticDiscriminantAnalysis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RadiusNeighborsClassifier/">RadiusNeighborsClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RandomForestClassifier/">RandomForestClassifier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVC/">SVC</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/21/学习原理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/30/交互式数据可视化-Plotly-Tutorial/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">交互式数据可视化 Plotly Tutorial</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/KVM/">KVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learning-Theory/">Learning Theory</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nodejs/">Nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scrapy/">Scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/饭团的小日子/">饭团的小日子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2080ti/">2080ti</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AdaBoostClassifier/">AdaBoostClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BaggingClassifier/">BaggingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BernoulliNB/">BernoulliNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIY/">DIY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Analysis/">Data Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DecisionTreeClassifier/">DecisionTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exector/">Exector</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ExtraTreeClassifier/">ExtraTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GaussianNB/">GaussianNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GradientBoostingClassifier/">GradientBoostingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/History-Server/">History-Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMeans/">KMeans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KNeighborsClassifier/">KNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KVM/">KVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learning-Theory/">Learning Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearDiscriminantAnalysis/">LinearDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearSVC/">LinearSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4J/">Log4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogBack/">LogBack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogisticRegression/">LogisticRegression</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAT/">MAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MLPClassifier/">MLPClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math-Function/">Math Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Connection/">Network Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NuSVC/">NuSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PassiveAggressiveClassifier/">PassiveAggressiveClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QuadraticDiscriminantAnalysis/">QuadraticDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDD/">RDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RadiusNeighborsClassifier/">RadiusNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RandomForestClassifier/">RandomForestClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Run-Main/">Run Main</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SLF4J/">SLF4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVC/">SVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbt/">Sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala操作HBase/">Scala操作HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-client/">Scrapyd-client</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-deploy/">Scrapyd-deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series/">Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slicing/">Slicing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-on-Yarn/">Spark on Yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark-shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stage/">Stage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-IP/">Static IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Syntax/">Syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Titanic/">Titanic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-C/">Visual C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZooKeeper/">ZooKeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my-ini/">my.ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/port/">port</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt-package/">sbt package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互式/">交互式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/休眠/">休眠</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/免密登录/">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分析/">内存分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折线图/">折线图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无人值守/">无人值守</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘干机/">烘干机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生产者消费者模式/">生产者消费者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直方图/">直方图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/端口/">端口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙/">防火墙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2080ti/" style="font-size: 10px;">2080ti</a> <a href="/tags/3D/" style="font-size: 12.5px;">3D</a> <a href="/tags/3D-Bar-Charts/" style="font-size: 10px;">3D Bar Charts</a> <a href="/tags/3D-Scatter-Plots/" style="font-size: 12.5px;">3D Scatter Plots</a> <a href="/tags/3D-Surfaces/" style="font-size: 10px;">3D Surfaces</a> <a href="/tags/3D-散点图/" style="font-size: 12.5px;">3D 散点图</a> <a href="/tags/3D-曲面图/" style="font-size: 10px;">3D 曲面图</a> <a href="/tags/3D-柱状图/" style="font-size: 10px;">3D 柱状图</a> <a href="/tags/AdaBoostClassifier/" style="font-size: 10px;">AdaBoostClassifier</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BaggingClassifier/" style="font-size: 10px;">BaggingClassifier</a> <a href="/tags/Bar-Charts/" style="font-size: 12.5px;">Bar Charts</a> <a href="/tags/BernoulliNB/" style="font-size: 10px;">BernoulliNB</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Bridge/" style="font-size: 12.5px;">Bridge</a> <a href="/tags/Cross-Validation/" style="font-size: 10px;">Cross Validation</a> <a href="/tags/DAG/" style="font-size: 10px;">DAG</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/Data-Analysis/" style="font-size: 10px;">Data Analysis</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/Data-Visualization/" style="font-size: 12.5px;">Data Visualization</a> <a href="/tags/Data-wrangling/" style="font-size: 10px;">Data wrangling</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/DecisionTreeClassifier/" style="font-size: 10px;">DecisionTreeClassifier</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/Exector/" style="font-size: 10px;">Exector</a> <a href="/tags/Explorator-Analysis/" style="font-size: 10px;">Explorator Analysis</a> <a href="/tags/ExtraTreeClassifier/" style="font-size: 10px;">ExtraTreeClassifier</a> <a href="/tags/Feature-Selection/" style="font-size: 10px;">Feature Selection</a> <a href="/tags/GaussianNB/" style="font-size: 10px;">GaussianNB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GradientBoostingClassifier/" style="font-size: 10px;">GradientBoostingClassifier</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Historgrams/" style="font-size: 12.5px;">Historgrams</a> <a href="/tags/History-Server/" style="font-size: 10px;">History-Server</a> <a href="/tags/Idea/" style="font-size: 12.5px;">Idea</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KMeans/" style="font-size: 10px;">KMeans</a> <a href="/tags/KNeighborsClassifier/" style="font-size: 10px;">KNeighborsClassifier</a> <a href="/tags/KVM/" style="font-size: 12.5px;">KVM</a> <a href="/tags/Kaggle/" style="font-size: 10px;">Kaggle</a> <a href="/tags/KickStart/" style="font-size: 10px;">KickStart</a> <a href="/tags/Learning-Theory/" style="font-size: 10px;">Learning Theory</a> <a href="/tags/Line-Charts/" style="font-size: 12.5px;">Line Charts</a> <a href="/tags/LinearDiscriminantAnalysis/" style="font-size: 10px;">LinearDiscriminantAnalysis</a> <a href="/tags/LinearSVC/" style="font-size: 10px;">LinearSVC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Log4J/" style="font-size: 10px;">Log4J</a> <a href="/tags/LogBack/" style="font-size: 10px;">LogBack</a> <a href="/tags/LogisticRegression/" style="font-size: 10px;">LogisticRegression</a> <a href="/tags/MAT/" style="font-size: 10px;">MAT</a> <a href="/tags/MLPClassifier/" style="font-size: 10px;">MLPClassifier</a> <a href="/tags/Machine-Learning/" style="font-size: 12.5px;">Machine Learning</a> <a href="/tags/Math-Function/" style="font-size: 10px;">Math Function</a> <a href="/tags/Matplotlib/" style="font-size: 12.5px;">Matplotlib</a> <a href="/tags/Maven/" style="font-size: 12.5px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Network-Connection/" style="font-size: 10px;">Network Connection</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/NuSVC/" style="font-size: 10px;">NuSVC</a> <a href="/tags/Numpy/" style="font-size: 15px;">Numpy</a> <a href="/tags/PairRDD/" style="font-size: 10px;">PairRDD</a> <a href="/tags/Pandas/" style="font-size: 12.5px;">Pandas</a> <a href="/tags/PassiveAggressiveClassifier/" style="font-size: 10px;">PassiveAggressiveClassifier</a> <a href="/tags/Pie-Charts/" style="font-size: 12.5px;">Pie Charts</a> <a href="/tags/Plotly/" style="font-size: 10px;">Plotly</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QuadraticDiscriminantAnalysis/" style="font-size: 10px;">QuadraticDiscriminantAnalysis</a> <a href="/tags/RDD/" style="font-size: 10px;">RDD</a> <a href="/tags/RadiusNeighborsClassifier/" style="font-size: 10px;">RadiusNeighborsClassifier</a> <a href="/tags/RandomForestClassifier/" style="font-size: 10px;">RandomForestClassifier</a> <a href="/tags/Run-Main/" style="font-size: 10px;">Run Main</a> <a href="/tags/SKLearn/" style="font-size: 10px;">SKLearn</a> <a href="/tags/SLF4J/" style="font-size: 10px;">SLF4J</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SVC/" style="font-size: 10px;">SVC</a> <a href="/tags/Sbt/" style="font-size: 10px;">Sbt</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/Scala操作HBase/" style="font-size: 10px;">Scala操作HBase</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Scrapyd-client/" style="font-size: 10px;">Scrapyd-client</a> <a href="/tags/Scrapyd-deploy/" style="font-size: 10px;">Scrapyd-deploy</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Series/" style="font-size: 10px;">Series</a> <a href="/tags/Slicing/" style="font-size: 10px;">Slicing</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Spark-on-Yarn/" style="font-size: 10px;">Spark on Yarn</a> <a href="/tags/Spark-shell/" style="font-size: 10px;">Spark-shell</a> <a href="/tags/Stage/" style="font-size: 10px;">Stage</a> <a href="/tags/Static-IP/" style="font-size: 10px;">Static IP</a> <a href="/tags/Syntax/" style="font-size: 10px;">Syntax</a> <a href="/tags/Titanic/" style="font-size: 10px;">Titanic</a> <a href="/tags/Visual-C/" style="font-size: 10px;">Visual C++</a> <a href="/tags/ZooKeeper/" style="font-size: 10px;">ZooKeeper</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10px;">hdfs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/my-ini/" style="font-size: 10px;">my.ini</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/sbt-package/" style="font-size: 10px;">sbt package</a> <a href="/tags/yarn/" style="font-size: 10px;">yarn</a> <a href="/tags/交互式/" style="font-size: 10px;">交互式</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/免密登录/" style="font-size: 10px;">免密登录</a> <a href="/tags/内存分析/" style="font-size: 10px;">内存分析</a> <a href="/tags/命令行安装虚拟机/" style="font-size: 10px;">命令行安装虚拟机</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/折线图/" style="font-size: 12.5px;">折线图</a> <a href="/tags/无人值守/" style="font-size: 10px;">无人值守</a> <a href="/tags/柱状图/" style="font-size: 12.5px;">柱状图</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/烘干机/" style="font-size: 10px;">烘干机</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/生产者消费者模式/" style="font-size: 10px;">生产者消费者模式</a> <a href="/tags/直方图/" style="font-size: 12.5px;">直方图</a> <a href="/tags/端口/" style="font-size: 10px;">端口</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a> <a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a> <a href="/tags/集群/" style="font-size: 12.5px;">集群</a> <a href="/tags/饼状图/" style="font-size: 12.5px;">饼状图</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/21/学习原理/">学习原理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/">Python 机器学习类库 Scikit-Learn Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/交互式数据可视化-Plotly-Tutorial/">交互式数据可视化 Plotly Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/">数据可视化 Matplotlib Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Pandas-Tutorial/">Pandas Tutorial</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 weilu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

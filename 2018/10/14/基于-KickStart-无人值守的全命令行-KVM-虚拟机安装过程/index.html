@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程 | 全宇宙尖端技术研究基地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。">
+<meta name="keywords" content="KVM,KickStart,无人值守,命令行安装虚拟机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/index.html">
+<meta property="og:site_name" content="全宇宙尖端技术研究基地">
+<meta property="og:description" content="摘要考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/HTTPSERVER.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-01.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-02.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/A01.jpg">
+<meta property="og:updated_time" content="2018-11-13T01:13:50.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程">
+<meta name="twitter:description" content="摘要考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/HTTPSERVER.png">
+  
+    <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">全宇宙尖端技术研究基地</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">专门研究各种全宇宙高精尖技术，比如“各种版本的Hello World怎么写”、“各种版本操作系统如何开机关机”、“如何喂养一只卖不出去的布偶猫”等...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/" class="article-date">
+  <time datetime="2018-10-14T05:33:05.000Z" itemprop="datePublished">2018-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/KVM/">KVM</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于 KickStart 无人值守的全命令行 KVM 虚拟机安装过程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>考虑到服务器没有配置界面，而需要在服务器上配置一些虚拟机，可以使用基于 KickStart 无人值守的方式，基于命令行来安装配置和使用虚拟机。安装完成的虚拟机直接可以使用SSH在局域网内连接。</p>
+<a id="more"></a>
+<h1 id="配置主机环境"><a href="#配置主机环境" class="headerlink" title="配置主机环境"></a>配置主机环境</h1><p><strong>libvirt-client.x86_64 0:3.9.0-14.el7_5.8 </strong><br>Libvirt 的客户端，主要功能是在宿主机关机时通知虚拟机正常关机，防止强制关机导致数据丢失。</p>
+<p><strong>qemu-kvm.x86_64 10:1.5.3-156.el7_5.5</strong><br>KVM在用户控件运行的程序</p>
+<p><strong>virt-manager.noarch 0:1.4.3-3.el7</strong><br>基于 libvirt 的可视化虚拟机管理工具</p>
+<p><strong>libvirt.x86_64 0:3.9.0-14.el7_5.8</strong><br>用于管理虚拟机的APi</p>
+<p><strong>virt-viewer.x86_64 0:5.0-10.el7</strong><br>显示虚拟机控制台的console</p>
+<p><strong>virt-top.x86_64 0:1.0.8-24.el7 </strong><br>查看虚拟机的资源使用情况，类似于top命令</p>
+<p><strong>qemu-img-1.5.3-156.el7_5.5.x86_64</strong></p>
+<p><strong>virt-install-1.4.3-3.el7.noarch</strong><br>虚拟机安装工具</p>
+<h1 id="使用-HTTP-服务提供安装镜像"><a href="#使用-HTTP-服务提供安装镜像" class="headerlink" title="使用 HTTP 服务提供安装镜像"></a>使用 HTTP 服务提供安装镜像</h1><p><strong>1、安装 HTTP 服务</strong><br>通过运行下面命令安装 HTTP 服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd</span><br></pre></td></tr></table></figure></p>
+<p><strong>2、拷贝 ISO 镜像</strong><br>从网络下载或是从其他服务器将 CentOS 7 的二进制 DVD ISO 镜像拷贝到 HTTP 服务所在的主机上。这里拷贝到如下位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/packages/CentOS-7-x86_64-DVD-1804.iso</span><br></pre></td></tr></table></figure></p>
+<p><strong>3、挂载镜像</strong><br>首先在 <code>/mnt</code> 目录下创建一个目录 <code>/mnt/ctos7-install</code>，这个目录名字随意。然后使用以下命令挂载镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -o loop,ro -t iso9660 /home/packages/CentOS-7-x86_64-DVD-1804.iso /mnt/ctos7-install</span><br></pre></td></tr></table></figure></p>
+<p><strong>4、拷贝安装包</strong><br>使用如下命令将安装镜像中的文件拷贝到 HTTP 服务的目录中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r /mnt/ctos7-install/ /var/www/html/</span><br></pre></td></tr></table></figure></p>
+<p>拷贝完成之后，可以在 <code>/var/www/html/ctos7-install</code> 目录下看到以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_125 ctos7-install]# ls</span><br><span class="line">CentOS_BuildTag  GPL       LiveOS    RPM-GPG-KEY-CentOS-7</span><br><span class="line">EFI              images    Packages  RPM-GPG-KEY-CentOS-Testing-7</span><br><span class="line">EULA             isolinux  repodata  TRANS.TBL</span><br></pre></td></tr></table></figure></p>
+<p>这些内容就是镜像中的文件。</p>
+<p><strong>5、启动 HTTP 服务</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd.service</span><br></pre></td></tr></table></figure></p>
+<p><strong>6、开放端口</strong><br>HTTP 服务默认使用的 80 端口一般防火墙是没有开放的，可以使用命令检查：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --query-port=80/tcp</span><br></pre></td></tr></table></figure></p>
+<p>如果返回的是 <code>no</code> 则表示没有开启，使用如下命令开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 开启端口</span><br><span class="line">firewall-cmd --add-port=80/tcp --permanent</span><br><span class="line"></span><br><span class="line"># 重新载入配置</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<p><strong>7、测试</strong><br>在浏览器中输入这台主机的 IP 地址加上路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.0.125/ctos7-install/</span><br></pre></td></tr></table></figure></p>
+<p>可以看到如下内容，说明HTTP服务配置成功。<br><img src="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/HTTPSERVER.png" alt="enter image description here"></p>
+<h1 id="编写-Kickstart-文件"><a href="#编写-Kickstart-文件" class="headerlink" title="编写 Kickstart 文件"></a>编写 Kickstart 文件</h1><p>在 HTTP 服务目录下创建一个文件 <code>/var/www/html/kickstart/ks.cfg</code>，将如下内容填充到文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">###############################################################</span><br><span class="line">#</span><br><span class="line"># Environment setup</span><br><span class="line">#</span><br><span class="line">###############################################################</span><br><span class="line"></span><br><span class="line"># url --url=&quot;http://192.168.0.125/kickstart/ks.cfg&quot;</span><br><span class="line">text</span><br><span class="line">cdrom</span><br><span class="line">auth --enableshadow --passalgo=sha512</span><br><span class="line">keyboard --vckeymap=us --xlayouts=&apos;us&apos;</span><br><span class="line">lang en_US.UTF-8</span><br><span class="line">eula --agreed</span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line">###############################################################</span><br><span class="line">#</span><br><span class="line"># network configuration</span><br><span class="line">#</span><br><span class="line">###############################################################</span><br><span class="line"></span><br><span class="line">network --bootproto=static --ip=192.168.0.151 --gateway=192.168.0.1  --netmask=255.255.255.0  --noipv6 --device=eth0 --nameserver=192.168.0.1,8.8.8.8 --activate</span><br><span class="line"></span><br><span class="line">network  --hostname=weilu_151</span><br><span class="line">timezone Asia/Shanghai --isUtc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###############################################################</span><br><span class="line">#</span><br><span class="line"># partitioning</span><br><span class="line">#</span><br><span class="line">###############################################################</span><br><span class="line"></span><br><span class="line">ignoredisk --only-use=vda</span><br><span class="line">bootloader --location=mbr --boot-drive=vda</span><br><span class="line">zerombr</span><br><span class="line">clearpart --none --initlabel</span><br><span class="line">autopart --type=lvm</span><br><span class="line"></span><br><span class="line"># part swap --asprimary --fstype=&quot;swap&quot; --size=1024</span><br><span class="line"># part /boot --fstype xfs --size=200</span><br><span class="line"># part pv.01 --size=1 --grow</span><br><span class="line"># volgroup rootvg01 pv.01</span><br><span class="line"># logvol / --fstype xfs --name=lv01 --vgname=rootvg01 --size=1 --grow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###########################################################################################</span><br><span class="line"># </span><br><span class="line"># User Accounts</span><br><span class="line"># Generate encrypted password: python -c &apos;import crypt; print(crypt.crypt(&quot;My Password&quot;))&apos;</span><br><span class="line"># Or  openssl passwd -1 password</span><br><span class="line">#</span><br><span class="line">###########################################################################################</span><br><span class="line"></span><br><span class="line">rootpw king </span><br><span class="line"># user --groups=wheel --name=josepy --password=password --gecos=&quot;Mutai Josphat&quot;</span><br><span class="line"></span><br><span class="line">###############################################################</span><br><span class="line">#</span><br><span class="line"># SELinux and Firewalld</span><br><span class="line">#</span><br><span class="line">###############################################################</span><br><span class="line"></span><br><span class="line">#selinux --enforcing</span><br><span class="line">#selinux --permissive</span><br><span class="line">selinux --disabled</span><br><span class="line"> </span><br><span class="line">firewall --enabled --http --ssh --ftp --port=https:tcp --port=ipp:tcp</span><br><span class="line"># firewall --disabled</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">###############################################################</span><br><span class="line">#</span><br><span class="line"># Software Packages</span><br><span class="line">#</span><br><span class="line">###############################################################</span><br><span class="line"></span><br><span class="line">%packages --nobase --ignoremissing</span><br><span class="line">@core</span><br><span class="line">@base</span><br><span class="line">vim </span><br><span class="line">bash-completion</span><br><span class="line"></span><br><span class="line">%end</span><br></pre></td></tr></table></figure></p>
+<p>根据实际情况修改文件中的以下内容：<br><strong>键盘和语言设置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keyboard --vckeymap=us --xlayouts=&apos;us&apos;</span><br><span class="line">lang en_US.UTF-8</span><br></pre></td></tr></table></figure></p>
+<p><strong>网络配置</strong><br>这里配置的是使用网桥连接，固定IP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">network --bootproto=static --ip=192.168.0.151 --gateway=192.168.0.1  --netmask=255.255.255.0  --noipv6 --device=eth0 --nameserver=192.168.0.1,8.8.8.8 --activate</span><br></pre></td></tr></table></figure></p>
+<p><strong>主机名</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">network  --hostname=weilu_151</span><br></pre></td></tr></table></figure></p>
+<p><strong>时区</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timezone Asia/Shanghai --isUtc</span><br></pre></td></tr></table></figure></p>
+<p>这里可以使用命令 <code>timedatectl list-timezones</code> 查看所有时区的列表。</p>
+<p><strong>root密码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootpw king</span><br></pre></td></tr></table></figure></p>
+<p>在 rootpw 指令后面跟的就是root账号的密码。</p>
+<h1 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><p>使用如下命令创建虚拟机，之后整个过程会自动进行，不需要交互操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">virt-install \</span><br><span class="line">  --name centos7-3 \</span><br><span class="line">  --memory 2048 \</span><br><span class="line">  --vcpus 2 \</span><br><span class="line">  --disk path=/home/kvm3/centos7.0.qcow2,size=50 \</span><br><span class="line">  --location http://192.168.0.125/ctos7-install/ \</span><br><span class="line">  --os-variant centos7.0 \</span><br><span class="line">  --network bridge:br0 \</span><br><span class="line">  --graphics=none \</span><br><span class="line">  --console pty,target_type=serial \</span><br><span class="line">  -x &apos;console=ttyS0,115200n8 serial&apos; \</span><br><span class="line">  -x &quot;ks=http://192.168.0.125/kickstart/ks.cfg&quot;</span><br></pre></td></tr></table></figure></p>
+<p>执行该命令后，会自动安装配置虚拟机：<br><img src="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-01.png" alt="enter image description here"></p>
+<p><img src="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/kvm-kickstart-02.png" alt="enter image description here"></p>
+<p>安装完成之后，命令行会自动连接登录到虚拟机中，输入用户名密码即可登录虚拟机。</p>
+<h1 id="管理虚拟机"><a href="#管理虚拟机" class="headerlink" title="管理虚拟机"></a>管理虚拟机</h1><h2 id="以命令行启动虚拟机"><a href="#以命令行启动虚拟机" class="headerlink" title="以命令行启动虚拟机"></a>以命令行启动虚拟机</h2><p>以命令行启动虚拟机，并将该命令行连接到虚拟机中的命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh start centos7-3 --console</span><br></pre></td></tr></table></figure></p>
+<p>如果期间出现以下错误：<strong>Active console session exists for this domain</strong><br>完整信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_125 Pictures]# virsh start centos7-3 --console</span><br><span class="line">Domain centos7-3 started</span><br><span class="line">Connected to domain centos7-3</span><br><span class="line">Escape character is ^]</span><br><span class="line">error: operation failed: Active console session exists for this domain</span><br></pre></td></tr></table></figure></p>
+<p>只需要重启虚拟机守护进程即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart libvirtd.service</span><br></pre></td></tr></table></figure></p>
+<h2 id="连接虚拟机"><a href="#连接虚拟机" class="headerlink" title="连接虚拟机"></a>连接虚拟机</h2><p>对于已经启动的虚拟机，可以使用以下命令以命令行的方式连接虚拟机：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh console centos7-3</span><br></pre></td></tr></table></figure></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>下面罗列一些在这个过程中可能碰到的问题。</p>
+<h2 id="WARNING-KVM-acceleration-not-available-using-‘qemu’"><a href="#WARNING-KVM-acceleration-not-available-using-‘qemu’" class="headerlink" title="WARNING KVM acceleration not available, using ‘qemu’"></a>WARNING KVM acceleration not available, using ‘qemu’</h2><p>这个问题的直观表现就是执行 <code>virt-install</code> 命令之后就卡住了，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@weilu_123 centos7-1]# virt-install \</span><br><span class="line">&gt;   --name centos7-1 \</span><br><span class="line">&gt;   --memory 2048 \</span><br><span class="line">&gt;   --vcpus 2 \</span><br><span class="line">&gt;   --disk path=/home/kvms/centos7-1/centos7.0.qcow2,size=200 \</span><br><span class="line">&gt;   --location http://192.168.0.123/ctos7-install/ \</span><br><span class="line">&gt;   --os-variant centos7.0 \</span><br><span class="line">&gt;   --network bridge:br0 \</span><br><span class="line">&gt;   --graphics=none \</span><br><span class="line">&gt;   --console pty,target_type=serial \</span><br><span class="line">&gt;   -x &apos;console=ttyS0,115200n8 serial&apos; \</span><br><span class="line">&gt;   -x &quot;ks=http://192.168.0.123/kickstart/ks.cfg&quot;</span><br><span class="line"></span><br><span class="line">开始安装......</span><br><span class="line">搜索文件 vmlinuz......                                  | 5.9 MB  00:00     </span><br><span class="line">搜索文件 initrd.img......                               |  50 MB  00:00     </span><br><span class="line">正在分配 &apos;centos7.0.qcow2&apos;                              | 200 GB  00:00     </span><br><span class="line">连接到域 centos7-1</span><br><span class="line">换码符为 ^]</span><br></pre></td></tr></table></figure>
+<p>这个问题是BIOS的CPU虚拟化功能没有开启导致的。</p>
+<p>只要进入 BIOS，将<code>Intel Virtualization Technology</code>开启即可，下面例子是华硕主板：</p>
+<p><img src="/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/A01.jpg" alt="enter image description here"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://computingforgeeks.com/rhel-centos-kickstart-automated-installation-kvm-virt-install/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">RHEL and CentOS Kickstart on KVM Automated Installation With virt-install</a><br>[2] <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-installation-text-mode-x86?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">CentOS 7 INSTALLING IN TEXT MODE</a><br>[3] <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/chap-vnc-installations?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">Use VNC mode to install CentOS 7</a><br>[4] <a href="RHEL%20and%20CentOS%20Kickstart%20on%20KVM%20Automated%20Installation%20With%20virt-install">Kickstart Installation</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/14/基于-KickStart-无人值守的全命令行-KVM-虚拟机安装过程/" data-id="cjpxmj57n004sp8lu2dnek4xe" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVM/">KVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无人值守/">无人值守</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/20/Configure-Maven-Java-Project-in-Idea-on-CentOS-7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Configure Maven Java Project in Idea on CentOS 7
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/10/DIY饭团的烘干机——全环绕立体暖风/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DIY饭团的烘干机——全环绕立体暖风</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/KVM/">KVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learning-Theory/">Learning Theory</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nodejs/">Nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scrapy/">Scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/饭团的小日子/">饭团的小日子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2080ti/">2080ti</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AdaBoostClassifier/">AdaBoostClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BaggingClassifier/">BaggingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BernoulliNB/">BernoulliNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIY/">DIY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Analysis/">Data Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DecisionTreeClassifier/">DecisionTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exector/">Exector</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ExtraTreeClassifier/">ExtraTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GaussianNB/">GaussianNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GradientBoostingClassifier/">GradientBoostingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/History-Server/">History-Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMeans/">KMeans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KNeighborsClassifier/">KNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KVM/">KVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learning-Theory/">Learning Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearDiscriminantAnalysis/">LinearDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearSVC/">LinearSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4J/">Log4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogBack/">LogBack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogisticRegression/">LogisticRegression</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAT/">MAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MLPClassifier/">MLPClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math-Function/">Math Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Connection/">Network Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NuSVC/">NuSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PassiveAggressiveClassifier/">PassiveAggressiveClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QuadraticDiscriminantAnalysis/">QuadraticDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDD/">RDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RadiusNeighborsClassifier/">RadiusNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RandomForestClassifier/">RandomForestClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Run-Main/">Run Main</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SLF4J/">SLF4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVC/">SVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbt/">Sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala操作HBase/">Scala操作HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-client/">Scrapyd-client</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-deploy/">Scrapyd-deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series/">Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slicing/">Slicing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-on-Yarn/">Spark on Yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark-shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stage/">Stage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-IP/">Static IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Syntax/">Syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Titanic/">Titanic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-C/">Visual C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZooKeeper/">ZooKeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my-ini/">my.ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/port/">port</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt-package/">sbt package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互式/">交互式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/休眠/">休眠</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/免密登录/">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分析/">内存分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折线图/">折线图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无人值守/">无人值守</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘干机/">烘干机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生产者消费者模式/">生产者消费者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直方图/">直方图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/端口/">端口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙/">防火墙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2080ti/" style="font-size: 10px;">2080ti</a> <a href="/tags/3D/" style="font-size: 12.5px;">3D</a> <a href="/tags/3D-Bar-Charts/" style="font-size: 10px;">3D Bar Charts</a> <a href="/tags/3D-Scatter-Plots/" style="font-size: 12.5px;">3D Scatter Plots</a> <a href="/tags/3D-Surfaces/" style="font-size: 10px;">3D Surfaces</a> <a href="/tags/3D-散点图/" style="font-size: 12.5px;">3D 散点图</a> <a href="/tags/3D-曲面图/" style="font-size: 10px;">3D 曲面图</a> <a href="/tags/3D-柱状图/" style="font-size: 10px;">3D 柱状图</a> <a href="/tags/AdaBoostClassifier/" style="font-size: 10px;">AdaBoostClassifier</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BaggingClassifier/" style="font-size: 10px;">BaggingClassifier</a> <a href="/tags/Bar-Charts/" style="font-size: 12.5px;">Bar Charts</a> <a href="/tags/BernoulliNB/" style="font-size: 10px;">BernoulliNB</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Bridge/" style="font-size: 12.5px;">Bridge</a> <a href="/tags/Cross-Validation/" style="font-size: 10px;">Cross Validation</a> <a href="/tags/DAG/" style="font-size: 10px;">DAG</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/Data-Analysis/" style="font-size: 10px;">Data Analysis</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/Data-Visualization/" style="font-size: 12.5px;">Data Visualization</a> <a href="/tags/Data-wrangling/" style="font-size: 10px;">Data wrangling</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/DecisionTreeClassifier/" style="font-size: 10px;">DecisionTreeClassifier</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/Exector/" style="font-size: 10px;">Exector</a> <a href="/tags/Explorator-Analysis/" style="font-size: 10px;">Explorator Analysis</a> <a href="/tags/ExtraTreeClassifier/" style="font-size: 10px;">ExtraTreeClassifier</a> <a href="/tags/Feature-Selection/" style="font-size: 10px;">Feature Selection</a> <a href="/tags/GaussianNB/" style="font-size: 10px;">GaussianNB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GradientBoostingClassifier/" style="font-size: 10px;">GradientBoostingClassifier</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Historgrams/" style="font-size: 12.5px;">Historgrams</a> <a href="/tags/History-Server/" style="font-size: 10px;">History-Server</a> <a href="/tags/Idea/" style="font-size: 12.5px;">Idea</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KMeans/" style="font-size: 10px;">KMeans</a> <a href="/tags/KNeighborsClassifier/" style="font-size: 10px;">KNeighborsClassifier</a> <a href="/tags/KVM/" style="font-size: 12.5px;">KVM</a> <a href="/tags/Kaggle/" style="font-size: 10px;">Kaggle</a> <a href="/tags/KickStart/" style="font-size: 10px;">KickStart</a> <a href="/tags/Learning-Theory/" style="font-size: 10px;">Learning Theory</a> <a href="/tags/Line-Charts/" style="font-size: 12.5px;">Line Charts</a> <a href="/tags/LinearDiscriminantAnalysis/" style="font-size: 10px;">LinearDiscriminantAnalysis</a> <a href="/tags/LinearSVC/" style="font-size: 10px;">LinearSVC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Log4J/" style="font-size: 10px;">Log4J</a> <a href="/tags/LogBack/" style="font-size: 10px;">LogBack</a> <a href="/tags/LogisticRegression/" style="font-size: 10px;">LogisticRegression</a> <a href="/tags/MAT/" style="font-size: 10px;">MAT</a> <a href="/tags/MLPClassifier/" style="font-size: 10px;">MLPClassifier</a> <a href="/tags/Machine-Learning/" style="font-size: 12.5px;">Machine Learning</a> <a href="/tags/Math-Function/" style="font-size: 10px;">Math Function</a> <a href="/tags/Matplotlib/" style="font-size: 12.5px;">Matplotlib</a> <a href="/tags/Maven/" style="font-size: 12.5px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Network-Connection/" style="font-size: 10px;">Network Connection</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/NuSVC/" style="font-size: 10px;">NuSVC</a> <a href="/tags/Numpy/" style="font-size: 15px;">Numpy</a> <a href="/tags/PairRDD/" style="font-size: 10px;">PairRDD</a> <a href="/tags/Pandas/" style="font-size: 12.5px;">Pandas</a> <a href="/tags/PassiveAggressiveClassifier/" style="font-size: 10px;">PassiveAggressiveClassifier</a> <a href="/tags/Pie-Charts/" style="font-size: 12.5px;">Pie Charts</a> <a href="/tags/Plotly/" style="font-size: 10px;">Plotly</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QuadraticDiscriminantAnalysis/" style="font-size: 10px;">QuadraticDiscriminantAnalysis</a> <a href="/tags/RDD/" style="font-size: 10px;">RDD</a> <a href="/tags/RadiusNeighborsClassifier/" style="font-size: 10px;">RadiusNeighborsClassifier</a> <a href="/tags/RandomForestClassifier/" style="font-size: 10px;">RandomForestClassifier</a> <a href="/tags/Run-Main/" style="font-size: 10px;">Run Main</a> <a href="/tags/SKLearn/" style="font-size: 10px;">SKLearn</a> <a href="/tags/SLF4J/" style="font-size: 10px;">SLF4J</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SVC/" style="font-size: 10px;">SVC</a> <a href="/tags/Sbt/" style="font-size: 10px;">Sbt</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/Scala操作HBase/" style="font-size: 10px;">Scala操作HBase</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Scrapyd-client/" style="font-size: 10px;">Scrapyd-client</a> <a href="/tags/Scrapyd-deploy/" style="font-size: 10px;">Scrapyd-deploy</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Series/" style="font-size: 10px;">Series</a> <a href="/tags/Slicing/" style="font-size: 10px;">Slicing</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Spark-on-Yarn/" style="font-size: 10px;">Spark on Yarn</a> <a href="/tags/Spark-shell/" style="font-size: 10px;">Spark-shell</a> <a href="/tags/Stage/" style="font-size: 10px;">Stage</a> <a href="/tags/Static-IP/" style="font-size: 10px;">Static IP</a> <a href="/tags/Syntax/" style="font-size: 10px;">Syntax</a> <a href="/tags/Titanic/" style="font-size: 10px;">Titanic</a> <a href="/tags/Visual-C/" style="font-size: 10px;">Visual C++</a> <a href="/tags/ZooKeeper/" style="font-size: 10px;">ZooKeeper</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10px;">hdfs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/my-ini/" style="font-size: 10px;">my.ini</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/sbt-package/" style="font-size: 10px;">sbt package</a> <a href="/tags/yarn/" style="font-size: 10px;">yarn</a> <a href="/tags/交互式/" style="font-size: 10px;">交互式</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/免密登录/" style="font-size: 10px;">免密登录</a> <a href="/tags/内存分析/" style="font-size: 10px;">内存分析</a> <a href="/tags/命令行安装虚拟机/" style="font-size: 10px;">命令行安装虚拟机</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/折线图/" style="font-size: 12.5px;">折线图</a> <a href="/tags/无人值守/" style="font-size: 10px;">无人值守</a> <a href="/tags/柱状图/" style="font-size: 12.5px;">柱状图</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/烘干机/" style="font-size: 10px;">烘干机</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/生产者消费者模式/" style="font-size: 10px;">生产者消费者模式</a> <a href="/tags/直方图/" style="font-size: 12.5px;">直方图</a> <a href="/tags/端口/" style="font-size: 10px;">端口</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a> <a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a> <a href="/tags/集群/" style="font-size: 12.5px;">集群</a> <a href="/tags/饼状图/" style="font-size: 12.5px;">饼状图</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/21/学习原理/">学习原理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/">Python 机器学习类库 Scikit-Learn Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/交互式数据可视化-Plotly-Tutorial/">交互式数据可视化 Plotly Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/">数据可视化 Matplotlib Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Pandas-Tutorial/">Pandas Tutorial</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 weilu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

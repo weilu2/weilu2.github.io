@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Spark 关键概念备忘 | 全宇宙尖端技术研究基地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要学习 Spark 过程中记录的一些比较重要的概念。填充了一部分内容，另有一部分留空的，后续理解逐步加深后进一步补全和拓展。">
+<meta name="keywords" content="Spark,RDD,DAG,Exector,Job,Stage,PairRDD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark 关键概念备忘">
+<meta property="og:url" content="http://yoursite.com/2018/11/20/Spark-关键概念备忘/index.html">
+<meta property="og:site_name" content="全宇宙尖端技术研究基地">
+<meta property="og:description" content="摘要学习 Spark 过程中记录的一些比较重要的概念。填充了一部分内容，另有一部分留空的，后续理解逐步加深后进一步补全和拓展。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/11/20/Spark-关键概念备忘/A01.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/20/Spark-关键概念备忘/A02.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/20/Spark-关键概念备忘/A03.png">
+<meta property="og:updated_time" content="2018-11-21T01:47:31.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark 关键概念备忘">
+<meta name="twitter:description" content="摘要学习 Spark 过程中记录的一些比较重要的概念。填充了一部分内容，另有一部分留空的，后续理解逐步加深后进一步补全和拓展。">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/20/Spark-关键概念备忘/A01.png">
+  
+    <link rel="alternate" href="/atom.xml" title="全宇宙尖端技术研究基地" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">全宇宙尖端技术研究基地</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">专门研究各种全宇宙高精尖技术，比如“各种版本的Hello World怎么写”、“各种版本操作系统如何开机关机”、“如何喂养一只卖不出去的布偶猫”等...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spark-关键概念备忘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/20/Spark-关键概念备忘/" class="article-date">
+  <time datetime="2018-11-20T02:04:18.000Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spark/">Spark</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spark 关键概念备忘
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>学习 Spark 过程中记录的一些比较重要的概念。填充了一部分内容，另有一部分留空的，后续理解逐步加深后进一步补全和拓展。</p>
+<a id="more"></a>
+<h1 id="基本概念和架构"><a href="#基本概念和架构" class="headerlink" title="基本概念和架构"></a>基本概念和架构</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="1-RDD"><a href="#1-RDD" class="headerlink" title="1. RDD"></a>1. RDD</h3><p>Resillient Distributed Dataset 弹性分布式数据集，是分布式内存的一个抽象概念，提供了一种高度受限的共享内存模型</p>
+<h3 id="2-DAG"><a href="#2-DAG" class="headerlink" title="2. DAG"></a>2. DAG</h3><p>Directed Acyclic Graph 有向无环图，反应 RDD 之间的依赖关系</p>
+<h3 id="3-Executor"><a href="#3-Executor" class="headerlink" title="3. Executor"></a>3. Executor</h3><p>运行在工作节点（WorkerNode）上的一个进程，负责运行 Task</p>
+<h3 id="4-Application"><a href="#4-Application" class="headerlink" title="4. Application"></a>4. Application</h3><p>用户编写的 Spark 应用程序</p>
+<h3 id="5-Task"><a href="#5-Task" class="headerlink" title="5. Task"></a>5. Task</h3><p>运行在 Execotr 上的工作单元</p>
+<h3 id="6-Job"><a href="#6-Job" class="headerlink" title="6. Job"></a>6. Job</h3><p>一个 Job 包含多个 RDD 及作用于相应 RDD 上的各种操作</p>
+<h3 id="7-Stage"><a href="#7-Stage" class="headerlink" title="7. Stage"></a>7. Stage</h3><p>是 Job 的基本调度单位，一个 Job 会分为多组 Task，每组 Task 成为 Stage，或者 TaskSet，代表一组关联的，相互之间没有 Shuffle 依赖关系的任务组成的任务集</p>
+<h2 id="运行架构"><a href="#运行架构" class="headerlink" title="运行架构"></a>运行架构</h2><p><img src="/2018/11/20/Spark-关键概念备忘/A01.png" alt="运行架构图"></p>
+<p>Spark有点：<br>1、利用多线程执行具体的任务，减少任务启动开销<br>2、Executor 中有一个 BlockManager 存储模块，结合内存和磁盘作为存储设备，减少 IO 开销</p>
+<h2 id="Spark-运行流程"><a href="#Spark-运行流程" class="headerlink" title="Spark 运行流程"></a>Spark 运行流程</h2><p><img src="/2018/11/20/Spark-关键概念备忘/A02.png" alt="运行流程图"></p>
+<h3 id="STEP-1"><a href="#STEP-1" class="headerlink" title="STEP 1"></a>STEP 1</h3><ul>
+<li>为应用构建基本的运行环境，由 Driver 创建一个 SparkContext 进行资源的申请、任务的分配和监控。</li>
+</ul>
+<h3 id="STEP-2"><a href="#STEP-2" class="headerlink" title="STEP 2"></a>STEP 2</h3><ul>
+<li>资源管理器为 Executor 分配资源，并启动 Executor 进程。</li>
+</ul>
+<h3 id="STEP-3"><a href="#STEP-3" class="headerlink" title="STEP 3"></a>STEP 3</h3><ul>
+<li><p>SparkContext 根据 RDD 的依赖关系构建 DAG 图，DAG 图提交给 DAGScheduler 解析成 Stage，然后把一个个 TaskSet 提交给底层调度器 TaskSchedule 处理。</p>
+</li>
+<li><p>Executor 向 SprakContext 申请 Task。</p>
+</li>
+<li><p>TaskScheduler 将 Task 分发给 Executor ，并提供应用程序代码</p>
+</li>
+</ul>
+<h3 id="STEP-4"><a href="#STEP-4" class="headerlink" title="STEP 4"></a>STEP 4</h3><ul>
+<li>Task 在 Excutor 上运行，把执行结果反馈给 TaskScheduler，然后反馈给 DAGScheduler，运行完成之后写入数据并释放资源。</li>
+</ul>
+<h2 id="Spark-运行特点"><a href="#Spark-运行特点" class="headerlink" title="Spark 运行特点"></a>Spark 运行特点</h2><p>1、每个 Application 都有自己专属的 Executor 进程，并且该进程在 Application 运行期间一直驻留。Executor进程以多线程的方式运行 Task。<br>2、Spark 运行过程与资源管理器无关，只要能够获取 Executor 进程并保持通讯即可<br>3、Task 采用了数据本地性和推测执行优化机制</p>
+<h1 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h1><h2 id="RDD-执行过程"><a href="#RDD-执行过程" class="headerlink" title="RDD 执行过程"></a>RDD 执行过程</h2><p>1、RDD 读取外部数据进行创建</p>
+<p>2、经过一系列转换（Transformation）操作，每次都会产生新的 RDD，提供给下一次转换操作使用</p>
+<p>3、最后一个 RDD 经过“动作”操作进行转换，并输出到外部数据源</p>
+<p>一般讲一个 DAG 的一系列处理成为一个 Lineage（血缘关系）</p>
+<h2 id="RDD-的依赖关系"><a href="#RDD-的依赖关系" class="headerlink" title="RDD 的依赖关系"></a>RDD 的依赖关系</h2><h3 id="窄依赖"><a href="#窄依赖" class="headerlink" title="窄依赖"></a>窄依赖</h3><p>1、一个父亲 RDD 的一个分区，转换得到一个儿子 RDD 的一个分区<br>2、多个父亲 RDD 的若干个分区，转换得到一个儿子 RDD 的一个分区</p>
+<h3 id="宽依赖"><a href="#宽依赖" class="headerlink" title="宽依赖"></a>宽依赖</h3><p>1、一个父亲 RDD 的一个分区，转换得到多个儿子 RDD 的若干个分区</p>
+<h3 id="Stage-划分"><a href="#Stage-划分" class="headerlink" title="Stage 划分"></a>Stage 划分</h3><p>DAG 中进行反向解析，遇到宽依赖就断开，遇到债依赖就把当前 RDD 加入到 Stage 中。将窄依赖尽量划分在同一个 Stage 中，实现流水线计算。</p>
+<p><img src="/2018/11/20/Spark-关键概念备忘/A03.png" alt="Stage划分"></p>
+<h1 id="RDD-基本操作"><a href="#RDD-基本操作" class="headerlink" title="RDD 基本操作"></a>RDD 基本操作</h1><h2 id="RDD-创建"><a href="#RDD-创建" class="headerlink" title="RDD 创建"></a>RDD 创建</h2><p><strong>从本地文件系统加载数据</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"file:///home/spark/mydata/word.txt"</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>从分布式文件系统 HDFS 中加载数据</strong><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"hdfs://weilu131:9000/mydata/word.txt"</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>从集合中创建 RDD</strong><br>使用 <code>sc.parallelize()</code> 方法可以将数组转换为 RDD<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> array = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(array)</span><br></pre></td></tr></table></figure></p>
+<p>对于列表 <code>List</code> 同上。</p>
+<h2 id="RDD-操作"><a href="#RDD-操作" class="headerlink" title="RDD 操作"></a>RDD 操作</h2><h3 id="转换操作（Transformation）"><a href="#转换操作（Transformation）" class="headerlink" title="转换操作（Transformation）"></a>转换操作（Transformation）</h3><p><strong>filter(func)</strong><br>筛选出能够满足函数 func 的元素，并返回一个新的数据集。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"hdfs://weilu131:9000/mydata/word.txt"</span>)</span><br><span class="line"><span class="keyword">val</span> res = lines.filter(line =&gt; line.contains(<span class="string">"Spark"</span>)).count()</span><br></pre></td></tr></table></figure></p>
+<p><strong>map(func)</strong><br>将每个元素传递到函数func中，并将结果返回为一个新的数据集<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lines = sc.textFile(<span class="string">"hdfs://weilu131:9000/mydata/word.txt"</span>)</span><br><span class="line"><span class="keyword">val</span> res = lines.map(line =&gt; line.split(<span class="string">" "</span>).size).reduce((a,b) =&gt; <span class="keyword">if</span> (a &gt; b) a <span class="keyword">else</span> b)</span><br></pre></td></tr></table></figure></p>
+<p><strong>flatMap(func)</strong><br>与 map 类似，但每个输入元素都可以映射到0或多个输出结果</p>
+<p><strong>groupByKey()</strong><br>应用于(K,V)键值对数据集时，返回一个新的 (K, Iterable) 形式的数据集</p>
+<p><strong>reduceByKey(func)</strong><br>应用于 (K, V) 键值对的数据集时，返回一个新的 (K, V) 形式的数据集，其中的每个值是将每个 key 传递到函数 func 中进行聚合。</p>
+<h3 id="行动操作（Action）"><a href="#行动操作（Action）" class="headerlink" title="行动操作（Action）"></a>行动操作（Action）</h3><p><strong>count()</strong><br>返回数据集中的元素个数</p>
+<p><strong>collect()</strong><br>以数组的形式返回数据集中的所有元素</p>
+<p><strong>first()</strong><br>返回数据集中第一个元素</p>
+<p><strong>take(n)</strong><br>以数组的形式返回数据集中的前 n 个元素</p>
+<p><strong>reduce(func)</strong><br>通过函数 func（输入两个参数并返回一个值）聚合函数集中的元素</p>
+<p><strong>foreach(func)</strong><br>将数据集中的每个元素传递到函数 func 中运行</p>
+<h3 id="惰性机制"><a href="#惰性机制" class="headerlink" title="惰性机制"></a>惰性机制</h3><p>对于 RDD 而言，每一次转换都会形成新的 RDD，但是在转换操作过程中，只会记录轨迹，只有程序运行到行动操作时，才会真正的进行计算，这个被称为惰性求值。</p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop"</span>, <span class="string">"Spark"</span>, <span class="string">"Hive"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 行动操作，触发一次计算</span></span><br><span class="line">rdd.count()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 行动操作，再次触发一次计算</span></span><br><span class="line">rdd.collect().mkString(<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<p>在两次行动操作中每次触发的转换操作都是相同的，为了避免重复计算，可以对第一次转换的过程进行持久化。</p>
+<p><strong>persist(MEMORY_ONLY)</strong><br>将 RDD 作为反序列化对象存储于 JVM 中，如果内存不足，按照 LRU 原则替换缓存中内容。</p>
+<p><strong>persist(MEMORY_AND_DISK)</strong><br>将 RDD 作为反序列化的对象存储在 JVM 中，如果内存不足，超出部分会被存储在硬盘上</p>
+<p><strong>cache()</strong><br>persist(MEMORY_ONLY) 的快捷方式</p>
+<p><strong>unpersist()</strong><br>手动把持久化的 RDD 从缓存中删除</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop"</span>, <span class="string">"Spark"</span>, <span class="string">"Hive"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标记为持久化</span></span><br><span class="line">rdd.cache()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 行动操作，触发一次计算，并缓存转换操作结果</span></span><br><span class="line">rdd.count()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 行动操作，直接使用缓存的转换操作结果</span></span><br><span class="line">rdd.collect().mkString(<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p>RDD 分区的一个分区原则是使得分区的个数尽量等于整个集群中的CPU核心数目<br>对于不同的 spark 部署模式而言，都可以使用 spark.default.parallelism 这个参数设置</p>
+<p>在调用 textFile 和 parallelize 方法时候手动指定分区个数即可。</p>
+<ul>
+<li>对于 parallelize 而言，如果没有在方法中指定分区数，则默认为 spake.deafault.parallelism。</li>
+<li>对于textFile 而言，如果没有在方法中指定分区数，则默认为 min(defaultParallelism, 2)，其中，defaultParallelism 对应的就是 spark.default.parallelism</li>
+<li>如果时从 HDFS 中读取文件，则分区数为文件分片数（比如，128MB/片）</li>
+</ul>
+<p><strong>textFile</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.textFile(path, partitionNum)</span><br></pre></td></tr></table></figure>
+<p><strong>parallelize</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize(array, 2) // 设置两个分区</span><br></pre></td></tr></table></figure>
+<p>通过转换操作得到新的 RDD 时，直接调用 reparation 方法</p>
+<p><strong>自定义分区</strong><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">Partitioner</span>, <span class="type">SparkContext</span>, <span class="type">SparkConf</span>&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserPartitioner</span>(<span class="params">numParts: <span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">Partitioner</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">numPartitions</span></span>: <span class="type">Int</span> = numParts  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">getPartition</span></span>(key: <span class="type">Any</span>): <span class="type">Int</span> = &#123;  </span><br><span class="line">        key.toString.toInt % <span class="number">10</span>  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">ManualPartition</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;  </span><br><span class="line">        <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()  </span><br><span class="line">        <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">val</span> data = sc.parallelize(<span class="number">1</span> to <span class="number">5</span>, <span class="number">5</span>)  </span><br><span class="line">        <span class="keyword">val</span> data2 = data.map((_, <span class="number">1</span>))  </span><br><span class="line">        <span class="keyword">val</span> data3 = data2.partitionBy(<span class="keyword">new</span> <span class="type">UserPartitioner</span>(<span class="number">10</span>))  </span><br><span class="line">        <span class="keyword">val</span> data4 = data3.map(_._1)  </span><br><span class="line">        data4.saveAsTextFile(<span class="string">"hdfs://weilu131:9000/test/output"</span>)  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Pair-RDD（键值对-RDD）"><a href="#Pair-RDD（键值对-RDD）" class="headerlink" title="Pair RDD（键值对 RDD）"></a>Pair RDD（键值对 RDD）</h1><h2 id="创建-PairRDD"><a href="#创建-PairRDD" class="headerlink" title="创建 PairRDD"></a>创建 PairRDD</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop"</span>, <span class="string">"Hive"</span>, <span class="string">"HBase"</span>, <span class="string">"Spark"</span>, <span class="string">"Sqoop"</span>, <span class="string">"Spark"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)  <span class="comment">// 创建 RDD</span></span><br><span class="line"><span class="keyword">val</span> pairRDD = rdd.map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果是在集群上运行 Spark 程序，那么这段代码不会打印任何内容</span></span><br><span class="line">pairRDD.foreach(println)</span><br><span class="line"><span class="comment">// 需要先收集之后再打印</span></span><br><span class="line">pairRDD.collect().foreach(println)</span><br></pre></td></tr></table></figure>
+<p>打印内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(Hadoop,1)</span><br><span class="line">(Hive,1)</span><br><span class="line">(HBase,1)</span><br><span class="line">(Spark,1)</span><br><span class="line">(Sqoop,1)</span><br><span class="line">(Spark,1)</span><br></pre></td></tr></table></figure></p>
+<h2 id="reduceByKey-func"><a href="#reduceByKey-func" class="headerlink" title="reduceByKey(func)"></a>reduceByKey(func)</h2><p>key 相同，将值按照传入逻辑计算<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop 2"</span>, <span class="string">"Spark 3"</span>, <span class="string">"HBase 5"</span>, <span class="string">"Spark 6"</span>, <span class="string">"Hadoop 1"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> split = (line : <span class="type">String</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> res = line.split(<span class="string">" "</span>)</span><br><span class="line">    (res(<span class="number">0</span>), res(<span class="number">1</span>).toInt)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> pairRdd = rdd.map(split)</span><br><span class="line">pairRdd.collect().foreach(println) <span class="comment">// 打印测试:1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> res = pairRdd.reduceByKey((a,b) =&gt; a+b)</span><br><span class="line">res.collect().foreach(println)      <span class="comment">// 打印测试：2</span></span><br></pre></td></tr></table></figure></p>
+<p>打印结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 第一次</span><br><span class="line">(Hadoop,2)</span><br><span class="line">(Spark,3)</span><br><span class="line">(HBase,5)</span><br><span class="line">(Spark,6)</span><br><span class="line">(Hadoop,1)</span><br><span class="line"></span><br><span class="line">// 第二次</span><br><span class="line">(Spark,9)</span><br><span class="line">(HBase,5)</span><br><span class="line">(Hadoop,3)</span><br></pre></td></tr></table></figure></p>
+<h2 id="groupByKey"><a href="#groupByKey" class="headerlink" title="groupByKey()"></a>groupByKey()</h2><p>key 相同，将值生成一个列表<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop 2"</span>, <span class="string">"Spark 3"</span>, <span class="string">"HBase 5"</span>, <span class="string">"Spark 6"</span>, <span class="string">"Hadoop 1"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> split = (line : <span class="type">String</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> res = line.split(<span class="string">" "</span>)</span><br><span class="line">    (res(<span class="number">0</span>), res(<span class="number">1</span>).toInt)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> pairRdd = rdd.map(split)</span><br><span class="line">pairRdd.collect().foreach(println) <span class="comment">// 打印测试:1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> res = pairRdd.groupByKey()</span><br><span class="line">res.collect().foreach(println)      <span class="comment">// 打印测试：2</span></span><br></pre></td></tr></table></figure></p>
+<p>打印结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 第一次</span><br><span class="line">(Hadoop,2)</span><br><span class="line">(Spark,3)</span><br><span class="line">(HBase,5)</span><br><span class="line">(Spark,6)</span><br><span class="line">(Hadoop,1)</span><br><span class="line"></span><br><span class="line">// 第二次</span><br><span class="line">(Spark,CompactBuffer(6, 3))</span><br><span class="line">(HBase,CompactBuffer(5))</span><br><span class="line">(Hadoop,CompactBuffer(1, 2))</span><br></pre></td></tr></table></figure></p>
+<h2 id="keys、values"><a href="#keys、values" class="headerlink" title="keys、values"></a>keys、values</h2><p>仅仅把 PairRDD 中的键或者值单独取出来形成一个 RDD</p>
+<h2 id="sortByKey"><a href="#sortByKey" class="headerlink" title="sortByKey()"></a>sortByKey()</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"Hadoop 2"</span>, <span class="string">"Spark 3"</span>, <span class="string">"HBase 5"</span>, <span class="string">"Spark 6"</span>, <span class="string">"Hadoop 1"</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> split = (line : <span class="type">String</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> res = line.split(<span class="string">" "</span>)</span><br><span class="line">    (res(<span class="number">0</span>), res(<span class="number">1</span>).toInt)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> pairRdd = rdd.map(split)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> res = pairRdd.sortByKey(<span class="literal">true</span>)</span><br><span class="line">res.collect().foreach(println)      <span class="comment">// 打印测试：1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> res = pairRdd.sortByKey(<span class="literal">false</span>)</span><br><span class="line">res.collect().foreach(println)      <span class="comment">// 打印测试：2</span></span><br></pre></td></tr></table></figure>
+<p>打印结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 1</span><br><span class="line">(HBase,5)</span><br><span class="line">(Hadoop,2)</span><br><span class="line">(Hadoop,1)</span><br><span class="line">(Spark,6)</span><br><span class="line">(Spark,3)</span><br><span class="line"></span><br><span class="line"># 2</span><br><span class="line">(Spark,3)</span><br><span class="line">(Spark,6)</span><br><span class="line">(Hadoop,1)</span><br><span class="line">(Hadoop,2)</span><br><span class="line">(HBase,5)</span><br></pre></td></tr></table></figure></p>
+<h2 id="mapValues-func"><a href="#mapValues-func" class="headerlink" title="mapValues(func)"></a>mapValues(func)</h2><p>对 PairRDD 中的每个值进行处理，不影响 key.</p>
+<h2 id="join"><a href="#join" class="headerlink" title="join"></a>join</h2><p>将两个 PairRDD 根据 key 进行连接操作</p>
+<h2 id="combineByKey"><a href="#combineByKey" class="headerlink" title="combineByKey"></a>combineByKey</h2><h1 id="共享变量"><a href="#共享变量" class="headerlink" title="共享变量"></a>共享变量</h1><p>主要用于节省传输开销。<br>当Spark在集群的多个节点上的多个任务上并行运行一个函数时，它会吧函数中涉及到的每个变量在每个任务中生成一个副本。但是，有时需要在多个任务之间共享变量，或者在任务和任务控制节点之间共享变量。</p>
+<p>为满足这种需求，Spark提供了两种类型的变量：广播变量（broadcast variables）和累加器（accumulators）。<br>广播变量用来把变量在所有节点的内存之间进行共享；<br>累加器则支持在所有不同节点之间进行累加计算（比如计数、求和等）</p>
+<h2 id="广播变量"><a href="#广播变量" class="headerlink" title="广播变量"></a>广播变量</h2><p>允许程序开发人员在每个机器上缓存一个只读变量，而不是在每个机器上的每个任务都生成一个副本。<br>Spark的“行动”操作会跨越多个阶段（Stage），对每个阶段内的所有任务所需要的公共数据，Spark会自动进行广播。</p>
+<p>可以使用 broadcast() 方法封装广播变量<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> broadcastVar = sc.broadcast(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line">println(broadcastVar.value)</span><br></pre></td></tr></table></figure></p>
+<h2 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h2><p>Spark 原生支持数值型累加器，可以通过自定义开发对新类型支持的累加器。</p>
+<h3 id="longAccumulator-amp-doubleAccumulator"><a href="#longAccumulator-amp-doubleAccumulator" class="headerlink" title="longAccumulator &amp; doubleAccumulator"></a>longAccumulator &amp; doubleAccumulator</h3><p>Spark 自带长整型和双精度数值累加器，可以通过以上两个方法创建。创建完成之后可以使用 add 方法进行累加操作，但在每个节点上只能进行累加操作，不能读取。只有任务控制节点可以使用 value 方法读取累加器的值。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> accum = sc.longAccumulator(<span class="string">"OneAccumulator"</span>)</span><br><span class="line">sc.parallelize(<span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)).foreach(x =&gt; accum.add(x))</span><br><span class="line">accum.value</span><br></pre></td></tr></table></figure>
+<h1 id="数据读写"><a href="#数据读写" class="headerlink" title="数据读写"></a>数据读写</h1><h2 id="文件系统数据读写"><a href="#文件系统数据读写" class="headerlink" title="文件系统数据读写"></a>文件系统数据读写</h2><p><strong>读写本地文件</strong><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> aFile = sc.textFile(<span class="string">"file:///home/spark/somewords.txt"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存时会生成一个目录，内容被跌倒这个目录中</span></span><br><span class="line">aFile.saveAsTextFile(<span class="string">"file:///home/spark/something.txt"</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>读写HDFS文件</strong><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> aFile = sc.textFile(<span class="string">"hdfs://weilu131:9000/home/spark/somewords.txt"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存时会生成一个目录，内容被跌倒这个目录中</span></span><br><span class="line">aFile.saveAsTextFile(<span class="string">"hdfs://weilu131:9000/home/spark/something.txt"</span>)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/20/Spark-关键概念备忘/" data-id="cjpxmj57r004tp8lu4nztek2y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Exector/">Exector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Job/">Job</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RDD/">RDD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stage/">Stage</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/20/基于-Scala-编写的-Spark-程序操作-HBase/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于 Scala 编写的 Spark 程序操作 HBase
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/16/配置-Intellij-Idea-和-Sbt-开发、打包、运行-Spark-程序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">配置 Intellij Idea 和 Sbt 开发、打包、运行 Spark 程序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomment"></div>
+<script>
+	window.onload=function(){
+		var valine = new Valine();
+	    valine.init({
+	        el:'#vcomment',
+	        visitor: true,
+	        appId: 'vnzbDotbVyiabKcguwfQoQdU-gzGzoHsz',
+	        appKey: 'c3TWlvkfKgsN0dcLC7ftudvf'
+	    })
+	}
+</script>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Idea/">Idea</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/KVM/">KVM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Learning-Theory/">Learning Theory</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nodejs/">Nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scala/">Scala</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Scrapy/">Scrapy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kernel/">kernel</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/乱七八糟/">乱七八糟</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/饭团的小日子/">饭团的小日子</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2080ti/">2080ti</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D/">3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Bar-Charts/">3D Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Scatter-Plots/">3D Scatter Plots</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-Surfaces/">3D Surfaces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-散点图/">3D 散点图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-曲面图/">3D 曲面图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/3D-柱状图/">3D 柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AdaBoostClassifier/">AdaBoostClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BaggingClassifier/">BaggingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bar-Charts/">Bar Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BernoulliNB/">BernoulliNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bridge/">Bridge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Validation/">Cross Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIY/">DIY</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Analysis/">Data Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Visualization/">Data Visualization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-wrangling/">Data wrangling</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataFrame/">DataFrame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DecisionTreeClassifier/">DecisionTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Driver/">Driver</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exector/">Exector</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Explorator-Analysis/">Explorator Analysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ExtraTreeClassifier/">ExtraTreeClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Selection/">Feature Selection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GaussianNB/">GaussianNB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GradientBoostingClassifier/">GradientBoostingClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HBase/">HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Historgrams/">Historgrams</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/History-Server/">History-Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMeans/">KMeans</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KNeighborsClassifier/">KNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KVM/">KVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kaggle/">Kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KickStart/">KickStart</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learning-Theory/">Learning Theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Line-Charts/">Line Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearDiscriminantAnalysis/">LinearDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearSVC/">LinearSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4J/">Log4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogBack/">LogBack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LogisticRegression/">LogisticRegression</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MAT/">MAT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MLPClassifier/">MLPClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math-Function/">Math Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Connection/">Network Connection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NuSVC/">NuSVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numpy/">Numpy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PairRDD/">PairRDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PassiveAggressiveClassifier/">PassiveAggressiveClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pie-Charts/">Pie Charts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Plotly/">Plotly</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QuadraticDiscriminantAnalysis/">QuadraticDiscriminantAnalysis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDD/">RDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RadiusNeighborsClassifier/">RadiusNeighborsClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RandomForestClassifier/">RandomForestClassifier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Run-Main/">Run Main</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SKLearn/">SKLearn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SLF4J/">SLF4J</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVC/">SVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbt/">Sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala操作HBase/">Scala操作HBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-client/">Scrapyd-client</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapyd-deploy/">Scrapyd-deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Series/">Series</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slicing/">Slicing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-on-Yarn/">Spark on Yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark-shell/">Spark-shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stage/">Stage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-IP/">Static IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Syntax/">Syntax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Titanic/">Titanic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visual-C/">Visual C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZooKeeper/">ZooKeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my-ini/">my.ini</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nbd/">nbd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/open-vswitch/">open-vswitch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/port/">port</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt-package/">sbt package</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yarn/">yarn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互式/">交互式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/休眠/">休眠</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/免密登录/">免密登录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存分析/">内存分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行安装虚拟机/">命令行安装虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/容器/">容器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/折线图/">折线图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无人值守/">无人值守</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/柱状图/">柱状图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桥接/">桥接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘干机/">烘干机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生产者消费者模式/">生产者消费者模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直方图/">直方图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/端口/">端口</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络连接/">网络连接</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨主机/">跨主机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙/">防火墙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/饼状图/">饼状图</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/2080ti/" style="font-size: 10px;">2080ti</a> <a href="/tags/3D/" style="font-size: 12.5px;">3D</a> <a href="/tags/3D-Bar-Charts/" style="font-size: 10px;">3D Bar Charts</a> <a href="/tags/3D-Scatter-Plots/" style="font-size: 12.5px;">3D Scatter Plots</a> <a href="/tags/3D-Surfaces/" style="font-size: 10px;">3D Surfaces</a> <a href="/tags/3D-散点图/" style="font-size: 12.5px;">3D 散点图</a> <a href="/tags/3D-曲面图/" style="font-size: 10px;">3D 曲面图</a> <a href="/tags/3D-柱状图/" style="font-size: 10px;">3D 柱状图</a> <a href="/tags/AdaBoostClassifier/" style="font-size: 10px;">AdaBoostClassifier</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BaggingClassifier/" style="font-size: 10px;">BaggingClassifier</a> <a href="/tags/Bar-Charts/" style="font-size: 12.5px;">Bar Charts</a> <a href="/tags/BernoulliNB/" style="font-size: 10px;">BernoulliNB</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Bridge/" style="font-size: 12.5px;">Bridge</a> <a href="/tags/Cross-Validation/" style="font-size: 10px;">Cross Validation</a> <a href="/tags/DAG/" style="font-size: 10px;">DAG</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/Data-Analysis/" style="font-size: 10px;">Data Analysis</a> <a href="/tags/Data-Science/" style="font-size: 10px;">Data Science</a> <a href="/tags/Data-Visualization/" style="font-size: 12.5px;">Data Visualization</a> <a href="/tags/Data-wrangling/" style="font-size: 10px;">Data wrangling</a> <a href="/tags/DataFrame/" style="font-size: 10px;">DataFrame</a> <a href="/tags/DecisionTreeClassifier/" style="font-size: 10px;">DecisionTreeClassifier</a> <a href="/tags/Driver/" style="font-size: 10px;">Driver</a> <a href="/tags/Exector/" style="font-size: 10px;">Exector</a> <a href="/tags/Explorator-Analysis/" style="font-size: 10px;">Explorator Analysis</a> <a href="/tags/ExtraTreeClassifier/" style="font-size: 10px;">ExtraTreeClassifier</a> <a href="/tags/Feature-Selection/" style="font-size: 10px;">Feature Selection</a> <a href="/tags/GaussianNB/" style="font-size: 10px;">GaussianNB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GradientBoostingClassifier/" style="font-size: 10px;">GradientBoostingClassifier</a> <a href="/tags/HBase/" style="font-size: 15px;">HBase</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Historgrams/" style="font-size: 12.5px;">Historgrams</a> <a href="/tags/History-Server/" style="font-size: 10px;">History-Server</a> <a href="/tags/Idea/" style="font-size: 12.5px;">Idea</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KMeans/" style="font-size: 10px;">KMeans</a> <a href="/tags/KNeighborsClassifier/" style="font-size: 10px;">KNeighborsClassifier</a> <a href="/tags/KVM/" style="font-size: 12.5px;">KVM</a> <a href="/tags/Kaggle/" style="font-size: 10px;">Kaggle</a> <a href="/tags/KickStart/" style="font-size: 10px;">KickStart</a> <a href="/tags/Learning-Theory/" style="font-size: 10px;">Learning Theory</a> <a href="/tags/Line-Charts/" style="font-size: 12.5px;">Line Charts</a> <a href="/tags/LinearDiscriminantAnalysis/" style="font-size: 10px;">LinearDiscriminantAnalysis</a> <a href="/tags/LinearSVC/" style="font-size: 10px;">LinearSVC</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Log4J/" style="font-size: 10px;">Log4J</a> <a href="/tags/LogBack/" style="font-size: 10px;">LogBack</a> <a href="/tags/LogisticRegression/" style="font-size: 10px;">LogisticRegression</a> <a href="/tags/MAT/" style="font-size: 10px;">MAT</a> <a href="/tags/MLPClassifier/" style="font-size: 10px;">MLPClassifier</a> <a href="/tags/Machine-Learning/" style="font-size: 12.5px;">Machine Learning</a> <a href="/tags/Math-Function/" style="font-size: 10px;">Math Function</a> <a href="/tags/Matplotlib/" style="font-size: 12.5px;">Matplotlib</a> <a href="/tags/Maven/" style="font-size: 12.5px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Network-Connection/" style="font-size: 10px;">Network Connection</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/NuSVC/" style="font-size: 10px;">NuSVC</a> <a href="/tags/Numpy/" style="font-size: 15px;">Numpy</a> <a href="/tags/PairRDD/" style="font-size: 10px;">PairRDD</a> <a href="/tags/Pandas/" style="font-size: 12.5px;">Pandas</a> <a href="/tags/PassiveAggressiveClassifier/" style="font-size: 10px;">PassiveAggressiveClassifier</a> <a href="/tags/Pie-Charts/" style="font-size: 12.5px;">Pie Charts</a> <a href="/tags/Plotly/" style="font-size: 10px;">Plotly</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QuadraticDiscriminantAnalysis/" style="font-size: 10px;">QuadraticDiscriminantAnalysis</a> <a href="/tags/RDD/" style="font-size: 10px;">RDD</a> <a href="/tags/RadiusNeighborsClassifier/" style="font-size: 10px;">RadiusNeighborsClassifier</a> <a href="/tags/RandomForestClassifier/" style="font-size: 10px;">RandomForestClassifier</a> <a href="/tags/Run-Main/" style="font-size: 10px;">Run Main</a> <a href="/tags/SKLearn/" style="font-size: 10px;">SKLearn</a> <a href="/tags/SLF4J/" style="font-size: 10px;">SLF4J</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SVC/" style="font-size: 10px;">SVC</a> <a href="/tags/Sbt/" style="font-size: 10px;">Sbt</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/Scala操作HBase/" style="font-size: 10px;">Scala操作HBase</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Scrapyd-client/" style="font-size: 10px;">Scrapyd-client</a> <a href="/tags/Scrapyd-deploy/" style="font-size: 10px;">Scrapyd-deploy</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Series/" style="font-size: 10px;">Series</a> <a href="/tags/Slicing/" style="font-size: 10px;">Slicing</a> <a href="/tags/Spark/" style="font-size: 15px;">Spark</a> <a href="/tags/Spark-on-Yarn/" style="font-size: 10px;">Spark on Yarn</a> <a href="/tags/Spark-shell/" style="font-size: 10px;">Spark-shell</a> <a href="/tags/Stage/" style="font-size: 10px;">Stage</a> <a href="/tags/Static-IP/" style="font-size: 10px;">Static IP</a> <a href="/tags/Syntax/" style="font-size: 10px;">Syntax</a> <a href="/tags/Titanic/" style="font-size: 10px;">Titanic</a> <a href="/tags/Visual-C/" style="font-size: 10px;">Visual C++</a> <a href="/tags/ZooKeeper/" style="font-size: 10px;">ZooKeeper</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10px;">hdfs</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/my-ini/" style="font-size: 10px;">my.ini</a> <a href="/tags/nbd/" style="font-size: 10px;">nbd</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/open-vswitch/" style="font-size: 10px;">open-vswitch</a> <a href="/tags/port/" style="font-size: 10px;">port</a> <a href="/tags/sbt-package/" style="font-size: 10px;">sbt package</a> <a href="/tags/yarn/" style="font-size: 10px;">yarn</a> <a href="/tags/交互式/" style="font-size: 10px;">交互式</a> <a href="/tags/休眠/" style="font-size: 10px;">休眠</a> <a href="/tags/免密登录/" style="font-size: 10px;">免密登录</a> <a href="/tags/内存分析/" style="font-size: 10px;">内存分析</a> <a href="/tags/命令行安装虚拟机/" style="font-size: 10px;">命令行安装虚拟机</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/容器/" style="font-size: 10px;">容器</a> <a href="/tags/折线图/" style="font-size: 12.5px;">折线图</a> <a href="/tags/无人值守/" style="font-size: 10px;">无人值守</a> <a href="/tags/柱状图/" style="font-size: 12.5px;">柱状图</a> <a href="/tags/桥接/" style="font-size: 10px;">桥接</a> <a href="/tags/烘干机/" style="font-size: 10px;">烘干机</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/生产者消费者模式/" style="font-size: 10px;">生产者消费者模式</a> <a href="/tags/直方图/" style="font-size: 12.5px;">直方图</a> <a href="/tags/端口/" style="font-size: 10px;">端口</a> <a href="/tags/网络连接/" style="font-size: 10px;">网络连接</a> <a href="/tags/跨主机/" style="font-size: 10px;">跨主机</a> <a href="/tags/防火墙/" style="font-size: 10px;">防火墙</a> <a href="/tags/集群/" style="font-size: 12.5px;">集群</a> <a href="/tags/饼状图/" style="font-size: 12.5px;">饼状图</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/21/学习原理/">学习原理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/01/Python-机器学习类库-Scikit-Learn-Tutorial/">Python 机器学习类库 Scikit-Learn Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/交互式数据可视化-Plotly-Tutorial/">交互式数据可视化 Plotly Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/数据可视化-Matplotlib-Tutorial/">数据可视化 Matplotlib Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/Pandas-Tutorial/">Pandas Tutorial</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 weilu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
