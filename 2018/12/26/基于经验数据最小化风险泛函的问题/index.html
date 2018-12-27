@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
 <meta property="og:description" content="摘要描述最小化风险泛函问题的几个特殊的例子，包括模式识别、回归估计和密度估计问题。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-27T12:58:24.209Z">
+<meta property="og:updated_time" content="2018-12-27T13:00:36.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于经验数据最小化风险泛函的问题">
 <meta name="twitter:description" content="摘要描述最小化风险泛函问题的几个特殊的例子，包括模式识别、回归估计和密度估计问题。">
@@ -187,8 +187,7 @@ y_1, y_2, \ldots, y_l, \quad y_i = F(x_i) + \xi_i</script><p>　　在集合 $\{
 Ey_{x_i} = F(x_i)</script><p>　　并且随机变量 $y_{x_i}$ 和 $y_{x_j} \space (i \not = j)$  相互独立。我们还假设函数定义在区间 $[a,b]$ 上。函数 $F(x)$ 在该区间上测量的点是根据均匀分布律独立随机的散布在该区间上的。<br>　　<br>　　解释间接实验结果的问题也可以归结为基于经验数据最小化期望风险的问题。考虑泛函：</p>
 <script type="math/tex; mode=display">
 R(\alpha) = \intop (y - Af(t, \alpha))^2 p(y|x) \space dy \space dx</script><p>　　实际上可以使用与回归分析问题中类似的解法对泛函进行分解。</p>
-<pre><code># 5. 密度估计问题（Fisher-Wald 表达）【挖个坑】
-</code></pre><p>　　设 $\{p(x, \alpha), \alpha \in \Lambda \}$ 为概率密度集，它包含所要求的密度：</p>
+<h1 id="5-密度估计问题（Fisher-Wald-表达）【挖个坑】"><a href="#5-密度估计问题（Fisher-Wald-表达）【挖个坑】" class="headerlink" title="5. 密度估计问题（Fisher-Wald 表达）【挖个坑】"></a>5. 密度估计问题（Fisher-Wald 表达）【挖个坑】</h1><p>　　设 $\{p(x, \alpha), \alpha \in \Lambda \}$ 为概率密度集，它包含所要求的密度：</p>
 <script type="math/tex; mode=display">
 p(x, \hat{\alpha}) = \frac{d F(x)}{d x}</script><p>　　泛函：
 　　</p>
