@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="全宇宙尖端技术研究基地">
 <meta property="og:description" content="摘要描述最小化风险泛函问题的几个特殊的例子，包括模式识别、回归估计和密度估计问题。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-27T12:47:08.341Z">
+<meta property="og:updated_time" content="2018-12-27T12:53:09.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于经验数据最小化风险泛函的问题">
 <meta name="twitter:description" content="摘要描述最小化风险泛函问题的几个特殊的例子，包括模式识别、回归估计和密度估计问题。">
@@ -107,17 +107,17 @@
 <p>　　形式上：在向量空间 $R^n$ 的子集 $Z$ 上，给定一个函数集 $\{g(z)\}, z \in Z$，定义一个泛函：</p>
 <script type="math/tex; mode=display">
 C = C(g(z)
-\tag{E1.1}</script><h2 id="1-1-直接最小化泛函"><a href="#1-1-直接最小化泛函" class="headerlink" title="1.1. 直接最小化泛函"></a>1.1. 直接最小化泛函</h2><p>　　该泛函就是选取函数的度量标准。然后从函数集 $\{g(z)\}$ 中找出一个能够最小化泛函（E1.1）的函数 $g^*(z)$。</p>
-<p>　　假设当泛函取最小值时对应最合适的函数 $g^<em>(z)$ ，并且 $\{g(z)\}$ 中存在泛函（E1.1）的最小值。在显示的给出函数集 $\{g(z)\}$ 和泛函 $C = C(g(z)$ 的情况下，寻找最小化泛函的函数 $g^</em>(z)$ 是变分法的研究主题。
+\tag{E1.1}</script><h2 id="1-1-直接最小化泛函"><a href="#1-1-直接最小化泛函" class="headerlink" title="1.1. 直接最小化泛函"></a>1.1. 直接最小化泛函</h2><p>　　该泛函就是选取函数的度量标准。然后从函数集 $\{g(z)\}$ 中找出一个能够最小化泛函（E1.1）的函数 $\hat{g}(z)$。</p>
+<p>　　假设当泛函取最小值时对应最合适的函数 $\hat{g}(z)$ ，并且 $\{g(z)\}$ 中存在泛函（E1.1）的最小值。在显示的给出函数集 $\{g(z)\}$ 和泛函 $C = C(g(z)$ 的情况下，寻找最小化泛函的函数 $\hat{g}(z)$ 是变分法的研究主题。
 　　</p>
 <h2 id="1-2-基于经验数据最小化风险泛函"><a href="#1-2-基于经验数据最小化风险泛函" class="headerlink" title="1.2. 基于经验数据最小化风险泛函"></a>1.2. 基于经验数据最小化风险泛函</h2><p>　　另一种情况是在 $Z$ 上定义概率分布函数 $F(z)$，然后将泛函定义为数学期望：</p>
 <script type="math/tex; mode=display">
 C(g(z)) = \intop L(z, g(z)) d F(z)
-\tag{E1.2}</script><p>　　其中函数 $L(z, g(z))$ 对任意 $g(z) \in \{g(z)\}$ 都是可积的。在这种情况下通过最小化泛函（E1.2）来找到最合适的函数 $g^*(z)$。<br>　　<br>　　现在这个概率分布函数 $F(z)$ 是未知的，但是有依据 $F(z)$ 独立同分布的抽取的观测样本：</p>
+\tag{E1.2}</script><p>　　其中函数 $L(z, g(z))$ 对任意 $g(z) \in \{g(z)\}$ 都是可积的。在这种情况下通过最小化泛函（E1.2）来找到最合适的函数 $\hat{g}(z)$。<br>　　<br>　　现在这个概率分布函数 $F(z)$ 是未知的，但是有依据 $F(z)$ 独立同分布的抽取的观测样本：</p>
 <script type="math/tex; mode=display">
 z_1, z_2, \ldots, z_l
 \tag{E1.3}</script><p>　　因此需要依据这些观测样本来最小化泛函（E1.2）。</p>
-<h2 id="1-3-区别"><a href="#1-3-区别" class="headerlink" title="1.3. 区别"></a>1.3. 区别</h2><p>　　第一种情况的基本问题是构造一个搜索过程，从函数集 $\{g(z)\}$ 中找出最小化泛函的一个函数 $g^<em>(z)$。搜索过程使用最小化泛函（E1.1）作为度量标准。其中泛函（E1.1）是已知的，重点在于定义如何搜索 $g^</em>(z)$ 的这个过程。怎么去找。<br>　　<br>　　而第二种情况的基本问题是用公式来表示一个选择函数的准则。因为泛函（E1.2）中的概率分布函数 $F(z)$ 是未知的，因此不能直接用泛函（E1.2）作为度量标准，而是首先需要明确这个度量标准。</p>
+<h2 id="1-3-区别"><a href="#1-3-区别" class="headerlink" title="1.3. 区别"></a>1.3. 区别</h2><p>　　第一种情况的基本问题是构造一个搜索过程，从函数集 $\{g(z)\}$ 中找出最小化泛函的一个函数 $\hat{g}(z)$。搜索过程使用最小化泛函（E1.1）作为度量标准。其中泛函（E1.1）是已知的，重点在于定义如何搜索 $\hat{g}(z)$ 的这个过程。怎么去找。<br>　　<br>　　而第二种情况的基本问题是用公式来表示一个选择函数的准则。因为泛函（E1.2）中的概率分布函数 $F(z)$ 是未知的，因此不能直接用泛函（E1.2）作为度量标准，而是首先需要明确这个度量标准。</p>
 <h2 id="1-4-度量标准"><a href="#1-4-度量标准" class="headerlink" title="1.4. 度量标准"></a>1.4. 度量标准</h2><p>　　在讨论泛函（1.2）的最小化问题时，我们用 $\{g(z, \alpha), \alpha \in  \Lambda \}$ 的形式来表示函数集 $\{g(z)\}$。这里给出的 $\alpha \in  \Lambda$ 表示的是一个参数集合，每个特定的参数 $\alpha^<em>$ 确定了函数集 $\{g(z, \alpha), \alpha \in  \Lambda \}$ 中一个特定的函数 $g(z, \alpha^</em>)$，要找到所求的函数，实际上就是找到这个特定的 $\alpha^*$ 的值。<br>　　<br>　　因此我们可以将泛函（E1.2）重新表示成：</p>
 <script type="math/tex; mode=display">
 R(\alpha) = \intop Q(z, \alpha) \space d F(z), \alpha \in \Lambda
@@ -178,7 +178,7 @@ R(\alpha) = \intop (y - r(x))^2 \space d F(x, y) +
 　　</p>
 <h2 id="3-4-理解"><a href="#3-4-理解" class="headerlink" title="3.4. 理解"></a>3.4. 理解</h2><p>　　上文中说如果回归 $r(x)$ 属于 $\{f(x, \alpha), \alpha \in \Lambda \}$，我的理解是在一个有限函数集合中能够找到这个回归，就是实际的目标函数，并且理论上来说这个回归对应的风险应该是 0。</p>
 <p>　　如果回归 $r(x)$ 不属于 $\{f(x, \alpha), \alpha \in \Lambda \}$，说明无法在一个有限集合中找到这个回归函数。那么我们的问题就变成了求一个回归函数 $r(x)$ 的近似解。并且需要证明通过使用欧氏距离的度量能够找到这个函数 $f(x, \alpha^*)$ 是回归的最近似解。</p>
-<h1 id="4-解释间接测量结果的问题"><a href="#4-解释间接测量结果的问题" class="headerlink" title="4. 解释间接测量结果的问题"></a>4. 解释间接测量结果的问题</h1><p>　　假设我们要估计一个函数 $f(t)$，但是对于任何的一个 $t^<em>$，我们都无法测量到函数 $f(t^</em>)$ 的值。<br>　　<br>　　与此同时，我们知道一个函数：</p>
+<h1 id="4-解释间接测量结果的问题"><a href="#4-解释间接测量结果的问题" class="headerlink" title="4. 解释间接测量结果的问题"></a>4. 解释间接测量结果的问题</h1><p>　　假设我们要估计一个函数 $f(t)$，但是对于任何的一个 $\hat{t}$，我们都无法测量到函数 $f(\hat{t})$ 的值。<br>　　<br>　　与此同时，我们知道一个函数：</p>
 <script type="math/tex; mode=display">
 F(x) = A f(t)</script><p>　　通过某种依赖关系函数 $F(x)$ 与函数 $f(t)$ 相关联，同时 $F(x)$ 是可以被测量的。其观测值为带有误差 $\xi$ 的结果：</p>
 <script type="math/tex; mode=display">
